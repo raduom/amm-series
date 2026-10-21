@@ -1,8 +1,8 @@
 # Roadmap
 
 A series that builds automated market makers (AMMs) from didactically simple to "real-ish", on
-Ethereum and Solana, with a Haskell model as the specification. Each chapter is written up as one
-article on [blog.raduom.ro](https://blog.raduom.ro).
+Ethereum and Solana, with a Haskell model as the specification. Each chapter is written up as one or
+more articles on [blog.raduom.ro](https://blog.raduom.ro).
 
 Status: **planning** — nothing below is implemented yet. Chapter contents are provisional and will
 change as the subject becomes clearer; the order is fixed.
@@ -53,6 +53,7 @@ model/        Haskell package: models, properties, harness, one runnable demo pe
 evm/          Foundry project (Solidity)
 solana/       Anchor workspace
 drivers/      evm-driver, svm-driver (Rust)
+web/          interactive pages that mirror each chapter's model, for teaching (TypeScript)
 security/     one note per chapter: threat model, findings, exploit tests
 deployments/  testnet addresses and program IDs (Sepolia, Solana devnet)
 scripts/      repository checks
@@ -63,12 +64,14 @@ Article code is quoted from marked regions in the source.
 ## Definition of done (per chapter)
 
 1. Haskell model with properties passing, and a runnable demo (`cabal run chNN`).
-2. Solidity implementation with Foundry tests.
-3. Anchor implementation with LiteSVM tests.
-4. Conformance: the chapter's action sequences agree between model, EVM and SVM.
-5. Security note with exploit or counterexample tests.
-6. Deployed to Sepolia and Solana devnet, recorded in `deployments/`.
-7. Git tag `chNN` marking the finished chapter.
+2. Interactive page for the chapter's model.
+3. Solidity implementation with Foundry tests.
+4. Anchor implementation with LiteSVM tests.
+5. Conformance: the chapter's action sequences agree between model, EVM and SVM.
+6. Security note with exploit or counterexample tests.
+7. Deployed to Sepolia and Solana devnet, recorded in `deployments/`.
+8. Git tag `chNN` marking the finished chapter. Steps inside a chapter get their own tags
+   (`chNN-<step>`, e.g. `ch01-model`, `ch01-evm`), so each article links to code that matches it.
 
 Start the next chapter only after the current one is done.
 
