@@ -1,0 +1,19 @@
+/* The page around the widget: a stand-in for an article on the blog. */
+
+html { background: #fdfaf5; color: #26221e; }
+html.dark { background: #141210; color: #f0e6d0; }
+body { margin: 0; }
+
+.try {
+  display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center;
+  padding: 10px 16px; border-bottom: 1px solid #e0cdb0;
+  font: 12px system-ui, sans-serif; color: #857566;
+}
+html.dark .try { border-color: #3a332e; color: #c9af8a; }
+.try span { display: inline-flex; gap: 4px; align-items: center; }
+.try button { font: inherit; color: inherit; background: none; border: 1px solid transparent; border-radius: 5px; padding: 2px 7px; cursor: pointer; }
+.try button[aria-pressed="true"] { border-color: currentColor; font-weight: 600; }
+
+.article { margin: 0 auto; padding: 32px 0 64px; font: 19px/1.65 "Crimson Pro", Georgia, serif; }
+.article p { margin: 0 0 24px; }
+.article #page { margin: 0 0 24px; }

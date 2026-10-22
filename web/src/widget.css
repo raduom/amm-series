@@ -1,0 +1,170 @@
+/* The teaching widget. Colours follow the blog's Ink & Paper skin; code uses GitHub's. */
+
+.amm {
+  --fg: #26221e; --muted: #857566; --line: #e0cdb0; --tint: rgba(120, 90, 50, .06);
+  --acc: #b03535; --accs: rgba(176, 53, 53, .08); --on-acc: #fff;
+  --A: #3a6aa0; --B: #2f8a6e; --ok: #2f7a4f; --err: #b03535;
+  --cbg: #fff; --ct: #24292e; --ck: #d73a49; --cf: #6f42c1; --cc: #005cc5; --cm: #6a737d;
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  container-type: inline-size;
+  color-scheme: light;
+  color: var(--fg);
+  font: 13px/1.5 var(--sans);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  background: var(--tint);
+  text-align: left;
+}
+
+html.dark .amm {
+  --fg: #f0e6d0; --muted: #c9af8a; --line: #3a332e; --tint: rgba(240, 230, 208, .05);
+  --acc: #f5c26a; --accs: rgba(245, 194, 106, .10); --on-acc: #141210;
+  --A: #7fa9dc; --B: #6cc3a2; --ok: #8fd19e; --err: #f08a7e;
+  --cbg: #24292e; --ct: #e1e4e8; --ck: #f97583; --cf: #b392f0; --cc: #79b8ff; --cm: #8b949e;
+  color-scheme: dark; /* scroll bars to match */
+}
+
+.amm, .amm * { box-sizing: border-box; }
+.amm [hidden] { display: none !important; }
+.amm p { margin: 0; }
+.amm button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.amm button:disabled { opacity: .4; cursor: default; }
+.amm button:focus-visible, .amm input:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+
+/* Header: mode tabs, and Reset or the score. */
+.amm .hd { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 14px; }
+.amm .score { font-size: 12px; color: var(--muted); }
+.amm .mini { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 3px 9px; }
+
+/* Segmented toggles. */
+.amm .tg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; font-size: 12px; }
+.amm .tg button { padding: 5px 10px; color: var(--muted); }
+.amm .tg [aria-selected="true"], .amm .tg [aria-pressed="true"] { background: var(--accs); color: var(--fg); font-weight: 600; }
+
+/* The pool. */
+.amm .sum { display: flex; align-items: center; gap: 8px; font: 11.5px var(--mono); color: var(--muted); margin-bottom: 6px; }
+.amm .sum::before, .amm .sum::after { content: ""; flex: 1; border-top: 1px dashed var(--line); }
+.amm .bar { position: relative; display: flex; height: 38px; border-radius: 7px; overflow: hidden; }
+.amm .seg {
+  display: flex; align-items: center; flex: none; padding: 0 12px; overflow: hidden; white-space: nowrap;
+  font: 700 13px var(--mono); color: #fff; transition: width .35s ease;
+}
+html.dark .amm .seg { color: #141210; }
+.amm .seg.a { background: var(--A); }
+.amm .seg.b { background: var(--B); justify-content: flex-end; }
+.amm .seg small { font-weight: 400; opacity: .85; margin: 0 6px; }
+.amm .seg[data-size="narrow"] small { display: none; }
+.amm .seg[data-size="tiny"] { font-size: 0; padding: 0; }
+.amm .was { position: absolute; top: 0; bottom: 0; border-left: 2px dashed var(--fg); opacity: .45; transition: left .35s ease; }
+
+/* Play controls. */
+.amm .ctl { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 14px 0; }
+.amm .amt { flex: 1; min-width: 170px; display: flex; gap: 8px; align-items: center; font: 12px var(--mono); color: var(--muted); }
+.amm .amt input { flex: 1; min-width: 0; accent-color: var(--acc); }
+.amm .amt b { color: var(--fg); min-width: 3ch; text-align: right; }
+.amm .btn { font-weight: 600; padding: 6px 14px; border-radius: 7px; border: 1px solid var(--line); }
+.amm .btn.p { background: var(--acc); border-color: var(--acc); color: var(--on-acc); }
+
+/* The code. */
+.amm .code {
+  background: var(--cbg); color: var(--ct); border: 1px solid var(--line); border-radius: 8px;
+  padding: 0 0 10px; font: 12.5px/1.6 var(--mono); font-variant-ligatures: none;
+}
+.amm .src { position: relative; overflow-y: auto; scrollbar-width: thin; }
+.amm .ch {
+  display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; margin-bottom: 8px;
+  border-bottom: 1px solid var(--line); font: 11px var(--sans); color: var(--muted);
+}
+.amm .ch .mini { font-size: 11px; padding: 1px 8px; }
+.amm .l { position: relative; padding: 0 12px 0 26px; border-left: 3px solid transparent; }
+/* Hanging indent: the first row starts at the line's indentation, continuations 4ch further.
+   Deep indentation is capped so a narrow panel still leaves room for the text. */
+.amm .t {
+  display: block; white-space: pre-wrap; overflow-wrap: anywhere;
+  padding-left: calc(min(var(--in), 40%) + 4ch); text-indent: -4ch; transition: opacity .2s;
+}
+.amm .t * { text-indent: 0; }
+/* A faint bar in the gutter beside a wrapped line's continuation rows. */
+.amm .l::after {
+  content: ""; position: absolute; left: 12px; top: 1.6em; bottom: 4px; width: 2px;
+  border-radius: 1px; background: var(--line);
+}
+.amm .l.dim > .t { opacity: .42; }
+.amm .l.f { background: var(--accs); border-left-color: var(--acc); }
+.amm .k { color: var(--ck); }
+.amm .c { color: var(--cf); }
+.amm .n { color: var(--cc); }
+.amm .m { color: var(--cm); }
+.amm .op { white-space: nowrap; }
+.amm .v { background: color-mix(in srgb, var(--acc) 18%, transparent); border-radius: 3px; white-space: nowrap; }
+html.dark .amm .v {
+  background: color-mix(in srgb, var(--acc) 26%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--acc) 75%, transparent);
+}
+.amm .val { display: inline-block; white-space: pre-wrap; font-weight: 600; color: var(--acc); margin-left: 2ch; }
+.amm .l.u .val { color: var(--muted); }
+.amm .fold { font: 11px var(--sans); color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+/* The fold toggle sits in the gutter and isn't dimmed with its line. */
+.amm .gut {
+  position: absolute; left: 4px; top: 0; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center; color: var(--ct); opacity: .65;
+}
+.amm .gut svg { width: 12px; height: 12px; transition: transform .15s; }
+.amm .gut[aria-expanded="true"] svg { transform: rotate(90deg); }
+.amm .gut:hover { opacity: 1; }
+.amm .gut:hover, .amm .fold:hover { color: var(--acc); border-color: var(--acc); }
+
+/* Stepping through the code. The buttons sit right under it, above the sentence,
+   so they stay in one place however long the sentence is. */
+.amm .ex { margin-top: 10px; }
+.amm .steps { display: flex; align-items: center; gap: 12px; }
+.amm .dots { flex: 1; display: flex; justify-content: center; gap: 5px; }
+.amm .dots i { width: 22px; height: 4px; border-radius: 2px; background: var(--line); }
+.amm .dots i.on { background: var(--acc); }
+.amm .say { font-size: 13.5px; min-height: 3em; margin-top: 8px; }
+
+/* Predict the result. */
+.amm .q { font-size: 13.5px; margin: 14px 0 8px; }
+.amm .quiz { margin-bottom: 12px; }
+.amm .call { font: 14px var(--mono); font-variant-ligatures: none; padding: 10px 12px; border-radius: 8px; background: var(--cbg); color: var(--ct); border: 1px solid var(--line); }
+.amm .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+.amm .o {
+  display: flex; justify-content: space-between; gap: 8px; text-align: left;
+  font: 12.5px var(--mono); font-variant-ligatures: none; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+}
+.amm .o:disabled { opacity: 1; }
+.amm .o.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, transparent); }
+.amm .o.wrong { border-color: var(--err); background: color-mix(in srgb, var(--err) 10%, transparent); color: var(--muted); }
+.amm .o.wrong span:first-child { text-decoration: line-through; }
+.amm .fb { display: grid; gap: 10px; font-size: 13.5px; margin-bottom: 12px; }
+.amm .fb:empty { display: none; }
+.amm .acts { display: flex; gap: 8px; justify-content: flex-end; }
+
+/* Properties: tabs across the row, the case QuickCheck made up, and what the whole run comes to. */
+.amm .tg.wide { flex: 1; }
+.amm .tg.wide button { flex: 1; }
+.amm .case .count { margin-left: auto; align-self: center; font: 12px var(--sans); color: var(--muted); }
+.amm .case {
+  flex: 1; min-width: 170px; display: flex; flex-wrap: wrap; gap: 0 2ch; padding: 6px 12px; border-radius: 8px;
+  font: 13px var(--mono); font-variant-ligatures: none; background: var(--cbg); color: var(--ct); border: 1px solid var(--line);
+}
+.amm .tally { margin-top: 12px; }
+.amm .tally:empty { display: none; }
+.amm .tally pre {
+  margin: 0 0 8px; padding: 8px 12px; border-radius: 8px; white-space: pre-wrap;
+  font: 12.5px var(--mono); font-variant-ligatures: none; background: var(--cbg); color: var(--ok);
+  border: 1px solid var(--line);
+}
+.amm .tally p { font-size: 13.5px; }
+.amm .tally code { font: 12.5px var(--mono); font-variant-ligatures: none; }
+
+@container (max-width: 480px) {
+  .amm .opts { grid-template-columns: 1fr; }
+  .amm .tg.wide { display: grid; grid-template-columns: 1fr 1fr; }
+  .amm .case { flex-basis: 100%; }
+  .amm .amt { flex-basis: 100%; order: -1; }
+  .amm .hd .tg button { padding: 5px 8px; }
+}
