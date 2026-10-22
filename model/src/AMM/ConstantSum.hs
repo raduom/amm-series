@@ -37,9 +37,11 @@ swap (Swap zeroForOne amountIn) (Pool reserve0 reserve1)
   | amountIn <= 0          = Left AmountNotPositive
   | amountOut > reserveOut = Left InsufficientLiquidity
   | zeroForOne             =
-      Right (amountOut, Pool (reserve0 + amountIn) (reserve1 - amountOut))
+      Right (amountOut, Pool (reserve0 + amountIn)
+                             (reserve1 - amountOut))
   | otherwise              =
-      Right (amountOut, Pool (reserve0 - amountOut) (reserve1 + amountIn))
+      Right (amountOut, Pool (reserve0 - amountOut)
+                             (reserve1 + amountIn))
   where
     amountOut  = amountIn  -- constant sum: one for one
     reserveOut = if zeroForOne then reserve1 else reserve0
