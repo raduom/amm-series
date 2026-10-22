@@ -4,8 +4,8 @@ A series that builds automated market makers (AMMs) from didactically simple to 
 Ethereum and Solana, with a Haskell model as the specification. Each chapter is written up as one or
 more articles on [blog.raduom.ro](https://blog.raduom.ro).
 
-Status: **planning** — nothing below is implemented yet. Chapter contents are provisional and will
-change as the subject becomes clearer; the order is fixed.
+Status: **chapter 1 in progress**. Chapter contents are provisional and will change as the subject
+becomes clearer; the order is fixed.
 
 ## Principles
 
@@ -59,8 +59,6 @@ deployments/  testnet addresses and program IDs (Sepolia, Solana devnet)
 scripts/      repository checks
 ```
 
-Article code is quoted from marked regions in the source.
-
 ## Definition of done (per chapter)
 
 1. Haskell model with properties passing, and a runnable demo (`cabal run chNN`).
@@ -71,7 +69,8 @@ Article code is quoted from marked regions in the source.
 6. Security note with exploit or counterexample tests.
 7. Deployed to Sepolia and Solana devnet, recorded in `deployments/`.
 8. Git tag `chNN` marking the finished chapter. Steps inside a chapter get their own tags
-   (`chNN-<step>`, e.g. `ch01-model`, `ch01-evm`), so each article links to code that matches it.
+   (`chNN-<step>`, e.g. `ch01-model`, `ch01-evm`) once their article is published, so each article
+   links to code that matches it.
 
 Start the next chapter only after the current one is done.
 
@@ -79,7 +78,7 @@ Start the next chapter only after the current one is done.
 
 | # | Chapter | New idea | Security focus | Status |
 |---|---|---|---|---|
-| 1 | Constant sum | Pools, reserves, swaps at a fixed price | Drained when the market price moves; decimals mismatch | planned |
+| 1 | Constant sum | Pools, reserves, swaps at a fixed price | Drained when the market price moves; decimals mismatch | in progress |
 | 2 | Constant product | `x · y = k`, price impact, slippage | Missing minimum output, sandwiching | planned |
 | 3 | Fees and LP shares | Providing liquidity, mint/burn, fees | First-depositor (inflation) attack, donations | planned |
 | 4 | Integer arithmetic | Rounding direction, overflow, fixed point | Rounding-drain sequences | planned |
