@@ -4,7 +4,7 @@ A series that builds automated market makers (AMMs) from didactically simple to 
 Ethereum and Solana, with a Haskell model as the specification. Each chapter is written up as one or
 more articles on [blog.raduom.ro](https://blog.raduom.ro).
 
-Status: **chapter 1 in progress**. Chapter contents are provisional and will change as the subject
+Status: **chapter 2 in progress**. Chapter contents are provisional and will change as the subject
 becomes clearer; the order is fixed.
 
 ## Principles
@@ -17,7 +17,7 @@ becomes clearer; the order is fixed.
   then checks that both deployed implementations agree with the model on random action sequences.
 - **First to last, stoppable anywhere.** Chapters build on each other in order, but each finished
   chapter is a complete, publishable unit. The series can end after any chapter.
-- **Break it on purpose.** Each chapter has a security section: what goes wrong, shown as a
+- **Break it on purpose.** Each chapter from 2 on has a security section: what goes wrong, shown as a
   counterexample or an exploit test, not only described.
 
 ## Architecture
@@ -74,14 +74,18 @@ scripts/      repository checks
    (`chNN-<step>`, e.g. `ch01-model`, `ch01-evm`) once their article is published, so each article
    links to code that matches it.
 
+Chapter 1 is model-only: the model, its properties and the interactive page, tagged `ch01` once its
+article is published. Its pool is too simple for chain code to be interesting, so the first
+contracts, conformance run, security note and deployment come with chapter 2.
+
 Start the next chapter only after the current one is done.
 
 ## Chapters
 
 | # | Chapter | New idea | Security focus | Status |
 |---|---|---|---|---|
-| 1 | Constant sum | Pools, reserves, swaps at a fixed price | Drained when the market price moves; decimals mismatch | in progress |
-| 2 | Constant product | `x · y = k`, price impact, slippage | Missing minimum output, sandwiching | planned |
+| 1 | Constant sum | Pools, reserves, swaps at a fixed price | — (model-only) | done |
+| 2 | Constant product | `x · y = k`, price impact, slippage | Drained at a fixed price; missing minimum output, sandwiching | in progress |
 | 3 | Fees and LP shares | Providing liquidity, mint/burn, fees | First-depositor (inflation) attack, donations | planned |
 | 4 | Integer arithmetic | Rounding direction, overflow, fixed point | Rounding-drain sequences | planned |
 | 5 | Uniswap V2-style | Router, flash swaps, TWAP oracle | Reentrancy and CPI, fee-on-transfer / Token-2022, oracle manipulation | planned |
@@ -93,13 +97,11 @@ Start the next chapter only after the current one is done.
 ### 1. Constant sum
 
 The simplest pool: trade gold and silver 1:1, keep `gold + silver` constant. Liquidity is
-owner-provided; no LP shares yet.
+owner-provided; no LP shares yet. Model-only: one article with the model, its properties and the
+interactive page.
 
 - Model properties: the sum is preserved; output equals input; a swap followed by its reverse
   restores the pool; reserves never go negative.
-- The interesting property is the one that fails: "the pool's value at the market price never
-  decreases". QuickCheck finds the drain.
-- Solana angle: accounts, PDAs and token vaults versus contract storage.
 - Leads to: a price that moves with the reserves.
 
 ### 2. Constant product
@@ -108,7 +110,16 @@ owner-provided; no LP shares yet.
 
 - Model properties: `k` never decreases; output is always below the reserve; larger trades get
   worse prices; a round trip never profits.
+- Both pools against a market price: "the pool's value at the market price never decreases" fails
+  for both, since an arbitrageur's profit is the pool's loss. Constant sum loses one reserve
+  entirely; constant product loses value but "no reserve reaches zero" holds. QuickCheck shows the
+  difference.
+- First chain code: the gold/silver ↔ `token0`/`token1` mapping; Solana accounts, PDAs and token
+  vaults versus contract storage. The harness, drivers, conformance run and first deployment start
+  here.
 - Security: a swap without a minimum output, shown with an adversary trading before the user.
+- Articles: the model (code, properties, interactive page), the Ethereum implementation, the Solana
+  implementation, and security.
 - Leads to: who provides liquidity, and why would they?
 
 ### 3. Fees and LP shares
