@@ -72,7 +72,9 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
     deal()
   }
 
-  function render() {
+  // Moves focus to the answer, or to the next card, except on the first render: focusing a field
+  // on load would scroll the page to the deck before the reader gets there.
+  function render(focus = true) {
     $<HTMLElement>('.fc-bar i').style.width = `${(100 * right) / deck.length}%`
     $('.fc-bar').setAttribute('aria-valuenow', String(right))
     $('.fc-bar').setAttribute('aria-valuemax', String(deck.length))
@@ -89,8 +91,8 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
     const input = box.querySelector<HTMLInputElement>('input')
     if (input && answered === undefined) {
       input.value = typed
-      input.focus()
-    } else box.querySelector<HTMLElement>('[data-act="next"]')?.focus()
+      if (focus) input.focus()
+    } else if (focus) box.querySelector<HTMLElement>('[data-act="next"]')?.focus()
   }
 
   function ask(card: Card): string {
@@ -216,7 +218,7 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
   })
 
   start()
-  render()
+  render(false)
   return { setOptions() {} }
 }
 
