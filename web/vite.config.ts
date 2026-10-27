@@ -10,7 +10,11 @@ const model = (file: string) => fileURLToPath(new URL(`../model/${file}`, import
 export default defineConfig({
   base: './',
   // The pages read the Haskell models from ../model.
-  server: { fs: { allow: ['..'] } },
+  server: {
+    fs: { allow: ['..'] },
+    // Lets the page load through a Cloudflare quick tunnel.
+    allowedHosts: ['.trycloudflare.com'],
+  },
   plugins: [
     {
       name: 'check-model-lines',
