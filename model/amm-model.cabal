@@ -11,7 +11,9 @@ common warnings
 library
   import:           warnings
   hs-source-dirs:   src
-  exposed-modules:  AMM.ConstantSum
+  exposed-modules:
+    , AMM.ConstantProduct
+    , AMM.ConstantSum
   build-depends:    base ^>=4.22
   default-language: GHC2024
 
@@ -20,7 +22,10 @@ test-suite properties
   type:             exitcode-stdio-1.0
   hs-source-dirs:   test
   main-is:          Main.hs
-  other-modules:    AMM.ConstantSumProperties
+  other-modules:
+    , AMM.ConstantProductProperties
+    , AMM.ConstantSumProperties
+    , AMM.MarketPriceProperties
   build-depends:
     , amm-model
     , base              ^>=4.22
