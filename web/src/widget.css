@@ -160,10 +160,116 @@ html.dark .amm .v {
 .amm .tally p { font-size: 13.5px; }
 .amm .tally code { font: 12.5px var(--mono); font-variant-ligatures: none; }
 
+/* Chapter 2. The swap: a quote of what the swap pays, under the controls, whose sliders take a
+   row each. The pool's price sits under its bar, and an empty side is named on the bar. */
+.amm .ctl.stack .amt { flex-basis: 100%; }
+.amm .quote { flex-basis: 100%; font-size: 13px; }
+.amm .quote b { font-family: var(--mono); }
+.amm .quote .no, .amm .nums dd.empty { color: var(--err); font-weight: 600; }
+.amm .price { margin-top: 6px; text-align: center; font: 11.5px var(--mono); color: var(--muted); }
+.amm .bar[data-empty]::after {
+  position: absolute; top: 50%; transform: translateY(-50%); padding: 1px 6px; border-radius: 4px;
+  font: 600 11px var(--sans); color: var(--err); background: var(--cbg);
+}
+.amm .bar[data-empty="gold"]::after { content: "no gold"; left: 8px; }
+.amm .bar[data-empty="silver"]::after { content: "no silver"; right: 8px; }
+/* The market price: its label and value, with the slider on a row of its own under them. */
+.amm .amt.market { flex-wrap: wrap; }
+.amm .amt.market b { text-align: left; }
+.amm .amt.market input { flex-basis: 100%; }
+/* A value with parts moves to the next row whole, and wraps between its parts only when it is
+   wider than a row, so a narrow panel doesn't scroll sideways. */
+.amm .v.long { display: inline-block; max-width: 100%; white-space: normal; vertical-align: top; }
+
+/* Price impact: a row of figures, then the two charts, each with its key in the caption. */
+.amm .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+.amm .fact { display: grid; gap: 2px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--cbg); }
+.amm .fact span { font-size: 11px; color: var(--muted); }
+.amm .fact b { font: 600 15px var(--mono); }
+.amm .fact small { font-size: 11px; color: var(--muted); }
+.amm .charts { display: grid; gap: 14px; }
+.amm figure { margin: 0; padding: 8px 8px 4px; border: 1px solid var(--line); border-radius: 8px; background: var(--cbg); }
+.amm figcaption { font-size: 12px; font-weight: 600; margin: 0 4px 4px; }
+.amm figcaption .key { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin-left: 8px; font-weight: 400; font-size: 11.5px; color: var(--muted); }
+.amm figcaption .key > span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; margin-right: 8px; }
+.amm figcaption .key i { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--acc); }
+.amm figcaption .key i.k-ref { border-top: 1.5px dashed var(--muted); }
+.amm figcaption .key i.k-rounded { border-top: 2.5px dotted var(--fg); }
+.amm figure svg { display: block; width: 100%; }
+.amm figure svg.pick { cursor: crosshair; touch-action: pan-y; }
+.amm figure .hint { margin: 4px 4px 2px; font-size: 12px; color: var(--muted); }
+.amm svg .grid { stroke: var(--line); stroke-width: 1; }
+.amm svg .axis { stroke: var(--muted); stroke-width: 1; }
+.amm svg .tick, .amm svg .lbl { font: 11px var(--sans); fill: var(--muted); }
+.amm svg .series { fill: none; stroke: var(--acc); stroke-width: 2; }
+.amm svg .rounded { fill: none; stroke: var(--fg); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 0.1 4; }
+.amm svg .ref { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
+.amm svg .trade { fill: none; stroke: var(--fg); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.amm svg .trade-lbl { font: 11.5px var(--sans); fill: var(--fg); }
+.amm svg .cross { stroke: var(--muted); stroke-width: 1; opacity: .6; }
+.amm svg .dot { fill: var(--acc); stroke: var(--cbg); stroke-width: 2; }
+.amm svg .dot.before { fill: var(--cbg); stroke: var(--acc); }
+
+/* Market price: the two pools side by side. */
+.amm .pools { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.amm .side h4 { margin: 0 0 8px; font-size: 13px; }
+.amm .side h4 small { font-weight: 400; color: var(--muted); }
+.amm .nums { display: grid; grid-template-columns: auto auto; gap: 2px 10px; margin: 10px 0 6px; font-size: 12px; }
+.amm .nums dt { color: var(--muted); }
+.amm .nums dd { margin: 0; text-align: right; font: 600 12px var(--mono); }
+.amm .log { font-size: 12.5px; min-height: 4.5em; }
+.amm .hd.props { margin: 4px 0 10px; }
+
+/* Flashcards: a progress bar, then one card at a time. */
+.amm .fc-hd { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.amm .fc-bar { flex: 1; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.amm .fc-bar i { display: block; height: 100%; background: var(--acc); border-radius: 4px; transition: width .3s ease; }
+.amm .fc-count { font: 600 12px var(--mono); color: var(--muted); min-width: 6ch; text-align: right; }
+.amm .fc-card { display: grid; gap: 12px; align-content: start; min-height: 16em; }
+.amm .fc-kind { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.amm .fc-q { font-size: 15px; line-height: 1.5; }
+.amm .fc code, .amm .fc-setup {
+  font: 12.5px var(--mono); font-variant-ligatures: none; padding: 1px 4px; border-radius: 4px;
+  background: var(--cbg); color: var(--ct); border: 1px solid var(--line);
+}
+.amm .fc-setup { margin: 0; padding: 8px 12px; white-space: pre-wrap; font-size: 13px; }
+.amm .fc-opts { margin: 0; }
+.amm .fc-opts .o { font-family: var(--sans); font-size: 13px; line-height: 1.45; }
+.amm .fc-type { display: flex; flex-wrap: wrap; gap: 8px; }
+.amm .fc-in {
+  flex: 1; min-width: 12ch; padding: 7px 10px; border-radius: 7px; border: 1px solid var(--line);
+  font: 14px var(--mono); background: var(--cbg); color: var(--ct);
+}
+.amm .fc-in.right { border-color: var(--ok); }
+.amm .fc-in.wrong { border-color: var(--err); text-decoration: line-through; }
+.amm .fc-tray { display: flex; flex-wrap: wrap; gap: 6px; min-height: 40px; padding: 6px; border: 1px dashed var(--line); border-radius: 8px; }
+.amm .fc-tray .m { font-size: 12px; color: var(--muted); align-self: center; padding: 0 4px; }
+.amm .fc-groups { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 8px; }
+.amm .fc-group { min-height: 90px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--cbg); cursor: pointer; }
+.amm .fc-group p { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.amm .fc-group > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.amm .fc-chip {
+  padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line); background: var(--tint);
+  font-size: 12.5px; cursor: grab;
+}
+.amm .fc-chip.on { border-color: var(--acc); background: var(--accs); box-shadow: 0 0 0 1px var(--acc); }
+.amm .fc-chip.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, transparent); opacity: 1; }
+.amm .fc-chip.wrong { border-color: var(--err); background: color-mix(in srgb, var(--err) 10%, transparent); opacity: 1; }
+.amm .fc-chip code { border: 0; padding: 0; background: none; }
+.amm .fc-fb { display: grid; gap: 6px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 13.5px; }
+.amm .fc-fb.right { border-color: var(--ok); }
+.amm .fc-fb.wrong { border-color: var(--err); }
+.amm .fc-later { font-size: 12px; color: var(--muted); }
+.amm .fc-later:empty { display: none; }
+.amm .fc-done { font-size: 15px; }
+
 @container (max-width: 480px) {
   .amm .opts { grid-template-columns: 1fr; }
   .amm .tg.wide { display: grid; grid-template-columns: 1fr 1fr; }
   .amm .case { flex-basis: 100%; }
   .amm .amt { flex-basis: 100%; order: -1; }
   .amm .hd .tg button { padding: 5px 8px; }
+  .amm .facts { grid-template-columns: 1fr 1fr; }
+  .amm .pools { grid-template-columns: 1fr; }
+  .amm .fc-groups { grid-template-columns: 1fr; }
 }

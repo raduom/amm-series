@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AMM series: chapter 1</title>
+  <title>AMM series</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
@@ -11,12 +11,25 @@
 </head>
 <body>
   <nav class="try" aria-label="Page settings"></nav>
-  <main class="article">
+  <main class="article" data-chapter="1">
     <p>A paragraph of the article sits here, so the page can be judged in the column it will live in. A swap moves tokens from one side of the pool to the other. Try it:</p>
     <div id="page"></div>
     <p>And the article goes on after it, in the same column, with the same width and the same type as before.</p>
     <p>A later article checks swap with properties: statements that hold for every pool and every swap, which QuickCheck tries on cases it makes up.</p>
     <div id="properties"></div>
+    <p>And the article goes on again.</p>
+  </main>
+  <main class="article" data-chapter="2">
+    <p>A constant-product pool pays out just enough that gold × silver stays the same, rounded down so it can only grow, and its price moves with every trade. Try it, and ask for a minimum to see a swap refused:</p>
+    <div id="ch02-swap"></div>
+    <p>Before going on, make sure each name is clear. Answer every card right to finish; a card you miss comes round again:</p>
+    <div id="ch02-cards"></div>
+    <p>The bigger the trade, the further it moves the price, and the worse the price the trader gets, give or take the rounding:</p>
+    <div id="ch02-curve"></div>
+    <p>The properties of the constant-product swap, checked the same way as chapter 1's:</p>
+    <div id="ch02-properties"></div>
+    <p>When the market prices gold differently from the pool, a trader takes the difference. Both pools lose value, but only one can be emptied:</p>
+    <div id="ch02-market"></div>
     <p>And the article goes on again.</p>
   </main>
 </body>

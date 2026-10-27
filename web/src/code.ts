@@ -162,7 +162,9 @@ function lineHtml(text: string, hl?: Highlight): string {
     const value = filled[i]
     if (value === undefined) return tokenHtml(t)
     if (!hl.fill) return `<span class="v">${escape(t.text)}</span>`
-    return `<span class="v ${/^\(?-?\d/.test(value) ? 'n' : 'c'}">${escape(value)}</span>`
+    // A value with parts, like (Swap GoldForSilver 3 0), may wrap between them on a narrow panel.
+    const long = value.includes(' ') ? ' long' : ''
+    return `<span class="v ${/^\(?-?\d/.test(value) ? 'n' : 'c'}${long}">${escape(value)}</span>`
   }).join('')
 }
 
