@@ -7,10 +7,10 @@ import { locate } from '../source'
 const helper = '-- | Check a property of the swaps that succeed'
 
 export const properties = {
-  sum: { label: 'Sum preserved', name: 'prop_sumPreserved', check: "reserve0 pool' + reserve1 pool' ===" },
+  sum: { label: 'Sum preserved', name: 'prop_sumPreserved', check: "gold pool' + silver pool' ===" },
   output: { label: 'Output = input', name: 'prop_outputEqualsInput', check: 'amountOut === amountIn s' },
-  back: { label: 'Swap back', name: 'prop_swapBackRestores', check: 'swap (Swap (not (zeroForOne s))' },
-  nonNegative: { label: 'Never negative', name: 'prop_reservesNonNegative', check: 'property (reserve0' },
+  back: { label: 'Swap back', name: 'prop_swapBackRestores', check: 'swap (Swap (opposite (direction s))' },
+  nonNegative: { label: 'Never negative', name: 'prop_reservesNonNegative', check: 'property (gold' },
 } as const
 
 export type Property = keyof typeof properties

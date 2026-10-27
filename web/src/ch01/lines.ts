@@ -2,17 +2,17 @@
 // The build fails if one is missing or matches more than one line.
 export const lines = {
   start: '-- | How much of each token',
-  signature: 'swap (Swap zeroForOne amountIn)',
+  signature: 'swap (Swap direction amountIn)',
   notPositive: '| amountIn <= 0',
   insufficient: '| amountOut > reserveOut',
-  zeroForOne: '| zeroForOne',
-  payA: 'Right (amountOut, Pool (reserve0 + amountIn)',
-  payA1: '(reserve1 - amountOut))',
+  goldGuard: '| direction == GoldForSilver',
+  payGold: 'Right (amountOut, Pool (gold + amountIn)',
+  payGold1: '(silver - amountOut))',
   otherwise: '| otherwise',
-  payB: 'Right (amountOut, Pool (reserve0 - amountOut)',
-  payB1: '(reserve1 + amountIn))',
+  paySilver: 'Right (amountOut, Pool (gold - amountOut)',
+  paySilver1: '(silver + amountIn))',
   amountOut: 'amountOut  = amountIn',
-  reserveOut: 'reserveOut = if zeroForOne',
+  reserveOut: 'reserveOut = if direction',
 } as const
 
 export type Line = keyof typeof lines

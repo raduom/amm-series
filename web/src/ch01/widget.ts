@@ -4,7 +4,7 @@ import { codePanel } from '../panel'
 import { locate } from '../source'
 import '../widget.css'
 import { lines } from './lines'
-import { type Pool, type Swap, showSwap, showPool, showResult } from './model'
+import { type Pool, type Swap, opposite, showSwap, showPool, showResult } from './model'
 import { choices, questions } from './questions'
 import { type Trace, trace } from './trace'
 
@@ -12,7 +12,7 @@ export interface Options {
   values: boolean // write values over the names on the highlighted lines
 }
 
-const start: Pool = { reserve0: 100, reserve1: 100 }
+const start: Pool = { gold: 100, silver: 100 }
 
 const template = `
   <div class="hd">
@@ -25,11 +25,11 @@ const template = `
   </div>
   <div class="pool">
     <div class="sum"></div>
-    <div class="bar"><div class="seg a"></div><div class="seg b"></div><div class="was"></div></div>
+    <div class="bar"><div class="seg a"></div><div class="seg b"></div></div>
   </div>
   <div class="ctl">
     <div class="tg" role="group" aria-label="Which token you pay">
-      <button data-dir="a">A → B</button><button data-dir="b">B → A</button>
+      <button data-dir="a">gold → silver</button><button data-dir="b">silver → gold</button>
     </div>
     <label class="amt">amountIn <input type="range" min="0" max="200" step="1"><b></b></label>
     <button class="btn p" data-act="swap">Swap</button>
@@ -66,8 +66,7 @@ export function mountCh01(root: HTMLElement, options: Options) {
   let mode: 'play' | 'predict' = 'play'
   // Play: the pool, and the swap the controls describe. The code shows that swap.
   let pool = start
-  let was: Pool | undefined
-  let pending: Swap = { zeroForOne: true, amountIn: 10 }
+  let pending: Swap = { direction: 'GoldForSilver', amountIn: 10 }
   let last: { swap: Swap; amountOut: number } | undefined
   // Predict.
   let qi = 0
@@ -94,21 +93,18 @@ export function mountCh01(root: HTMLElement, options: Options) {
     return { focus, uses: s.uses.map((u) => at[u]), notes, values: t.values, fill: opts.values }
   }
 
-  function drawPool(p: Pool, before?: Pool) {
-    const sum = p.reserve0 + p.reserve1
-    const a = (p.reserve0 / sum) * 100
-    $('.sum').textContent = `reserve0 + reserve1 = ${sum}`
+  function drawPool(p: Pool) {
+    const sum = p.gold + p.silver
+    const a = (p.gold / sum) * 100
+    $('.sum').textContent = `gold + silver = ${sum}`
     const segA = $('.seg.a')
     const segB = $('.seg.b')
     segA.style.width = `${a}%`
     segB.style.width = `${100 - a}%`
-    segA.innerHTML = `${p.reserve0} A<small>reserve0</small>`
-    segB.innerHTML = `<small>reserve1</small>${p.reserve1} B`
+    segA.innerHTML = `${p.gold}<small>gold</small>`
+    segB.innerHTML = `<small>silver</small>${p.silver}`
     segA.dataset.size = size(a)
     segB.dataset.size = size(100 - a)
-    const wasEl = $('.was')
-    wasEl.hidden = !before
-    if (before) wasEl.style.left = `${(before.reserve0 / sum) * 100}%`
   }
 
   function render() {
@@ -123,9 +119,9 @@ export function mountCh01(root: HTMLElement, options: Options) {
     $('.answers').hidden = play
 
     if (play) {
-      drawPool(pool, was)
-      $('[data-dir="a"]').setAttribute('aria-pressed', String(pending.zeroForOne))
-      $('[data-dir="b"]').setAttribute('aria-pressed', String(!pending.zeroForOne))
+      drawPool(pool)
+      $('[data-dir="a"]').setAttribute('aria-pressed', String(pending.direction === 'GoldForSilver'))
+      $('[data-dir="b"]').setAttribute('aria-pressed', String(pending.direction === 'SilverForGold'))
       if (slider.valueAsNumber !== pending.amountIn) slider.value = String(pending.amountIn)
       $('.amt b').textContent = String(pending.amountIn)
       $<HTMLButtonElement>('[data-act="swap"]').disabled = t.result.tag === 'Left'
@@ -148,7 +144,7 @@ export function mountCh01(root: HTMLElement, options: Options) {
   function renderQuiz() {
     const q = questions[qi]
     const end = showing && step === t.steps.length - 1 && t.result.tag === 'Right'
-    if (end && t.result.tag === 'Right') drawPool(t.result.pool, q.pool)
+    if (end && t.result.tag === 'Right') drawPool(t.result.pool)
     else drawPool(q.pool)
     $('.score').textContent = `Question ${qi + 1} of ${questions.length}, ${right} of ${answered} right`
     $('.call').innerHTML = renderCall(q.swap, q.pool)
@@ -173,7 +169,6 @@ export function mountCh01(root: HTMLElement, options: Options) {
   function apply(s: Swap) {
     const r = trace(s, pool).result
     if (r.tag === 'Left') return
-    was = pool
     pool = r.pool
     last = { swap: s, amountOut: r.amountOut }
   }
@@ -184,12 +179,11 @@ export function mountCh01(root: HTMLElement, options: Options) {
     },
     back() {
       if (!last) return
-      pending = { zeroForOne: !last.swap.zeroForOne, amountIn: last.amountOut }
+      pending = { direction: opposite(last.swap.direction), amountIn: last.amountOut }
       apply(pending)
     },
     reset() {
       pool = start
-      was = undefined
       last = undefined
     },
     prev() {
@@ -221,7 +215,7 @@ export function mountCh01(root: HTMLElement, options: Options) {
       mode = m as typeof mode
       load(mode === 'predict')
     } else if (dir) {
-      pending = { ...pending, zeroForOne: dir === 'a' }
+      pending = { ...pending, direction: dir === 'a' ? 'GoldForSilver' : 'SilverForGold' }
       load(false)
     } else if (choice) {
       picked = choice

@@ -7,24 +7,24 @@ export interface Question {
 
 // Each kind of answer comes up: either direction, both errors, and a pool paid down to zero.
 export const questions: Question[] = [
-  { swap: { zeroForOne: true, amountIn: 10 }, pool: { reserve0: 100, reserve1: 100 } },
-  { swap: { zeroForOne: false, amountIn: 25 }, pool: { reserve0: 60, reserve1: 140 } },
-  { swap: { zeroForOne: true, amountIn: 30 }, pool: { reserve0: 120, reserve1: 45 } },
-  { swap: { zeroForOne: true, amountIn: 50 }, pool: { reserve0: 80, reserve1: 40 } },
-  { swap: { zeroForOne: false, amountIn: -5 }, pool: { reserve0: 70, reserve1: 70 } },
-  { swap: { zeroForOne: false, amountIn: 90 }, pool: { reserve0: 90, reserve1: 10 } },
-  { swap: { zeroForOne: true, amountIn: 45 }, pool: { reserve0: 10, reserve1: 45 } },
-  { swap: { zeroForOne: false, amountIn: 60 }, pool: { reserve0: 50, reserve1: 200 } },
+  { swap: { direction: 'GoldForSilver', amountIn: 10 }, pool: { gold: 100, silver: 100 } },
+  { swap: { direction: 'SilverForGold', amountIn: 25 }, pool: { gold: 60, silver: 140 } },
+  { swap: { direction: 'GoldForSilver', amountIn: 30 }, pool: { gold: 120, silver: 45 } },
+  { swap: { direction: 'GoldForSilver', amountIn: 50 }, pool: { gold: 80, silver: 40 } },
+  { swap: { direction: 'SilverForGold', amountIn: -5 }, pool: { gold: 70, silver: 70 } },
+  { swap: { direction: 'SilverForGold', amountIn: 90 }, pool: { gold: 90, silver: 10 } },
+  { swap: { direction: 'GoldForSilver', amountIn: 45 }, pool: { gold: 10, silver: 45 } },
+  { swap: { direction: 'SilverForGold', amountIn: 60 }, pool: { gold: 50, silver: 200 } },
 ]
 
 // Four answers: the right one, the result of paying the other token, and the errors.
 export function choices(q: Question, seed: number): string[] {
   const n = q.swap.amountIn
-  const { reserve0: r0, reserve1: r1 } = q.pool
+  const { gold, silver } = q.pool
   const all = new Set([
     showResult(swap(q.swap, q.pool)),
-    `Right (${n}, ${showPool({ reserve0: r0 + n, reserve1: r1 - n })})`,
-    `Right (${n}, ${showPool({ reserve0: r0 - n, reserve1: r1 + n })})`,
+    `Right (${n}, ${showPool({ gold: gold + n, silver: silver - n })})`,
+    `Right (${n}, ${showPool({ gold: gold - n, silver: silver + n })})`,
     'Left InsufficientLiquidity',
     'Left AmountNotPositive',
   ])

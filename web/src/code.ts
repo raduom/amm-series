@@ -65,8 +65,9 @@ export function renderCode(src: string[], view: View, hl?: Highlight): string {
     const uses = hl?.uses.includes(row.at) ?? false
     const cls = !hl ? 'l' : focus ? 'l f' : uses ? 'l u' : 'l dim'
     const note = hl?.notes.get(row.at)
+    const indent = Math.max(0, line.length - body.length + (focus && hl ? shift(src, row.at, hl) : 0))
     return `<div class="${cls}">${row.fold ? gutter(src, row.fold, true) : ''}`
-      + text(line.length - body.length) + lineHtml(body, focus || uses ? hl : undefined)
+      + text(indent) + lineHtml(body, focus || uses ? hl : undefined)
       // A note that doesn't fit after the code moves whole to the next row.
       + (note ? `<span class="val">-- ${escape(note)}</span>` : '')
       + '</span></div>'
@@ -119,12 +120,28 @@ function gutter(src: string[], f: Fold, open: boolean): string {
     + `aria-label="${open ? 'Fold' : 'Unfold'} ${escape(name)}">${chevron}</button>`
 }
 
-// A highlighted line marks the names it uses, or writes their values over them.
+// A continuation line of a filled-in expression is indented to line up with something on
+// the line above. Values are wider or narrower than the names they replace, so the line
+// moves by however much the line above changed before that column.
+function shift(src: string[], at: number, hl: Highlight): number {
+  if (!hl.fill || !hl.focus.includes(at) || !hl.focus.includes(at - 1)) return 0
+  const above = src[at - 1]
+  const body = above.trimStart()
+  const align = src[at].length - src[at].trimStart().length
+  let col = above.length - body.length
+  let change = 0
+  const tokens = tokenize(body)
+  values(tokens, hl).forEach((value, i) => {
+    if (value !== undefined && col < align) change += value.length - tokens[i].text.length
+    col += tokens[i].text.length
+  })
+  return shift(src, at - 1, hl) + change
+}
+
+// What each token is written as, where a value replaces a name.
 // In a binding like `amountOut = amountIn` the name being defined stays, and so do
 // the arguments a lambda like `\_ pool' ->` names.
-function lineHtml(text: string, hl?: Highlight): string {
-  const tokens = tokenize(text)
-  if (!hl) return tokensHtml(tokens)
+function values(tokens: Token[], hl: Highlight): (string | undefined)[] {
   const named = (t?: Token) => t?.kind === 'name' || t?.kind === 'function'
   const first = tokens.find((t) => t.kind !== 'space')
   const defines = named(first) && hl.values[first!.text] !== undefined ? tokens.findIndex((t) => t.text === '=') : -1
@@ -132,7 +149,17 @@ function lineHtml(text: string, hl?: Highlight): string {
   return tokens.map((t, i) => {
     if (t.text === '\\') lambda = true
     else if (t.text === '->') lambda = false
-    const value = named(t) && i > defines && !lambda ? hl.values[t.text] : undefined
+    return named(t) && i > defines && !lambda ? hl.values[t.text] : undefined
+  })
+}
+
+// A highlighted line marks the names it uses, or writes their values over them.
+function lineHtml(text: string, hl?: Highlight): string {
+  const tokens = tokenize(text)
+  if (!hl) return tokensHtml(tokens)
+  const filled = values(tokens, hl)
+  return tokens.map((t, i) => {
+    const value = filled[i]
     if (value === undefined) return tokenHtml(t)
     if (!hl.fill) return `<span class="v">${escape(t.text)}</span>`
     return `<span class="v ${/^\(?-?\d/.test(value) ? 'n' : 'c'}">${escape(value)}</span>`

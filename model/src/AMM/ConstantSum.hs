@@ -1,9 +1,11 @@
 -- | Chapter 1: a constant-sum pool.
 --
--- The pool holds two tokens and trades them 1:1,
--- so @reserve0 + reserve1@ never changes.
+-- The pool holds gold and silver and trades them 1:1,
+-- so @gold + silver@ never changes.
 module AMM.ConstantSum
   ( Pool (..)
+  , Direction (..)
+  , opposite
   , Swap (..)
   , SwapError (..)
   , swap
@@ -11,16 +13,21 @@ module AMM.ConstantSum
 
 -- | How much of each token the pool holds.
 data Pool = Pool
-  { reserve0 :: Integer
-  , reserve1 :: Integer
+  { gold   :: Integer
+  , silver :: Integer
   }
   deriving (Eq, Show)
 
+-- | Which way a swap trades: gold for silver, or silver for gold.
+data Direction
+  = GoldForSilver
+  | SilverForGold
+  deriving (Eq, Show)
+
 -- | Pay @amountIn@ of one token and receive the other.
--- @zeroForOne = True@ pays token0 and receives token1.
 data Swap = Swap
-  { zeroForOne :: Bool
-  , amountIn   :: Integer
+  { direction :: Direction
+  , amountIn  :: Integer
   }
   deriving (Eq, Show)
 
@@ -33,15 +40,20 @@ data SwapError
 -- | Run a swap: the amount paid out and the pool afterwards,
 -- or why it was refused.
 swap :: Swap -> Pool -> Either SwapError (Integer, Pool)
-swap (Swap zeroForOne amountIn) (Pool reserve0 reserve1)
-  | amountIn <= 0          = Left AmountNotPositive
-  | amountOut > reserveOut = Left InsufficientLiquidity
-  | zeroForOne             =
-      Right (amountOut, Pool (reserve0 + amountIn)
-                             (reserve1 - amountOut))
-  | otherwise              =
-      Right (amountOut, Pool (reserve0 - amountOut)
-                             (reserve1 + amountIn))
+swap (Swap direction amountIn) (Pool gold silver)
+  | amountIn <= 0              = Left AmountNotPositive
+  | amountOut > reserveOut     = Left InsufficientLiquidity
+  | direction == GoldForSilver =
+      Right (amountOut, Pool (gold + amountIn)
+                             (silver - amountOut))
+  | otherwise                  =
+      Right (amountOut, Pool (gold - amountOut)
+                             (silver + amountIn))
   where
     amountOut  = amountIn  -- constant sum: one for one
-    reserveOut = if zeroForOne then reserve1 else reserve0
+    reserveOut = if direction == GoldForSilver then silver else gold
+
+-- | The other way round.
+opposite :: Direction -> Direction
+opposite GoldForSilver = SilverForGold
+opposite SilverForGold = GoldForSilver

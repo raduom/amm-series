@@ -1,5 +1,5 @@
 import type { Line } from './lines'
-import { type Pool, type Result, type Swap, showBool, showInt, showPool, swap } from './model'
+import { type Pool, type Result, type Swap, showInt, showPool, swap } from './model'
 
 // One step of reading swap: the line Haskell is on and what it finds there.
 export interface Step {
@@ -18,17 +18,18 @@ export interface Trace {
 }
 
 export function trace(s: Swap, p: Pool): Trace {
-  const { zeroForOne, amountIn } = s
-  const { reserve0, reserve1 } = p
+  const { direction, amountIn } = s
+  const { gold, silver } = p
+  const paysGold = direction === 'GoldForSilver'
   const amountOut = amountIn
-  const reserveOut = zeroForOne ? reserve1 : reserve0
-  const got = zeroForOne ? 'B' : 'A'
+  const reserveOut = paysGold ? silver : gold
+  const got = paysGold ? 'silver' : 'gold'
   const result = swap(s, p)
   const values = {
-    zeroForOne: showBool(zeroForOne),
+    direction,
     amountIn: showInt(amountIn),
-    reserve0: showInt(reserve0),
-    reserve1: showInt(reserve1),
+    gold: showInt(gold),
+    silver: showInt(silver),
     amountOut: showInt(amountOut),
     reserveOut: showInt(reserveOut),
   }
@@ -38,8 +39,8 @@ export function trace(s: Swap, p: Pool): Trace {
     line: 'signature',
     uses: [],
     note: 'the call names its inputs',
-    say: `The call matches this line, so zeroForOne is ${values.zeroForOne}, amountIn is ${amountIn}, `
-      + `reserve0 is ${reserve0} and reserve1 is ${reserve1}.`,
+    say: `The call matches this line, so direction is ${direction}, amountIn is ${amountIn}, `
+      + `gold is ${gold} and silver is ${silver}.`,
   }]
 
   const notPositive = { line: 'notPositive', uses: [], calc: `${amountIn} <= 0` } as const
@@ -55,7 +56,7 @@ export function trace(s: Swap, p: Pool): Trace {
     ...notPositive,
     note: 'False: the amount is positive',
     say: `Guards are tried from the top. amountIn is ${amountIn}, more than 0, so this guard is False `
-      + `and Haskell moves to the next one.`,
+      + `and the next guard is tried.`,
   })
 
   const insufficient = {
@@ -73,35 +74,35 @@ export function trace(s: Swap, p: Pool): Trace {
     ...insufficient,
     note: 'False: the pool can pay',
     say: `Can the pool pay? amountOut is ${amountOut}, the same as you pay, and reserveOut is the side you `
-      + `get: ${reserveOut} ${got}. ${amountOut} > ${reserveOut} is False, so Haskell moves on.`,
+      + `get: ${reserveOut} ${got}. ${amountOut} > ${reserveOut} is False, so the next guard is tried.`,
   })
 
   const after = result.tag === 'Right' ? result.pool : p
-  const sum = reserve0 + reserve1
+  const sum = gold + silver
   const paid = {
     note: showPool(after),
-    say: `You pay ${amountIn} ${zeroForOne ? 'A' : 'B'} and get ${amountOut} ${got} back. The pool ends `
-      + `with ${after.reserve0} A and ${after.reserve1} B, and the sum is still ${sum}.`,
+    say: `You pay ${amountIn} ${paysGold ? 'gold' : 'silver'} and get ${amountOut} ${got} back. The pool ends `
+      + `with ${after.gold} gold and ${after.silver} silver, and the sum is still ${sum}.`,
   }
-  if (zeroForOne) {
+  if (paysGold) {
     return done(
       {
-        line: 'zeroForOne', uses: [], note: 'True: you pay A',
-        say: 'zeroForOne is True: you pay token0, A, and get token1, B. This guard holds, '
+        line: 'goldGuard', uses: [], note: 'True: you pay gold',
+        say: 'direction is GoldForSilver: you pay gold and get silver. This guard holds, '
           + 'so the line under it is the answer.',
       },
-      { line: 'payA', more: ['payA1'], uses: [], ...paid },
+      { line: 'payGold', more: ['payGold1'], uses: [], ...paid },
     )
   }
   return done(
     {
-      line: 'zeroForOne', uses: [], note: 'False: you pay B',
-      say: 'zeroForOne is False, so you pay token1, B, and get token0, A. Haskell moves on.',
+      line: 'goldGuard', uses: [], note: 'False: you pay silver',
+      say: 'direction is SilverForGold, not GoldForSilver, so you pay silver and get gold. The next guard is tried.',
     },
     {
       line: 'otherwise', uses: [], note: 'always True',
       say: 'otherwise is another name for True. It catches every case left, so the line under it is the answer.',
     },
-    { line: 'payB', more: ['payB1'], uses: [], ...paid },
+    { line: 'paySilver', more: ['paySilver1'], uses: [], ...paid },
   )
 }

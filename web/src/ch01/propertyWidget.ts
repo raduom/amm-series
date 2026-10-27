@@ -96,9 +96,7 @@ export function mountCh01Properties(root: HTMLElement, options: Options) {
     if (failed >= 0) return `<pre>*** Failed! (after ${failed + 1} tests)</pre>`
     const checked = all.filter((r) => r.checked).length
     return `<pre>+++ OK, passed ${runs} tests (${(100 * checked / runs).toFixed(2)}% swap succeeds).</pre>`
-      + `<p>Every case passed, and ${checked} of them had a swap to check. <code>cabal test</code> prints `
-      + `the same kind of line. It runs more cases than ${runs}: whenSwapSucceeds asks it to keep going `
-      + 'until it is sure at least 20% of the swaps succeed.</p>'
+      + `<p>All ${runs} cases passed.</p>`
   }
 
   const actions: Record<string, () => void> = {

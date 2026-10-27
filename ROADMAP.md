@@ -43,8 +43,10 @@ model/  AMM.*           readable models — what articles quote
   thousands of test cases fast; testnets are for deployment, not for property runs.
 - **Native tests stay**: Foundry unit/fuzz tests and LiteSVM tests cover chain-specific behaviour
   (access control, account validation, events) that the shared model does not describe.
-- **Naming is shared** across model, Solidity and Rust (`token0`/`token1`, `zeroForOne`,
-  `amountIn`, `minAmountOut`, …) so traces read the same everywhere.
+- **Naming**: the model uses names a reader can follow (`gold`/`silver`, `Direction` with
+  `GoldForSilver`/`SilverForGold`), while Solidity and Rust keep the on-chain conventions
+  (`token0`/`token1`, `zeroForOne`). The mapping is stated once, where chain code first appears;
+  names that already read well (`amountIn`, `minAmountOut`, …) stay the same everywhere.
 
 ## Planned layout
 
@@ -90,8 +92,8 @@ Start the next chapter only after the current one is done.
 
 ### 1. Constant sum
 
-The simplest pool: trade 1:1, keep `reserve0 + reserve1` constant. Liquidity is owner-provided; no
-LP shares yet.
+The simplest pool: trade gold and silver 1:1, keep `gold + silver` constant. Liquidity is
+owner-provided; no LP shares yet.
 
 - Model properties: the sum is preserved; output equals input; a swap followed by its reverse
   restores the pool; reserves never go negative.

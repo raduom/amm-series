@@ -1,7 +1,7 @@
-import { type Pool, type Swap, showInt, showPool, showResult, showSwap, swap } from './model'
+import { type Pool, type Swap, opposite, showInt, showPool, showResult, showSwap, swap } from './model'
 import type { Property } from './propertyLines'
 
-// The inputs QuickCheck makes up for one case.
+// The inputs generated for one case.
 export interface Case {
   pool: Pool
   swap: Swap
@@ -15,8 +15,8 @@ export function cases(seed: number, count: number): Case[] {
   return Array.from({ length: count }, (_, i) => {
     const size = 10 + i
     return {
-      pool: { reserve0: upTo(size), reserve1: upTo(size) },
-      swap: { zeroForOne: random() < 0.5, amountIn: upTo(2 * size) - size },
+      pool: { gold: upTo(size), silver: upTo(size) },
+      swap: { direction: random() < 0.5 ? 'GoldForSilver' : 'SilverForGold', amountIn: upTo(2 * size) - size },
     }
   })
 }
@@ -54,9 +54,9 @@ export function trace(property: Property, c: Case): Trace {
   const values: Record<string, string> = { pool: `(${showPool(pool)})`, s: `(${showSwap(s)})` }
   const steps: Step[] = [{
     line: 'def',
-    note: 'made up by QuickCheck',
+    note: 'generated at random',
     named: `pool = ${showPool(pool)}, s = ${showSwap(s)}`,
-    say: `A property is a test that leaves its inputs as names. QuickCheck makes them up: a pool `
+    say: `A property is a test that leaves its inputs as names. The widget generates them at random: a pool `
       + `whose reserves aren't negative, and a swap of any amount, even zero or a negative one. `
       + `This time pool is ${showPool(pool)} and s is ${showSwap(s)}.`,
   }]
@@ -94,16 +94,16 @@ export function trace(property: Property, c: Case): Trace {
 
   const done = (passed: boolean, ...more: Step[]): Trace =>
     ({ values, steps: [...steps, ...more], checked: true, passed })
-  const { reserve0: a0, reserve1: a1 } = after
-  const { reserve0: b0, reserve1: b1 } = pool
+  const { gold: a0, silver: a1 } = after
+  const { gold: b0, silver: b1 } = pool
 
   if (property === 'sum') {
     const ok = a0 + a1 === b0 + b1
     return done(ok, {
       line: 'check',
       note: `${a0} + ${a1} === ${b0} + ${b1}`,
-      say: `reserve0 pool' reads the field reserve0 of the new pool. The left side adds up the `
-        + `reserves after the swap, the right side the reserves before.`,
+      say: `gold pool' reads the field gold of the new pool. The left side adds up the gold and `
+        + `silver after the swap, the right side the gold and silver before.`,
     }, {
       line: 'check',
       note: `${a0 + a1} === ${b0 + b1}: ${verdict(ok)}`,
@@ -124,14 +124,14 @@ export function trace(property: Property, c: Case): Trace {
   }
 
   if (property === 'back') {
-    const reverse: Swap = { zeroForOne: !s.zeroForOne, amountIn: amountOut }
+    const reverse: Swap = { direction: opposite(s.direction), amountIn: amountOut }
     const got = swap(reverse, after)
     const want = `Right (${showInt(s.amountIn)}, ${showPool(pool)})`
     const ok = showResult(got) === want
     return done(ok, {
       line: 'check',
       note: `swap (${showSwap(reverse)}) (${showPool(after)}) === ${want}`,
-      say: `The left side swaps back: the other way, not (zeroForOne s), paying in what came out. `
+      say: `The left side swaps back: the other way, opposite (direction s), paying in what came out. `
         + `The right side is what you'd expect back: what you first paid, and the pool you started with.`,
     }, {
       line: 'check',
@@ -145,11 +145,11 @@ export function trace(property: Property, c: Case): Trace {
   return done(ok, {
     line: 'check',
     note: `${a0} >= 0 && ${a1} >= 0`,
-    say: `This check is a plain Bool: are both reserves of the new pool at least 0? property turns `
-      + `the Bool into something QuickCheck can run.`,
+    say: `This check is a plain Bool: are the gold and the silver of the new pool both at least 0? property turns `
+      + `the Bool into a check.`,
   }, {
     line: 'check',
     note: `${ok ? 'True' : 'False'}: ${verdict(ok)}`,
-    say: ok ? `${a0} and ${a1} are both at least 0, so this case passes.` : 'A reserve went negative, so the property fails.',
+    say: ok ? `${a0} and ${a1} are both at least 0, so this case passes.` : 'Gold or silver went negative, so the property fails.',
   })
 }

@@ -22,13 +22,16 @@ instance Arbitrary Pool where
   arbitrary = Pool <$> nonNegative <*> nonNegative
     where
       nonNegative = getNonNegative <$> arbitrary
-  shrink (Pool reserve0 reserve1) =
-    [ Pool r0 r1 | (NonNegative r0, NonNegative r1) <- shrink (NonNegative reserve0, NonNegative reserve1) ]
+  shrink (Pool gold silver) =
+    [ Pool g s | (NonNegative g, NonNegative s) <- shrink (NonNegative gold, NonNegative silver) ]
+
+instance Arbitrary Direction where
+  arbitrary = elements [GoldForSilver, SilverForGold]
 
 -- | Any direction and any amount, including zero and negative ones the pool must refuse.
 instance Arbitrary Swap where
   arbitrary = Swap <$> arbitrary <*> arbitrary
-  shrink (Swap zeroForOne amountIn) = Swap zeroForOne <$> shrink amountIn
+  shrink (Swap direction amountIn) = Swap direction <$> shrink amountIn
 
 -- | Check a property of the swaps that succeed, and make sure enough of them do.
 whenSwapSucceeds :: Pool -> Swap -> (Integer -> Pool -> Property) -> Property
@@ -44,7 +47,7 @@ whenSwapSucceeds pool s check =
 prop_sumPreserved :: Pool -> Swap -> Property
 prop_sumPreserved pool s =
   whenSwapSucceeds pool s $ \_ pool' ->
-    reserve0 pool' + reserve1 pool' === reserve0 pool + reserve1 pool
+    gold pool' + silver pool' === gold pool + silver pool
 
 prop_outputEqualsInput :: Pool -> Swap -> Property
 prop_outputEqualsInput pool s =
@@ -54,9 +57,9 @@ prop_outputEqualsInput pool s =
 prop_swapBackRestores :: Pool -> Swap -> Property
 prop_swapBackRestores pool s =
   whenSwapSucceeds pool s $ \amountOut pool' ->
-    swap (Swap (not (zeroForOne s)) amountOut) pool' === Right (amountIn s, pool)
+    swap (Swap (opposite (direction s)) amountOut) pool' === Right (amountIn s, pool)
 
 prop_reservesNonNegative :: Pool -> Swap -> Property
 prop_reservesNonNegative pool s =
   whenSwapSucceeds pool s $ \_ pool' ->
-    property (reserve0 pool' >= 0 && reserve1 pool' >= 0)
+    property (gold pool' >= 0 && silver pool' >= 0)
