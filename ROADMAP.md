@@ -51,7 +51,7 @@ model/  AMM.*           readable models — what articles quote
 ## Planned layout
 
 ```
-model/        Haskell package: models, properties, harness, one runnable demo per chapter
+model/        Haskell package: models, properties, harness
 evm/          Foundry project (Solidity)
 solana/       Anchor workspace
 drivers/      evm-driver, svm-driver (Rust)
@@ -63,7 +63,7 @@ scripts/      repository checks
 
 ## Definition of done (per chapter)
 
-1. Haskell model with properties passing, and a runnable demo (`cabal run chNN`).
+1. Haskell model with properties passing.
 2. Interactive page for the chapter's model.
 3. Solidity implementation with Foundry tests.
 4. Anchor implementation with LiteSVM tests.
@@ -187,15 +187,7 @@ simplified", not a full clone; this chapter may split in two.
 
 ## Toolchain
 
-| Tool | Version | Notes |
-|---|---|---|
-| GHC / cabal / HLS | 9.14.1 / 3.18.2.0 / 2.14.0.0 | via ghcup; cabal, not stack (Stackage has no 9.14 snapshot yet) |
-| Haskell libraries | QuickCheck 2.19, quickcheck-dynamic 4.0.1, tasty 1.5.5, tasty-quickcheck 0.11.1, aeson 2.3.2, typed-process 0.2.13 | verified to build on 9.14.1 (2026-10-21) |
-| Foundry | 1.7.1 | Solidity, tests, Sepolia deploys |
-| Anchor | 1.2.x | `anchor-lang`/`anchor-spl`; CLI not installed yet (Homebrew `anchor` formula is 1.2.1) |
-| LiteSVM | 0.18.x | in-process Solana tests and driver |
-| revm | 43.x | in-process EVM driver |
-| Solana CLI | 4.3.1 | `~/.local/share/solana/install/active_release/bin`, not on PATH by default |
+Tool versions and how to install them are in the [README](README.md#toolchain).
 
 ## Open questions
 

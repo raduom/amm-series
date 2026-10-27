@@ -1,1 +1,2 @@
 packages: model
+with-compiler: ghc-9.14.1
