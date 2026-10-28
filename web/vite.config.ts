@@ -16,7 +16,7 @@ export default defineConfig({
   server: {
     fs: { allow: ['..'] },
     // Lets the page load through a Cloudflare quick tunnel.
-    allowedHosts: ['.trycloudflare.com'],
+    allowedHosts: ['.trycloudflare.com', '.ts.net'],
   },
   plugins: [
     {
