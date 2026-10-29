@@ -1,8 +1,9 @@
-/* The teaching widget. Colours follow the blog's Ink & Paper skin; code uses GitHub's. */
+/* The teaching widget. Colours follow the blog's Ink & Paper skin; code uses GitHub's. In light
+   mode the accent is ink, not the skin's crimson, so that red only ever means wrong (--err). */
 
 .amm {
   --fg: #26221e; --muted: #857566; --line: #e0cdb0; --tint: rgba(120, 90, 50, .06);
-  --acc: #b03535; --accs: rgba(176, 53, 53, .08); --on-acc: #fff;
+  --acc: #524840; --accs: rgba(82, 72, 64, .08); --on-acc: #fff;
   --gold: #a87d1e; --silver: #6b7380; --ok: #2f7a4f; --err: #b03535;
   --cbg: #fff; --ct: #24292e; --ck: #d73a49; --cf: #6f42c1; --cc: #005cc5; --cm: #6a737d;
   --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -98,13 +99,15 @@ html.dark .amm .seg { color: #141210; }
 .amm .n { color: var(--cc); }
 .amm .m { color: var(--cm); }
 .amm .op { white-space: nowrap; }
-.amm .v { background: color-mix(in srgb, var(--acc) 18%, transparent); border-radius: 3px; white-space: nowrap; }
+.amm .v { background: color-mix(in srgb, var(--acc) 12%, transparent); border-radius: 3px; white-space: nowrap; }
 html.dark .amm .v {
   background: color-mix(in srgb, var(--acc) 26%, transparent);
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--acc) 75%, transparent);
 }
 .amm .val { display: inline-block; white-space: pre-wrap; font-weight: 600; color: var(--acc); margin-left: 2ch; }
-.amm .l.u .val { color: var(--muted); }
+/* In light mode the ink note is close to the code's colour, so a tint sets it apart from the line. */
+html:not(.dark) .amm .val { background: color-mix(in srgb, var(--acc) 12%, transparent); border-radius: 3px; padding: 0 4px; }
+.amm .l.u .val { color: var(--muted); background: none; }
 .amm .fold { font: 11px var(--sans); color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
 /* The fold toggle sits in the gutter and isn't dimmed with its line. */
 .amm .gut {
