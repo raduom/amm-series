@@ -238,13 +238,6 @@ html:not(.dark) .amm .val { background: color-mix(in srgb, var(--acc) 12%, trans
 .amm .fc-setup { margin: 0; padding: 8px 12px; white-space: pre-wrap; font-size: 13px; }
 .amm .fc-opts { margin: 0; }
 .amm .fc-opts .o { font-family: var(--sans); font-size: 13px; line-height: 1.45; }
-.amm .fc-type { display: flex; flex-wrap: wrap; gap: 8px; }
-.amm .fc-in {
-  flex: 1; min-width: 12ch; padding: 7px 10px; border-radius: 7px; border: 1px solid var(--line);
-  font: 14px var(--mono); background: var(--cbg); color: var(--ct);
-}
-.amm .fc-in.right { border-color: var(--ok); }
-.amm .fc-in.wrong { border-color: var(--err); text-decoration: line-through; }
 .amm .fc-tray { display: flex; flex-wrap: wrap; gap: 6px; min-height: 40px; padding: 6px; border: 1px dashed var(--line); border-radius: 8px; }
 .amm .fc-tray .m { font-size: 12px; color: var(--muted); align-self: center; padding: 0 4px; }
 .amm .fc-groups { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 8px; }

@@ -6,8 +6,8 @@ import { locate } from '../source'
 // they start, and the build fails if one is missing or matches more than one line.
 export const marketProperties = {
   sumValue: { label: 'Sum: value', name: 'prop_sumValueNeverDecreases', helper: 'sumPoolValue ::' },
-  productValue: { label: 'Product: value', name: 'prop_productValueNeverDecreases', helper: 'poolValue ::' },
   sumEmptied: { label: 'Sum: emptied', name: 'prop_sumNeverEmptied', helper: 'sumPoolStocked ::' },
+  productValue: { label: 'Product: value', name: 'prop_productValueNeverDecreases', helper: 'poolValue ::' },
   productEmptied: { label: 'Product: emptied', name: 'prop_productNeverEmptied', helper: 'productPoolStocked ::' },
 } as const
 

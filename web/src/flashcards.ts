@@ -32,7 +32,6 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
   // The card being answered.
   let choices: string[] = []
   let picked: string | undefined
-  let typed = ''
   let placed = new Map<number, number>() // sort: term → group
   let selected: number | undefined       // sort: the term picked up
   let answered: boolean | undefined      // undefined while asking, then right or wrong
@@ -46,12 +45,8 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
 
   function deal() {
     const card = deck[queue[0]]
-    choices = card === undefined ? []
-      : card.kind === 'define' ? shuffle([card.answer, ...card.wrong])
-      : card.kind === 'context' && card.wrong ? shuffle([card.answer, ...card.wrong])
-      : []
+    choices = card === undefined || card.kind === 'sort' ? [] : shuffle([card.answer, ...card.wrong])
     picked = undefined
-    typed = ''
     placed = new Map()
     selected = undefined
     answered = undefined
@@ -60,8 +55,7 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
   function check() {
     const card = deck[queue[0]]
     if (card.kind === 'sort') answered = card.items.every((item, i) => placed.get(i) === item.group)
-    else if (choices.length > 0) answered = picked === card.answer
-    else answered = [card.answer, ...('aliases' in card ? card.aliases ?? [] : [])].some((a) => same(a, typed))
+    else answered = picked === card.answer
     if (!answered) misses++
   }
 
@@ -72,8 +66,8 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
     deal()
   }
 
-  // Moves focus to the answer, or to the next card, except on the first render: focusing a field
-  // on load would scroll the page to the deck before the reader gets there.
+  // Moves focus to the next card button once a card is answered. The first render never focuses:
+  // that would scroll the page to the deck before the reader gets there.
   function render(focus = true) {
     $<HTMLElement>('.fc-bar i').style.width = `${(100 * right) / deck.length}%`
     $('.fc-bar').setAttribute('aria-valuenow', String(right))
@@ -88,11 +82,7 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
     }
     const card = deck[queue[0]]
     box.innerHTML = `<p class="fc-kind">${kinds[card.kind]}</p>${ask(card)}${answer(card)}${feedback(card)}`
-    const input = box.querySelector<HTMLInputElement>('input')
-    if (input && answered === undefined) {
-      input.value = typed
-      if (focus) input.focus()
-    } else if (focus) box.querySelector<HTMLElement>('[data-act="next"]')?.focus()
+    if (focus) box.querySelector<HTMLElement>('[data-act="next"]')?.focus()
   }
 
   function ask(card: Card): string {
@@ -107,19 +97,11 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
 
   function answer(card: Card): string {
     if (card.kind === 'sort') return sorting(card)
-    if (choices.length > 0) {
-      return '<div class="opts fc-opts">' + choices.map((c) => {
-        const cls = answered === undefined ? '' : c === card.answer ? 'right' : c === picked ? 'wrong' : ''
-        return `<button class="o ${cls}" data-choice="${escape(c)}"${answered === undefined ? '' : ' disabled'}>`
-          + `<span>${text(c)}</span></button>`
-      }).join('') + '</div>'
-    }
-    const cls = answered === undefined ? '' : answered ? ' right' : ' wrong'
-    return `<div class="fc-type"><input class="fc-in${cls}" type="text" autocomplete="off" autocapitalize="off" `
-      + `spellcheck="false" aria-label="Your answer"${answered === undefined ? '' : ' disabled'}>`
-      + (answered === undefined
-        ? '<button class="btn p" data-act="check">Check</button><button class="btn" data-act="give-up">Show me</button>'
-        : '') + '</div>'
+    return '<div class="opts fc-opts">' + choices.map((c) => {
+      const cls = answered === undefined ? '' : c === card.answer ? 'right' : c === picked ? 'wrong' : ''
+      return `<button class="o ${cls}" data-choice="${escape(c)}"${answered === undefined ? '' : ' disabled'}>`
+        + `<span>${text(c)}</span></button>`
+    }).join('') + '</div>'
   }
 
   // The terms still to place, then a box for each group with the terms placed in it. A term is
@@ -151,7 +133,6 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
     const solution = card.kind === 'sort'
       ? card.groups.map((g, gi) => `${text(g)}: ${card.items.filter((it) => it.group === gi).map((it) => text(it.term)).join(', ')}`)
         .join('<br>')
-      : card.kind === 'name' || (card.kind === 'context' && choices.length === 0) ? `It's <code>${escape(card.answer)}</code>.`
       : ''
     return `<div class="fc-fb ${answered ? 'right' : 'wrong'}"><p><b>${answered ? 'Right.' : 'Not quite.'}</b> `
       + `${answered || !solution ? '' : `${solution} `}${text(card.explain)}</p>`
@@ -175,14 +156,8 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
     } else if (b?.dataset.choice !== undefined && answered === undefined) {
       picked = b.dataset.choice
       check()
-    } else if (b?.dataset.act === 'check') {
-      typed = root.querySelector<HTMLInputElement>('.fc-in')?.value ?? typed
-      check()
-    } else if (b?.dataset.act === 'give-up') {
-      typed = ''
-      answered = false
-      misses++
-    } else if (b?.dataset.act === 'next') next()
+    } else if (b?.dataset.act === 'check') check()
+    else if (b?.dataset.act === 'next') next()
     else if (b?.dataset.act === 'again') start()
     else {
       // Tapping a group, or the tray, puts the picked-up term there.
@@ -190,14 +165,6 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
       if (!g || selected === undefined || answered !== undefined) return
       place(selected, Number(g.dataset.group))
     }
-    render()
-  })
-
-  root.addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter' || !(e.target instanceof HTMLInputElement) || answered !== undefined) return
-    typed = e.target.value
-    if (typed.trim() === '') return
-    check()
     render()
   })
 
@@ -225,14 +192,6 @@ export function mountFlashcards(root: HTMLElement, deck: Card[]) {
 // Text with code between backticks, as HTML.
 function text(s: string): string {
   return escape(s).replace(/`([^`]+)`/g, '<code>$1</code>')
-}
-
-// Typed answers match ignoring case, a leading "the", spaces, backticks, underscores and
-// apostrophes, with * and · read as ×.
-function same(a: string, b: string): boolean {
-  const norm = (s: string) => s.toLowerCase().trim().replace(/^the\s+/, '')
-    .replace(/[\s`_'’]/g, '').replace(/[*·]/g, '×')
-  return norm(a) === norm(b)
 }
 
 function shuffle<T>(items: T[]): T[] {

@@ -28,28 +28,29 @@ About 30 cards, roughly:
 | Kind | Cards | What it tests |
 |---|---|---|
 | `define` | 10 | Term → meaning: "What is `reserveOut`?", pick 1 of 4 |
-| `name` | 10 | Meaning → term: "Who am I?", type the keyword |
-| `context` | 5 | The term at work: its value in a given call, or what happens |
+| `name` | 10 | Meaning → term: "Who am I?", pick 1 of 4 |
+| `context` | 5 | The term at work: its value in a given call, or what happens, pick 1 of 4 |
 | `sort` | 5 | Put several terms into two or three groups by one criterion |
 
 - **Both directions for every important term.** Each main term gets a `define` card and a
   `name` card. The two should not share wording, or one gives the other away.
+- **Every card is answered by clicking or moving**, never by typing: `define`, `name` and
+  `context` cards are 1 of 4, `sort` cards are moved into groups.
 - **Wrong answers are real confusions.** For `define`, take the wrong definitions from the
   terms a reader mixes up: `reserveIn` against `reserveOut`, `amountOut` against
-  `minAmountOut`, the price before against the price after. Make all four answers about the
-  same length and in the same style, so the right one doesn't stand out.
+  `minAmountOut`, the price before against the price after. For `name`, the wrong keywords are
+  the terms the clue could be mistaken for (`price impact` against `rounding down`, one error
+  constructor against another). Make all four answers about the same length and in the same
+  style, so the right one doesn't stand out.
 - **`name` clues are written as "I am …"**, describe one term only, and don't contain the
   keyword or an obvious part of it, and don't repeat the wording of the term's `define` card.
-  List every reasonable spelling in `aliases`: `k` and `gold × silver`, `minAmountOut` and
-  `min amount out`. Matching ignores case, a leading "the", spaces, backticks, `_` and
-  apostrophes, and reads `*` and `·` as `×`, so don't list variants that differ only in those.
-  Don't accept an alias that names a different idea (bare `price` is the market price in the
-  model, not the pool's price; `rounding` is not `rounding down`).
+  Write the keyword between backticks when it is a name in the code (`` `EmptyPool` ``), and as
+  plain words when it is an idea (`rounding down`).
 - **`context` cards use small numbers a reader can work out in their head**, from a pool and
   a call written as the model writes them: `swap (Swap SilverForGold 30 0) (Pool 100 60)`.
-  Ask for one thing: a value (`reserveIn` is 60), a result, an error. Typed when the answer is
-  a number or a name (with aliases such as `0.5`, `1/2`, `half`); give `wrong` answers only
-  when it is a phrase.
+  Ask for one thing: a value (`reserveIn` is 60), a result, an error. Take each wrong answer
+  from a slip in working it out: one for one as in chapter 1, the price before the swap, no
+  rounding, rounding up.
 - **`sort` cards use one criterion each**, stated as a question, with two or three groups and
   three to six terms, each short enough for a chip on a phone (about 30 characters). Good
   criteria: who decides it (the trader, the pool, `swap` works it

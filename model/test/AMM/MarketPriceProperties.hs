@@ -24,10 +24,10 @@ tests = testGroup "Market price"
   ]
 
 -- | What a constant-sum pool holds, counted in silver, when one gold is
--- worth @price@ silver on the market.
+-- worth @goldPrice@ silver on the market.
 sumPoolValue :: Rational -> CS.Pool -> Rational
-sumPoolValue price (CS.Pool gold silver) =
-  price * fromInteger gold + fromInteger silver
+sumPoolValue goldPrice (CS.Pool gold silver) =
+  goldPrice * fromInteger gold + fromInteger silver
 
 -- | Both reserves hold something.
 sumPoolStocked :: CS.Pool -> Bool
@@ -38,16 +38,16 @@ productPoolStocked :: CP.Pool -> Bool
 productPoolStocked pool = CP.gold pool > 0 && CP.silver pool > 0
 
 prop_sumValueNeverDecreases :: Positive Rational -> CS.Pool -> CS.Swap -> Property
-prop_sumValueNeverDecreases (Positive price) pool s =
+prop_sumValueNeverDecreases (Positive goldPrice) pool s =
   case CS.swap s pool of
     Left _           -> property True
-    Right (_, pool') -> property (sumPoolValue price pool' >= sumPoolValue price pool)
+    Right (_, pool') -> property (sumPoolValue goldPrice pool' >= sumPoolValue goldPrice pool)
 
 prop_productValueNeverDecreases :: Positive Rational -> CP.Pool -> CP.Swap -> Property
-prop_productValueNeverDecreases (Positive price) pool s =
+prop_productValueNeverDecreases (Positive goldPrice) pool s =
   case CP.swap s pool of
     Left _           -> property True
-    Right (_, pool') -> property (CP.poolValue price pool' >= CP.poolValue price pool)
+    Right (_, pool') -> property (CP.poolValue goldPrice pool' >= CP.poolValue goldPrice pool)
 
 prop_sumNeverEmptied :: CS.Pool -> CS.Swap -> Property
 prop_sumNeverEmptied pool s =

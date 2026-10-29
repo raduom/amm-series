@@ -49,8 +49,8 @@ export function exactOut(direction: Direction, amountIn: number, pool: Pool): nu
   return (reserveOut * amountIn) / (reserveIn + amountIn)
 }
 
-// What the pool holds, counted in silver, when one gold is worth price silver.
-export const poolValue = (price: number, p: Pool) => price * p.gold + p.silver
+// What the pool holds, counted in silver, when one gold is worth goldPrice silver.
+export const poolValue = (goldPrice: number, p: Pool) => goldPrice * p.gold + p.silver
 
 // Values written as Haskell, so they can stand in the code.
 export const showInt = (n: number) => (n < 0 ? `(${n})` : `${n}`)

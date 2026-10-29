@@ -13,23 +13,22 @@ export interface DefineCard {
   explain: string  // shown after answering, right or wrong
 }
 
-// "Who am I?": read the definition, type the keyword.
+// "Who am I?": read the definition, pick the keyword.
 export interface NameCard {
   kind: 'name'
-  clue: string        // the definition, written as "I am …"
-  answer: string      // the keyword
-  aliases?: string[]  // other spellings that count as right
+  clue: string     // the definition, written as "I am …"
+  answer: string   // the keyword
+  wrong: string[]  // three keywords it is easily mistaken for
   explain: string
 }
 
-// The term at work in a call or a pool: type the answer, or pick it when wrong answers are given.
+// The term at work in a call or a pool: pick its value, or what happens.
 export interface ContextCard {
   kind: 'context'
-  setup?: string      // a line of code or a pool, shown as code above the question
+  setup?: string   // a line of code or a pool, shown as code above the question
   question: string
   answer: string
-  aliases?: string[]  // for a typed answer
-  wrong?: string[]    // three; with them the card is multiple choice
+  wrong: string[]  // three answers a slip in working it out would give
   explain: string
 }
 

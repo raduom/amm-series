@@ -68,7 +68,7 @@ opposite GoldForSilver = SilverForGold
 opposite SilverForGold = GoldForSilver
 
 -- | What the pool holds, counted in silver, when one gold is worth
--- @price@ silver on the market.
+-- @goldPrice@ silver on the market.
 poolValue :: Rational -> Pool -> Rational
-poolValue price (Pool gold silver) =
-  price * fromInteger gold + fromInteger silver
+poolValue goldPrice (Pool gold silver) =
+  goldPrice * fromInteger gold + fromInteger silver
