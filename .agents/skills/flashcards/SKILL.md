@@ -23,17 +23,18 @@ comes round again. The widget is `web/src/flashcards.ts`; the card types are in
 
 ## How many, and which kinds
 
-About 30 cards, roughly:
+About 15 cards, weighted toward the harder kinds, roughly:
 
 | Kind | Cards | What it tests |
 |---|---|---|
-| `define` | 10 | Term → meaning: "What is `reserveOut`?", pick 1 of 4 |
-| `name` | 10 | Meaning → term: "Who am I?", pick 1 of 4 |
-| `context` | 5 | The term at work: its value in a given call, or what happens, pick 1 of 4 |
 | `sort` | 5 | Put several terms into two or three groups by one criterion |
+| `context` | 5 | The term at work: its value in a given call, or what happens, pick 1 of 4 |
+| `name` | 4 | Meaning → term: "Who am I?", pick 1 of 4 |
+| `define` | 1–2 | Term → meaning: "What is `reserveOut`?", pick 1 of 4 |
 
-- **Both directions for every important term.** Each main term gets a `define` card and a
-  `name` card. The two should not share wording, or one gives the other away.
+- **Cover every main term at least once.** Fifteen cards can't give each term a card of its
+  own, so let `sort` cards carry several terms each, and spend `name` and `define` cards on the
+  ideas a reader most often confuses. Don't give one term both a `define` and a `name` card.
 - **Every card is answered by clicking or moving**, never by typing: `define`, `name` and
   `context` cards are 1 of 4, `sort` cards are moved into groups.
 - **Wrong answers are real confusions.** For `define`, take the wrong definitions from the
@@ -72,7 +73,7 @@ About 30 cards, roughly:
   doesn't always leave a profitable whole-unit trade. Write exact fractions (`100/11`), not
   rounded decimals presented as equal.
 - Have the deck checked by a second reader against the model before it ships.
-- Don't repeat a card with new numbers. Thirty cards should feel like thirty questions.
+- Don't repeat a card with new numbers. Fifteen cards should feel like fifteen questions.
 
 ## Putting a deck on a page
 
