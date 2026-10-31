@@ -16,7 +16,7 @@ with; pin files in the repository select them automatically where a manager supp
 | Rust | [rustup](https://rustup.rs) | 1.99.1 | `rust-toolchain.toml` |
 | Node / npm | [nvm](https://github.com/nvm-sh/nvm) | 26.12.1 / 11.20.0 | `.nvmrc` |
 | Foundry | [foundryup](https://getfoundry.sh) | 1.7.1 | — |
-| Solidity | fetched by Foundry | 0.8.38 | `evm/foundry.toml` |
+| Solidity | fetched by Foundry | 0.8.38, targeting Osaka | `evm/foundry.toml` |
 | Anchor | [avm](https://www.anchor-lang.com/docs/installation), installed with `cargo install` from the Anchor repository | 1.2.1 | — |
 | Solana CLI | Anza's installer (`agave-install`) | 3.1.10 | — |
 
@@ -45,7 +45,7 @@ versions tested so far:
 cabal test all          # model properties
 
 git submodule update --init --recursive
-cd evm && forge test    # contract tests
+(cd evm && forge test)  # contract tests
 
 cd web && npm install
 npm run dev             # interactive pages, served by Vite

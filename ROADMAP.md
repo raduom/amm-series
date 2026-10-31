@@ -42,7 +42,9 @@ model/  AMM.*           readable models — what articles quote
   conformance test is written once and runs against both chains. In-process execution keeps
   thousands of test cases fast; testnets are for deployment, not for property runs.
 - **Native tests stay**: Foundry unit/fuzz tests and LiteSVM tests cover chain-specific behaviour
-  (access control, account validation, events) that the shared model does not describe.
+  (access control, account validation, events) that the shared model does not describe. Until a
+  chapter's conformance run exists they are also the only check that its chain code agrees with
+  the model, so they port the model's properties and add worked examples and action sequences.
 - **Naming**: the model uses names a reader can follow (`gold`/`silver`, `Direction` with
   `GoldForSilver`/`SilverForGold`), while Solidity and Rust keep the on-chain conventions
   (`token0`/`token1`, `zeroForOne`). The mapping is stated once, where chain code first appears;
@@ -123,6 +125,10 @@ interactive page.
   chain code; checking the Ethereum contract against the model; checking the Solana program against
   the model; and security. The two checks become one article if both turn out too thin. Later
   chapters cover conformance as a section of each chain article.
+- Carried from the review of the Ethereum code, for the security article: a function added to the
+  pool that drains it passes every test, since tests only call what they name. An invariant
+  contract that targets the pool itself and asserts its balances stay put catches this in about
+  20 lines; keep it apart from the existing campaigns, which it would otherwise slow down.
 - Leads to: who provides liquidity, and why would they?
 
 ### 3. Fees and LP shares
@@ -133,6 +139,10 @@ locked amount; later deposits proportional).
 - Model properties: share value never decreases; burning returns a proportional slice; fees accrue
   to holders.
 - Security: first-depositor inflation attack; tracked reserves versus actual balances.
+- Carried from chapter 2's review: a test that a donation does not move the price. A pool that
+  prices from `balanceOf` instead of its tracked reserves passes every test until this exists. A
+  donation also ends `invariant_ReservesMatchBalances`, which has to become `>=` if donations join
+  the handler.
 - Leads to: rounding is everywhere, and someone gets the remainder.
 
 ### 4. Integer arithmetic
@@ -151,6 +161,13 @@ Router and multi-hop swaps, flash swaps, price accumulators for a TWAP oracle, `
 
 - Security: reentrancy (EVM) versus CPI rules (Solana); fee-on-transfer tokens and Token-2022
   transfer fees; spot price versus TWAP manipulation.
+- Carried from chapter 2's review:
+  - Test `SafeERC20`: refuse a token whose `transfer` or `transferFrom` returns `false`, and accept
+    one that returns nothing, on `initialize` and both swap legs. The tests' ERC-20 only ever
+    reverts, so replacing the safe calls with unchecked ones passes every test today.
+  - Test the order of effects: a token that reads the reserves during a transfer shows that they
+    change before tokens move, and that payment arrives before the payout. Moving either passes
+    every test today.
 - Leads to: the pool is correct, but the trader still loses.
 
 ### 6. Adversarial trading

@@ -1,7 +1,8 @@
 -- | Chapter 2: a constant-product pool.
 --
 -- The pool holds gold and silver and pays out just enough that
--- @gold * silver@ stays the same. The price moves with every trade.
+-- @gold * silver@ stays the same, rounded down so it never falls.
+-- The price moves with every trade.
 module AMM.ConstantProduct
   ( Pool (..)
   , Direction (..)
