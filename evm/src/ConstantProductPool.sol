@@ -8,7 +8,8 @@ import {
 
 /// @title Chapter 2: a constant-product pool.
 /// @notice Implements the model in AMM.ConstantProduct. The pool holds two
-/// tokens and pays out just enough that `reserve0 * reserve1` stays the same.
+/// tokens and pays out just enough that `reserve0 * reserve1` stays the same,
+/// rounded down so it never falls.
 ///
 /// The model's gold is `token0` and its silver is `token1`, so `GoldForSilver`
 /// is `zeroForOne = true` and `SilverForGold` is `zeroForOne = false`.
@@ -19,7 +20,7 @@ contract ConstantProductPool {
     IERC20 public immutable token1;
     address public immutable owner;
 
-    /// @notice How much of each token the pool holds.
+    /// @notice How much of each token the pool has on its books.
     uint256 public reserve0;
     uint256 public reserve1;
 
@@ -32,7 +33,7 @@ contract ConstantProductPool {
         uint256 amountOut
     );
 
-    /// @notice `amountIn` is zero.
+    /// @notice An amount is zero.
     error AmountNotPositive();
     /// @notice A reserve is empty, so there is no price.
     error EmptyPool();
@@ -42,15 +43,19 @@ contract ConstantProductPool {
     error NotOwner();
     /// @notice The pool already holds its liquidity.
     error AlreadyInitialized();
+    /// @notice A pool trades two different tokens.
+    error IdenticalTokens();
 
     constructor(IERC20 token0_, IERC20 token1_) {
+        if (address(token0_) == address(token1_)) revert IdenticalTokens();
+
         token0 = token0_;
         token1 = token1_;
         owner = msg.sender;
     }
 
-    /// @notice Provide the pool's liquidity, once. The model starts from a
-    /// pool that already holds both tokens; this is how one comes to exist.
+    /// @notice Provide the pool's liquidity, once. The model's swap needs a
+    /// pool that holds both tokens; this is how one comes to exist.
     function initialize(uint256 amount0, uint256 amount1) external {
         if (msg.sender != owner) revert NotOwner();
         // swaps keep both reserves positive, so a non-empty pool stays that way

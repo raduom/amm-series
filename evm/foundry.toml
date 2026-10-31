@@ -1,5 +1,6 @@
 [profile.default]
 solc = "0.8.38"
+evm_version = "osaka"
 remappings = [
   "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
   "forge-std/=lib/forge-std/src/",
@@ -10,6 +11,7 @@ runs = 1000
 
 [invariant]
 runs = 100
+depth = 500
 
 [fmt]
 line_length = 80
