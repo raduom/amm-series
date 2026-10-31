@@ -9,6 +9,10 @@
 Project skills live in `.agents/skills/`, where any agent can find them; `.claude/skills/` links to the same
 folders. `flashcards`: how to write a flashcard deck for a chapter's page.
 
+## Scratch files
+
+Delete scratch files by literal path, or leave them in `/tmp`. Claude Code stops for approval on an `rm` whose target is only known at runtime, such as `rm -rf "$(cat /tmp/dir)"` or `rm log/*` after `cd "$D"`, even with full access, and the agent waits until the user answers.
+
 ## Commits
 
 Descriptive message: one tag line followed by a list of changes, each introduced by `- `. No empty-line spacing. Show the user the message and wait for approval before committing.
