@@ -1,4 +1,4 @@
--- | Both pools against a market price: one gold is worth @price@ silver
+-- | Both pools against a market price: one gold is worth @goldPrice@ silver
 -- elsewhere. Both lose value to a trader who swaps at a better price
 -- than the market's, but only the constant-sum pool can be emptied.
 module AMM.MarketPriceProperties (tests) where
