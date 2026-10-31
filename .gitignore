@@ -1,3 +1,6 @@
 dist-newstyle/
+evm/broadcast/
+evm/cache/
+evm/out/
 node_modules/
 web/dist/

@@ -1,0 +1,15 @@
+[profile.default]
+solc = "0.8.38"
+remappings = [
+  "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+  "forge-std/=lib/forge-std/src/",
+]
+
+[fuzz]
+runs = 1000
+
+[invariant]
+runs = 100
+
+[fmt]
+line_length = 80

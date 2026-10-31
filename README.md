@@ -16,20 +16,25 @@ with; pin files in the repository select them automatically where a manager supp
 | Rust | [rustup](https://rustup.rs) | 1.99.1 | `rust-toolchain.toml` |
 | Node / npm | [nvm](https://github.com/nvm-sh/nvm) | 26.12.1 / 11.20.0 | `.nvmrc` |
 | Foundry | [foundryup](https://getfoundry.sh) | 1.7.1 | — |
+| Solidity | fetched by Foundry | 0.8.38 | `evm/foundry.toml` |
 | Anchor | [avm](https://www.anchor-lang.com/docs/installation), installed with `cargo install` from the Anchor repository | 1.2.1 | — |
 | Solana CLI | Anza's installer (`agave-install`) | 3.1.10 | — |
 
 - Use cabal, not stack: Stackage has no GHC 9.14 snapshot yet.
+- foundryup installs into `$XDG_CONFIG_HOME/.foundry/bin` when that variable is set and
+  `~/.foundry/bin` otherwise, and does not add it to `PATH`.
 - Anchor installs and activates the Solana CLI version it recommends (3.1.10 for Anchor 1.2.1) the
   first time it runs, replacing whichever version was active. Installing Anchor first is enough.
 - The Solana CLI lives in `~/.local/share/solana/install/active_release/bin`, which has to be on
   `PATH`; `agave-install` must be found there for Anchor to switch versions.
 
-Libraries are fetched by each package manager. The versions tested so far:
+Libraries are fetched by each package manager; the Solidity ones are git submodules in `evm/lib`. The
+versions tested so far:
 
 | Library | Version | Used for |
 |---|---|---|
 | QuickCheck, tasty, tasty-quickcheck | 2.19, 1.5.5, 0.11.1 | model properties |
+| OpenZeppelin Contracts, forge-std | 5.7.0, 1.17.0 | ERC-20 transfers, contract tests |
 | quickcheck-dynamic, aeson, typed-process | 4.0.1, 2.3.2, 0.2.13 | conformance harness (planned) |
 | LiteSVM | 0.18.x | in-process Solana tests and driver (planned) |
 | revm | 43.x | in-process EVM driver (planned) |
@@ -38,6 +43,10 @@ Libraries are fetched by each package manager. The versions tested so far:
 
 ```sh
 cabal test all          # model properties
+
+git submodule update --init --recursive
+cd evm && forge test    # contract tests
+
 cd web && npm install
 npm run dev             # interactive pages, served by Vite
 ```
