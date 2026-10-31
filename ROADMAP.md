@@ -118,8 +118,11 @@ interactive page.
   vaults versus contract storage. The harness, drivers, conformance run and first deployment start
   here.
 - Security: a swap without a minimum output, shown with an adversary trading before the user.
-- Articles: the model (code, properties, interactive page), the Ethereum implementation, the Solana
-  implementation, and security.
+- Articles, in order: the model (code, properties, interactive page); the Ethereum implementation;
+  the Solana implementation; testing a model in parallel, introduced on a small Haskell pool with no
+  chain code; checking the Ethereum contract against the model; checking the Solana program against
+  the model; and security. The two checks become one article if both turn out too thin. Later
+  chapters cover conformance as a section of each chain article.
 - Leads to: who provides liquidity, and why would they?
 
 ### 3. Fees and LP shares
