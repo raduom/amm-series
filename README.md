@@ -15,7 +15,7 @@ with; pin files in the repository select them automatically where a manager supp
 | GHC / cabal / HLS | [ghcup](https://www.haskell.org/ghcup/) | 9.14.1 / 3.18.2.0 / 2.15.0.0 | `cabal.project` (GHC) |
 | Rust | [rustup](https://rustup.rs) | 1.99.1 | `rust-toolchain.toml` |
 | Node / npm | [nvm](https://github.com/nvm-sh/nvm) | 26.12.1 / 11.20.0 | `.nvmrc` |
-| Foundry | [foundryup](https://getfoundry.sh) | 1.7.1 | — |
+| Foundry | [foundryup](https://getfoundry.sh) | 1.8.7 | — |
 | Solidity | fetched by Foundry | 0.8.38, targeting Osaka | `evm/foundry.toml` |
 | Anchor | [avm](https://www.anchor-lang.com/docs/installation), installed with `cargo install` from the Anchor repository | 1.2.1 | — |
 | Solana CLI | Anza's installer (`agave-install`) | 3.1.10 | — |
