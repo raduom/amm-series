@@ -12,6 +12,7 @@ runs = 1000
 [invariant]
 runs = 100
 depth = 500
+fail_on_revert = true
 
 [fmt]
 line_length = 80

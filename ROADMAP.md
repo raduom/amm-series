@@ -139,10 +139,8 @@ locked amount; later deposits proportional).
 - Model properties: share value never decreases; burning returns a proportional slice; fees accrue
   to holders.
 - Security: first-depositor inflation attack; tracked reserves versus actual balances.
-- Carried from chapter 2's review: a test that a donation does not move the price. A pool that
-  prices from `balanceOf` instead of its tracked reserves passes every test until this exists. A
-  donation also ends `invariant_ReservesMatchBalances`, which has to become `>=` if donations join
-  the handler.
+- Carried from chapter 2's review: donations only appear in a worked example so far. If they join
+  the invariant handler, `invariant_ReservesMatchBalances` has to become `>=`.
 - Leads to: rounding is everywhere, and someone gets the remainder.
 
 ### 4. Integer arithmetic
