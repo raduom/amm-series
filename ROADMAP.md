@@ -139,8 +139,6 @@ locked amount; later deposits proportional).
 - Model properties: share value never decreases; burning returns a proportional slice; fees accrue
   to holders.
 - Security: first-depositor inflation attack; tracked reserves versus actual balances.
-- Carried from chapter 2's review: donations only appear in a worked example so far. If they join
-  the invariant handler, `invariant_ReservesMatchBalances` has to become `>=`.
 - Leads to: rounding is everywhere, and someone gets the remainder.
 
 ### 4. Integer arithmetic

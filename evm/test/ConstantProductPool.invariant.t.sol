@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.38;
 
+import {
+    IERC20Errors
+} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
 import {CommonBase} from "forge-std/Base.sol";
 import {StdUtils} from "forge-std/StdUtils.sol";
 import {Test} from "forge-std/Test.sol";
@@ -9,7 +12,8 @@ import {ConstantProductPool} from "../src/ConstantProductPool.sol";
 import {TestToken} from "./TestToken.sol";
 
 /// Trades with the pool as several people, in whatever order the fuzzer picks,
-/// judging whether each swap should go through, and what it paid, moved and
+/// among swaps that have to be refused and tokens sent to the pool directly. It
+/// judges whether each swap should go through, and what it paid, moved and
 /// logged. What the pool gets wrong is recorded in a flag for an invariant to
 /// assert, and `fail_on_revert` fails the campaign if this contract reverts.
 contract Trader is CommonBase, StdUtils {
@@ -18,6 +22,9 @@ contract Trader is CommonBase, StdUtils {
     TestToken silver;
     address[] actors;
     uint256 maxTrade;
+
+    /// Where a caller's tokens go when it has to start from nothing.
+    address constant SINK = address(0xdead);
 
     /// A copy of the pool's event, so that changing the pool's fails the tests.
     event Swap(
@@ -40,7 +47,7 @@ contract Trader is CommonBase, StdUtils {
     uint256 public lastProduct;
     bool public productDecreased;
     /// Whether the pool refused a swap the model accepts, or refused one for
-    /// any reason but its output.
+    /// any reason but the right one.
     bool public wronglyRefused;
     /// Whether the pool let through a swap the model refuses.
     bool public wronglyPaid;
@@ -55,6 +62,8 @@ contract Trader is CommonBase, StdUtils {
     bool public wrongEvent;
     uint256 public swaps;
     uint256 public refusals;
+    uint256 public donatedGold;
+    uint256 public donatedSilver;
 
     constructor(
         ConstantProductPool pool_,
@@ -67,6 +76,8 @@ contract Trader is CommonBase, StdUtils {
         gold = gold_;
         silver = silver_;
         actors = actors_;
+        // a caller that is a contract, and not the owner
+        actors.push(address(this));
         maxTrade = maxTrade_;
         lastProduct = pool.reserve0() * pool.reserve1();
     }
@@ -89,30 +100,64 @@ contract Trader is CommonBase, StdUtils {
         });
     }
 
+    /// Leave `actor` holding exactly `balance` of `token`, and approving
+    /// `approval` of it.
+    function provide(
+        address actor,
+        TestToken token,
+        uint256 balance,
+        uint256 approval
+    ) internal {
+        uint256 held = token.balanceOf(actor);
+        vm.prank(actor);
+        token.transfer(SINK, held);
+        token.mint(actor, balance);
+        vm.prank(actor);
+        token.approve(address(pool), approval);
+    }
+
+    /// Call as `actor`, from a wallet of its own or from behind another.
+    function prank(address actor, uint8 who) internal {
+        vm.prank(actor, who >= 128 ? actor : tx.origin);
+    }
+
+    /// What the model pays.
+    function quote(Books memory before, uint256 amountIn)
+        internal
+        pure
+        returns (uint256)
+    {
+        return before.reserveOut * amountIn / (before.reserveIn + amountIn);
+    }
+
     function swap(
         bool zeroForOne,
         uint256 amountIn,
         uint8 minimumKind,
+        uint8 fundingKind,
         uint8 who
     ) external {
         amountIn = bound(amountIn, 1, maxTrade);
         address actor = actors[who % actors.length];
-        TestToken tokenIn = zeroForOne ? gold : silver;
-        // a unit more than the swap costs, so a pool that takes too much shows
-        tokenIn.mint(actor, amountIn + 1);
-        vm.prank(actor);
-        tokenIn.approve(address(pool), amountIn + 1);
+
+        // exactly what the swap costs, a unit more, or an unlimited approval
+        uint256 funds = amountIn + (fundingKind % 3 == 0 ? 0 : 1);
+        provide(
+            actor,
+            zeroForOne ? gold : silver,
+            funds,
+            fundingKind % 3 == 2 ? type(uint256).max : funds
+        );
 
         Books memory before = books(actor, zeroForOne);
 
         // no minimum, or one the model's output just meets or just misses
-        uint256 output =
-            before.reserveOut * amountIn / (before.reserveIn + amountIn);
+        uint256 output = quote(before, amountIn);
         uint256 minimum = [uint256(0), output, output + 1][minimumKind % 3];
         bool pays = output > 0 && output >= minimum;
 
         vm.recordLogs();
-        vm.prank(actor);
+        prank(actor, who);
         try pool.swap(zeroForOne, amountIn, minimum) returns (
             uint256 amountOut
         ) {
@@ -129,6 +174,64 @@ contract Trader is CommonBase, StdUtils {
                         != ConstantProductPool.OutputTooSmall.selector
             ) wronglyRefused = true;
         }
+    }
+
+    /// A swap that has to be refused, for the reason given. The pool's own
+    /// reasons come before any tokens move, so these callers hold nothing.
+    function refuse(bool zeroForOne, uint256 amountIn, uint8 kind, uint8 who)
+        external
+    {
+        amountIn = bound(amountIn, 1, maxTrade);
+        address actor = actors[who % actors.length];
+        TestToken tokenIn = zeroForOne ? gold : silver;
+        uint256 output = quote(books(actor, zeroForOne), amountIn);
+
+        uint256 minimum;
+        bytes memory reason =
+            abi.encodeWithSelector(ConstantProductPool.OutputTooSmall.selector);
+        kind %= 4;
+        if (kind == 0) {
+            amountIn = 0;
+            minimum = who % 2;
+            reason = abi.encodeWithSelector(
+                ConstantProductPool.AmountNotPositive.selector
+            );
+        } else if (kind == 1 || output == 0) {
+            provide(actor, tokenIn, 0, 0);
+            minimum = kind == 1 ? output + 1 : 0;
+        } else if (kind == 2) {
+            provide(actor, tokenIn, amountIn, amountIn - 1);
+            reason = abi.encodeWithSelector(
+                IERC20Errors.ERC20InsufficientAllowance.selector,
+                address(pool),
+                amountIn - 1,
+                amountIn
+            );
+        } else {
+            provide(actor, tokenIn, amountIn - 1, amountIn);
+            reason = abi.encodeWithSelector(
+                IERC20Errors.ERC20InsufficientBalance.selector,
+                actor,
+                amountIn - 1,
+                amountIn
+            );
+        }
+
+        prank(actor, who);
+        try pool.swap(zeroForOne, amountIn, minimum) {
+            wronglyPaid = true;
+        } catch (bytes memory actual) {
+            refusals++;
+            if (keccak256(actual) != keccak256(reason)) wronglyRefused = true;
+        }
+    }
+
+    /// Tokens sent to the pool, which have to stay off its books.
+    function donate(bool toGold, uint256 amount) external {
+        amount = bound(amount, 1, maxTrade);
+        (toGold ? gold : silver).mint(address(pool), amount);
+        if (toGold) donatedGold += amount;
+        else donatedSilver += amount;
     }
 
     function judge(
@@ -176,8 +279,9 @@ contract Trader is CommonBase, StdUtils {
             && grown * (reserveOut - amountOut - 1) < product;
     }
 
-    /// Whether the logs since `recordLogs` are the swap's event and its two
-    /// transfers, and nothing else, such as an approval by the pool.
+    /// Whether the logs since `recordLogs` are the swap's event and two others,
+    /// which `judge` shows to be its transfers. Anything more, such as an
+    /// approval by the pool, is wrong.
     function logged(
         address actor,
         bool zeroForOne,
@@ -215,10 +319,17 @@ abstract contract PoolInvariants is Test {
         virtual
         returns (uint256 goldAmount, uint256 silverAmount, uint256 maxTrade);
 
+    /// Whether gold takes the lower address, which the other pools leave to
+    /// the order the tokens were deployed in.
+    function reversed() internal pure virtual returns (bool) {
+        return false;
+    }
+
     function setUp() public {
         (uint256 goldAmount, uint256 silverAmount, uint256 maxTrade) =
             startingPool();
 
+        if (reversed()) (gold, silver) = (silver, gold);
         pool = new ConstantProductPool(gold, silver);
         gold.mint(address(this), goldAmount);
         silver.mint(address(this), silverAmount);
@@ -236,8 +347,14 @@ abstract contract PoolInvariants is Test {
     }
 
     function invariant_ReservesMatchBalances() public view {
-        assertEq(pool.reserve0(), gold.balanceOf(address(pool)));
-        assertEq(pool.reserve1(), silver.balanceOf(address(pool)));
+        assertEq(
+            pool.reserve0() + trader.donatedGold(),
+            gold.balanceOf(address(pool))
+        );
+        assertEq(
+            pool.reserve1() + trader.donatedSilver(),
+            silver.balanceOf(address(pool))
+        );
     }
 
     function invariant_ReservesStayPositive() public view {
@@ -299,5 +416,21 @@ contract SmallPoolInvariantTest is PoolInvariants {
         returns (uint256 goldAmount, uint256 silverAmount, uint256 maxTrade)
     {
         return (1000, 4000, 2000);
+    }
+}
+
+/// The small pool again, with its tokens the other way round.
+contract ReversedPoolInvariantTest is PoolInvariants {
+    function startingPool()
+        internal
+        pure
+        override
+        returns (uint256 goldAmount, uint256 silverAmount, uint256 maxTrade)
+    {
+        return (1000, 4000, 2000);
+    }
+
+    function reversed() internal pure override returns (bool) {
+        return true;
     }
 }
