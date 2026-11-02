@@ -48,7 +48,7 @@ Classified by hand from the diffs of rounds 3 to 5, so a few borderline cases co
 | 5 | 27 | 5 | 22 | 0 | 81% |
 | Total | 99 | 30 | 57 | 12 | 70% |
 
-Small edits are a finite set, and they ran out quickly: all five in round 5 were rated low. New code has no such limit, which is why the rounds did not converge.
+New code has no limit, which is why the rounds did not converge. Small edits are not exhausted by a tool, though: see the Gambit experiment below.
 
 ## Round 1: general review
 
@@ -145,6 +145,38 @@ Small edits are a finite set, and they ran out quickly: all five in round 5 were
 
 **Why they were missed:** by now each gap needed a setup nobody had thought to create, and the unit tests each checked a single case. The handler catches more per line, because each new condition it learns is tried across whole sequences of swaps.
 
-## Round 6
+## Round 6: the same, on the fixed suite
 
-In progress.
+**Result:** 29 distinct survivors against 71 tests, all confirmed under two seeds. None was fixed, because the rounds stopped here for the Gambit experiment. For the first time, reviewers rated how realistic each mistake is.
+
+| Kind | Severity | Realistic? | Why the tests miss it |
+|---|---|---|---|
+| Balance checked before the token's own allowance check | low | likely | Only a trader short of both shows it, and then only the error differs |
+| `initialize` measuring reserves from crossed balances | high | possible | The donation test gave both tokens the same amount |
+| Unlimited approval at `initialize` | medium | possible or unlikely | Only swaps use unlimited approvals |
+| Balance required to cover a larger approval | medium | possible | Traders holding less than they approved always had exact approvals |
+| Decimals used in pricing or the constructor | high or medium | possible | All test tokens have 18 decimals |
+| Constructor reads the deployer's wallet | medium | possible or unlikely | Tests deploy before minting |
+| Short trader with a spare approval pays what they have | high | unlikely | Short traders always approved the exact amount |
+| Fee depending on the block, or on holding far more than the trade | high | unlikely | No test moves the block, and traders hold little |
+| Constructor approves the owner | high | unlikely | A backdoor more than a mistake |
+| Other `initialize` and error-order cases, and amounts near 2^256 | low | mostly unlikely | Each needs one specific setup |
+
+**Why it stopped:** one model found no realistic mistake at all, and another found only low ones. Most of what is left is deliberate behaviour, or needs a setup that only happens once.
+
+## Gambit experiment
+
+**Question:** would tests driven only by a mutation tool catch the same bugs? Gambit makes the same small edits every time, which removes the guesswork. It made 83 mutants of the contract, the same 83 with every operator on.
+
+**How:** the same contract with the original 30 tests, adding only what Gambit asked for. That was one test, for the same-token check, because the 30 tests already caught the other 82. Hand-made bugs were then run against both suites, with a clean cache and under two seeds. The rounds 3 to 5 set is rebuilt from the reviewers' reports, with duplicates removed, so it holds 82 of the 99.
+
+| Bugs | Count | Gambit suite (31 tests, 464 lines) | Current suite (71 tests, 1195 lines) |
+|---|---|---|---|
+| Gambit's mutants | 83 | 83 | 83 |
+| Scripted bugs from rounds 1 and 2 | 39 | 20 | 39 |
+| Rounds 3 to 5 | 82 | 5 | 82 |
+| Round 6 | 29 | 0 | 0 |
+
+**What it showed:** a suite that passes every Gambit mutant still passes a pool with a hidden 0.1% fee, one that underpays from its second swap, and one that sends a second trader's output to the first. It also misses all 25 of the small-edit bugs among the rebuilt ones, so Gambit's edits are not all the small edits there are.
+
+Gambit is a cheap check that the tests still work, not a measure of when they are good enough. The hand-made bugs were written for the current suite, so this comparison favours it, and it is one small contract.
