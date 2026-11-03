@@ -121,10 +121,17 @@ interactive page.
   here.
 - Security: a swap without a minimum output, shown with an adversary trading before the user.
 - Articles, in order: the model (code, properties, interactive page); the Ethereum implementation;
-  the Solana implementation; testing a model in parallel, introduced on a small Haskell pool with no
+  mutation testing the Ethereum contract; the Solana implementation; testing a model in parallel, introduced on a small Haskell pool with no
   chain code; checking the Ethereum contract against the model; checking the Solana program against
   the model; and security. The two checks become one article if both turn out too thin. Later
   chapters cover conformance as a section of each chain article.
+- Mutation testing article, built on `evm/MUTATION-LOG.md`: the six rounds of hand-made bugs, the
+  five tools compared on the same contract, the equivalent mutants and why they change nothing, and
+  the owner-comparison gap the tools found after six rounds. Before writing: close the open gaps or
+  show them as open on purpose, bring the scripts and bug corpus into the repo or write out the
+  exact commands, time a full scoring run per tool, and have a second check of the equivalent
+  mutants. The two mutants that need a reentrant token point ahead to chapter 5. If it runs long,
+  split it into testing with hand-made bugs and comparing mutation tools.
 - Carried from the review of the Ethereum code, for the security article: a function added to the
   pool that drains it passes every test, since tests only call what they name. An invariant
   contract that targets the pool itself and asserts its balances stay put catches this in about
