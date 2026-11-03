@@ -28,7 +28,7 @@ one() {
     failed=$(echo "$o" | awk '
       /^(Ran [0-9]+ tests? for|Encountered [0-9]+ failing tests? in) / { split($NF, a, ":"); c = a[2] }
       /^\[FAIL/ { k = split($0, p, "] "); t = p[k]; sub(/[( ].*/, "", t)
-                   print c "." t }' | sort -u | paste -sd,)
+                   print c "." t }' | sort -u | paste -sd, -)
     line="$line s$s:$failed"
   done
   echo "$line" >> $R

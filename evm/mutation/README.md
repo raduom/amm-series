@@ -6,7 +6,7 @@ Everything behind the mutation testing of `src/ConstantProductPool.sol`: the bug
 
 | Path | What it holds |
 |---|---|
-| [LOG.md](LOG.md) | The six review rounds, the Gambit experiment, the Foundry 1.8.7 recheck, the tool comparison and closing the gaps |
+| [LOG.md](LOG.md) | The six review rounds, the Gambit experiment, the Foundry 1.8.7 recheck, the tool comparison, closing the gaps and the deep trim |
 | [equivalent.md](equivalent.md) | The 35 equivalent tool mutants, each with the reason it changes nothing, and the four real gaps beside them |
 | [bugs/](bugs) | Every bug scored, as a diff against the contract |
 | [suites/](suites) | The one suite that is in no commit, as a diff |
@@ -42,6 +42,7 @@ Round 6 left 31 survivors in [reviewers/round6/collected](reviewers/round6/colle
 | `current` | 71 | 1193 | Commit `f814f4f`, the suite before closing the gaps |
 | `step1` | | 1243 | `current` with the tests that closed the gaps, before the overlap pass, from [suites/step1.diff](suites/step1.diff) |
 | `final` | 65 | 1189 | Commit `696973f`, after the overlap pass |
+| `trim` | 38 | 872 | Commit `4c435a3`, after the deep trim |
 | `gambit`, `slither`, `sumo`, `forge`, `umut`, `all` | | 464 to 533 | `base` with only the tests that tool's survivors asked for, A to I in `suites.py` |
 
 Test counts are the log's, with each invariant counted once per pool.
@@ -112,6 +113,7 @@ All under [results/](results). Each line names a bug and its outcome.
 | `tools/current-union.txt`, `tools/current-corpus.txt` | `current` | The 352, and the 233 | Tool comparison |
 | `tools/step1-union.txt`, `tools/step1-corpus.txt` | `step1` | The 46 and the 30 that `current` did not catch | Closing the gaps |
 | `tools/matrix-step1.txt`, `tools/matrix-step2.txt` | `step1`, `final` | All 585, with each failing test | Closing the gaps |
+| `trim/matrix-trim.txt` | `trim` | All 585, with each failing test | The deep trim |
 | `foundry-1.8.7/rounds1and2.txt` | `current` | The 39 scripted bugs, from [history/rounds1and2.py](history/rounds1and2.py) | Foundry 1.8.7 |
 | `foundry-1.8.7/mutants-187.txt` | `current` | Gambit's 83, and the unchanged contract as `control` | Foundry 1.8.7 |
 | `foundry-1.8.7/hand-187.txt` | `current` | Rounds 3 to 5 | Foundry 1.8.7 |

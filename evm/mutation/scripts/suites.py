@@ -5,6 +5,7 @@
 #   current  the 71 tests the tools were compared against, from commit f814f4f
 #   step1    current with the tests that closed the gaps, before the overlap pass
 #   final    the suite after the overlap pass, from commit 696973f
+#   trim     the suite after the deep trim, from commit 4c435a3
 #   gambit, slither, sumo, forge, umut, all
 #            base with only the tests each tool's own survivors asked for (T below)
 import os, shutil, subprocess, sys
@@ -105,7 +106,7 @@ T={
 }
 S = {'gambit': 'A', 'slither': 'A', 'sumo': 'AE', 'forge': 'ABCD', 'umut': 'ABCEFGHI', 'all': 'ABCDEFGHI'}
 out = sys.argv[1]
-for name, commit in [('base', 'd1dbe9f'), ('current', 'f814f4f'), ('step1', 'f814f4f'), ('final', '696973f')]:
+for name, commit in [('base', 'd1dbe9f'), ('current', 'f814f4f'), ('step1', 'f814f4f'), ('final', '696973f'), ('trim', '4c435a3')]:
     suite(f'{out}/{name}', commit)
 subprocess.run(['patch', '-s', '-p1', '-d', f'{out}/step1', '-i', f'{M}/suites/step1.diff'], check=True)
 for name, keys in S.items():
@@ -119,6 +120,6 @@ for name, keys in S.items():
         s = s.replace('import {Test} from "forge-std/Test.sol";',
                       'import {Test} from "forge-std/Test.sol";\nimport {Vm} from "forge-std/Vm.sol";')
     open(p, 'w').write(s)
-for name in ['base', 'current', 'step1', 'final', *S]:
+for name in ['base', 'current', 'step1', 'final', 'trim', *S]:
     n = sum(open(f'{out}/{name}/test/{f}').read().count('\n') for f in FILES)
     print(f'{name}: {n} lines')

@@ -20,11 +20,11 @@ The value of the rounds has not been even:
 - **Round 4 was mixed.** A second trader's output going to the first is serious, but it took a reviewer inventing a pool that remembers its first caller.
 - **Round 5 needs unusual setups.** Several of its mutants are mistakes nobody is likely to write, such as treating two tokens with one symbol as the same token. The unlimited approval is the exception, because real traders use those all the time.
 
-The tests also grew faster than they had to. Rounds 3 to 5 added cases one at a time, and a fair part of that is now covered by the invariant handler. A pass after round 6 merged or removed what other tests already cover, which turned out to be less than this suggests: see [Closing the gaps](#closing-the-gaps).
+The tests also grew faster than they had to. Rounds 3 to 5 added cases one at a time, and a fair part of that is now covered by the invariant handler. A pass after round 6 merged or removed what other tests already cover, which turned out to be less than this suggests: see [Closing the gaps](#closing-the-gaps). A deeper cut followed, trading 13 of the bugs caught for 317 fewer lines: see [The deep trim](#the-deep-trim).
 
 ## Test growth
 
-The contract went from 101 to 106 lines over all of this. Code lines leave out blanks and comments, and the last column compares them with the contract's own.
+The contract went from 101 to 106 lines over all of this, and to 113 with the notes on overflow and on tokens that take a fee, which added no code. Code lines leave out blanks and comments, and the last column compares them with the contract's own.
 
 | Stage | Tests | Test lines | Code lines | Against the contract |
 |---|---|---|---|---|
@@ -35,8 +35,9 @@ The contract went from 101 to 106 lines over all of this. Code lines leave out b
 | After round 4 | 62 | 996 | 784 | 12.1x |
 | After round 5's fixes | 71 | 1193 | 940 | 14.5x |
 | After closing the gaps | 65 | 1189 | 928 | 14.3x |
+| After the deep trim | 38 | 872 | 670 | 10.3x |
 
-Each invariant counts once per pool: 8 invariants on 3 pools make 24 of the 71 tests. Foundry 1.8.7 reports the same suite as 50 tests, and the one after closing the gaps as 44, because the invariants in one contract now share a campaign and count as one test. This log keeps counting them separately.
+Each invariant counts once per pool: 8 invariants on 3 pools make 24 of the 71 tests. Foundry 1.8.7 reports the same suite as 50 tests, the one after closing the gaps as 44, and the one after the deep trim, with one pool, as 31, because the invariants in one contract now share a campaign and count as one test. This log keeps counting them separately.
 
 ## What the mutants changed
 
@@ -253,3 +254,44 @@ As before, the hand-made bugs were written for the current suite, so that column
 | Tool mutants caught, of 352 | 306 | 308 |
 
 The suite after the pass catches exactly what it caught before it, bug for bug, under both seeds. What still passes is the 17 round 6 bugs rated unlikely, the 35 equivalent mutants and the two chapter 5 cases. `r4-internal-getters` and 7 tool mutants do not compile against the tests: five remove a getter, one swaps the order of `swap`'s parameters, and one removes the constructor.
+
+## The deep trim
+
+**Why:** the suite had grown to 1189 lines for a contract of 65 code lines. Two reviews of the contract and its tests, by Fable and Astra, found no serious defect in the contract and judged the suite partly bloat: rounds 1 to 3 found gaps a person could leave, and later rounds mostly chased bugs someone had to invent. The conformance harness will run the model's own properties against the contract, which replaces most of the model checks here, so the suite was cut to what the Ethereum article needs and then scored against all 585 bugs again.
+
+**Cut:**
+
+- Two of the three invariant pools, the large one and the one with the tokens in the other order. The one left trades as three people, the owner among them, with no contract caller and no `tx.origin` variants, and without the handler's action that only made refused swaps.
+- Tests the handler or a fuzzed test already covers: the exact minimum, the tokens moving on a swap, a trader short of funds and one short of an approval (now one fuzzed test), and `initialize` taking gold first.
+- Short tests from round 4 and 5: ether sent to the pool, a reserve near 2^256 on the way out, an amount with the top bit set, a second `initialize` on a huge pool.
+- Exact errors where a call fails for the token's reason, not the pool's: those tests now only check that the call reverts.
+
+**Restored after the first score:** the first cut caught 498 of the 585. Eleven of the bugs it lost were mistakes a person could make, and they came back:
+
+- A minimum checked only at one above the output: the minimum test fuzzes one above it too.
+- A second `initialize` accepted with other amounts or after a trade, or one of two empty reserves allowed.
+- The pool approving the trader: every worked trade checks that the pool leaves no approval behind.
+- The minimum checked before the empty pool: the empty-pool test fuzzes the minimum.
+- Outsiders above the owner, and contracts, getting past the owner check.
+- `initialize` pulling only what the pool lacks after a donation.
+- A balance required to cover a larger approval: the handler sometimes approves two units above the balance.
+
+| | Before | After |
+|---|---|---|
+| Tests | 65 | 38 |
+| Test lines | 1189 | 872 |
+| Code lines | 928 | 670 |
+| Hand-made bugs caught, of 233 | 215 | 204 |
+| Tool mutants caught, of 352 | 308 | 306 |
+
+**What it lost:** 15 bugs, none a wrong price, a wrong payment or a swap let through.
+
+- Eight change only which error a call that fails anyway reverts with, or where in the call it reverts: three balance checks before the token's own (round 6), the minimum or the zero output checked after the transfers, a funds check in one direction, `initialize`'s amount check moved, and its two token pulls in the other order. The last was one of the two real gaps the tools found, and it shows only in which token logs first.
+- `initialize` or the constructor accepting ether.
+- The second-`initialize` guard written as `reserve0 * reserve1` or `reserve0 + reserve1`, which differs only once the reserves overflow, and then still reverts.
+- A silver reserve at 2^255 or above read as empty.
+- Two that round 5 rated medium: `swap` refusing callers that are contracts, other than the owner, and the constructor taking two tokens with one symbol for the same token. Both are checks someone would have to add, not slips in code that is there.
+
+It gained two: the constructor approving the owner, which the owner's trade now catches, and a fee charged to traders holding far more than the trade, which the handler's traders now catch.
+
+The bugs still not caught are the 35 equivalent mutants, the two chapter 5 cases, the round 6 bugs rated unlikely, and the 15 above. `r4-internal-getters` and 7 tool mutants still do not compile against the tests. The results are in [results/trim/](results/trim).
