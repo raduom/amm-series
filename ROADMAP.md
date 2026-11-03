@@ -170,6 +170,9 @@ Router and multi-hop swaps, flash swaps, price accumulators for a TWAP oracle, `
   - Test the order of effects: a token that reads the reserves during a transfer shows that they
     change before tokens move, and that payment arrives before the payout. Moving either passes
     every test today.
+  - Test a token that takes a fee on transfer. A fee on the way out pays the trader less than
+    `minAmountOut`: from 1,000/1,000, a 10% fee lets a swap of 100 with a minimum of 90 through and
+    the trader receives 81. A fee on the way in leaves the reserves above the pool's balance.
 - Leads to: the pool is correct, but the trader still loses.
 
 ### 6. Adversarial trading

@@ -13,6 +13,11 @@ import {
 ///
 /// The model's gold is `token0` and its silver is `token1`, so `GoldForSilver`
 /// is `zeroForOne = true` and `SilverForGold` is `zeroForOne = false`.
+///
+/// The pool expects tokens that move exactly the amount asked. With a token
+/// that takes a fee on transfer, or changes balances on its own, the reserves
+/// drift from what the pool holds, and a fee on the way out leaves the trader
+/// with less than `minAmountOut`.
 contract ConstantProductPool {
     using SafeERC20 for IERC20;
 
@@ -70,7 +75,9 @@ contract ConstantProductPool {
     }
 
     /// @notice Pay `amountIn` of one token and receive at least `minAmountOut`
-    /// of the other. Refuses in the same order as the model.
+    /// of the other. Refuses in the same order as the model, as long as
+    /// `reserveOut * amountIn` and `reserveIn + amountIn` fit in a uint256;
+    /// past that the swap reverts on overflow, where the model still prices it.
     /// @return amountOut The amount paid out.
     function swap(bool zeroForOne, uint256 amountIn, uint256 minAmountOut)
         external
