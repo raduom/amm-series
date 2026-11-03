@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -72,7 +72,7 @@
+     /// @notice Pay `amountIn` of one token and receive at least `minAmountOut`
+     /// of the other. Refuses in the same order as the model.
+     /// @return amountOut The amount paid out.
+-    function swap(bool zeroForOne, uint256 amountIn, uint256 minAmountOut)
++    function swap(bool zeroForOne , uint256 minAmountOut, uint256 amountIn)
+         external
+         returns (uint256 amountOut)
+     {

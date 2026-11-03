@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -16,7 +16,7 @@
+ contract ConstantProductPool {
+     using SafeERC20 for IERC20;
+ 
+-    IERC20 public immutable token0;
++    IERC20 public  token0;
+     IERC20 public immutable token1;
+     address public immutable owner;
+ 

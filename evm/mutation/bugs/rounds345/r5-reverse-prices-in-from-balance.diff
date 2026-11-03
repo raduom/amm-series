@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -80,7 +80,7 @@
+         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+ 
+         (uint256 reserveIn, uint256 reserveOut) =
+-            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
++            zeroForOne ? (reserve0, reserve1) : (token1.balanceOf(address(this)), reserve0);
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);

@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -27,7 +27,7 @@
+     /// @notice A swap paid `amountIn` of one token for `amountOut` of the
+     /// other.
+     event Swap(
+-        address indexed trader,
++        address trader,
+         bool zeroForOne,
+         uint256 amountIn,
+         uint256 amountOut

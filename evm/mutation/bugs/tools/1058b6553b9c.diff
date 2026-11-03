@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -101,6 +101,7 @@
+         (IERC20 tokenIn, IERC20 tokenOut) =
+             zeroForOne ? (token0, token1) : (token1, token0);
+         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+-        tokenOut.safeTransfer(msg.sender, amountOut);
++        /// DeleteExpressionMutation(`tokenOut.safeTransfer(msg.sender, amountOut)` |==> `assert(true)`) of: `tokenOut.safeTransfer(msg.sender, amountOut);`
++        assert(true);
+     }
+ }

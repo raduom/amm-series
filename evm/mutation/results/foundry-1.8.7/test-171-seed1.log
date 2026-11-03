@@ -1,0 +1,353 @@
+Mon Nov  2 03:32:54 PM +07 2026
+No files changed, compilation skipped
+
+Ran 8 tests for test/ConstantProductPool.invariant.t.sol:ReversedPoolInvariantTest
+[PASS] invariant_OutputIsTheLargestThatKeepsTheProduct() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ProductNeverDecreases() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ReservesMatchBalances() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ReservesStayPositive() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsDoWhatTheyReturn() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsLogWhatTheyDid() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsThatDoNotPayAreRefused() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsThatPayGoThrough() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 28.30s (134.84s CPU time)
+
+Ran 8 tests for test/ConstantProductPool.invariant.t.sol:LargePoolInvariantTest
+[PASS] invariant_OutputIsTheLargestThatKeepsTheProduct() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ProductNeverDecreases() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ReservesMatchBalances() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ReservesStayPositive() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsDoWhatTheyReturn() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsLogWhatTheyDid() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsThatDoNotPayAreRefused() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsThatPayGoThrough() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 29.30s (108.69s CPU time)
+
+Ran 47 tests for test/ConstantProductPool.t.sol:ConstantProductPoolTest
+[PASS] testFuzz_DonationChangesNothing(bool) (runs: 1000, μ: 408148, ~: 408182)
+[PASS] testFuzz_ExactBalancesAndApprovals(bool) (runs: 1000, μ: 305197, ~: 305218)
+[PASS] testFuzz_HugeReserveOnTheWayOut(bool) (runs: 1000, μ: 383873, ~: 383902)
+[PASS] testFuzz_InitializeNeedsBothTokens(bool,bool) (runs: 1000, μ: 149663, ~: 141102)
+[PASS] testFuzz_LargeTradeOverflows(bool) (runs: 1000, μ: 329409, ~: 329395)
+[PASS] testFuzz_LargerTradesWorsePrices(uint256,uint256,bool,uint256,uint256) (runs: 1000, μ: 507307, ~: 506902)
+[PASS] testFuzz_OutputAtLeastMinimum(uint256,uint256,bool,uint256,uint256,uint256) (runs: 1000, μ: 746028, ~: 746046)
+[PASS] testFuzz_OutputBelowReserve(uint256,uint256,bool,uint256) (runs: 1000, μ: 390491, ~: 390421)
+[PASS] testFuzz_OutputIsTheLargestThatKeepsTheProduct(uint256,uint256,bool,uint256) (runs: 1000, μ: 393367, ~: 393314)
+[PASS] testFuzz_ProductNeverDecreases(uint256,uint256,bool,uint256) (runs: 1000, μ: 394109, ~: 394066)
+[PASS] testFuzz_ReservesStayPositive(uint256,uint256,bool,uint256) (runs: 1000, μ: 391531, ~: 391488)
+[PASS] testFuzz_RoundTripNeverProfits(uint256,uint256,bool,uint256) (runs: 1000, μ: 461332, ~: 461320)
+[PASS] testFuzz_SmallTradeOnAHugePool(bool) (runs: 1000, μ: 383846, ~: 383870)
+[PASS] testFuzz_SwapChecksAmountBeforeEmptyPool(bool,uint256) (runs: 1000, μ: 96350, ~: 96558)
+[PASS] testFuzz_SwapRefusesATraderShortOfFunds(bool) (runs: 1000, μ: 335715, ~: 335701)
+[PASS] testFuzz_SwapRefusesEmptyPool(bool,uint256,uint256) (runs: 1000, μ: 121257, ~: 120829)
+[PASS] testFuzz_SwapRefusesWithoutApproval(bool) (runs: 1000, μ: 309909, ~: 309895)
+[PASS] testFuzz_SwapRefusesZeroAmount(bool,uint256) (runs: 1000, μ: 329266, ~: 329474)
+[PASS] test_AmountWithTheTopBitSetIsNotNegative() (gas: 328515)
+[PASS] test_ConstructorKeepsTheTokensInTheOrderGiven() (gas: 2073393)
+[PASS] test_ConstructorRefusesTheSameTokenTwice() (gas: 40101)
+[PASS] test_EachTraderIsPaidTheirOwnOutput() (gas: 501710)
+[PASS] test_HugeTradeOnASmallPool() (gas: 385806)
+[PASS] test_InitializeHappensOnce() (gas: 392663)
+[PASS] test_InitializeHappensOnceOnAHugePool() (gas: 270841)
+[PASS] test_InitializeIsOnlyForTheOwner() (gas: 282392)
+[PASS] test_InitializeRefusesAnEmptyReserve() (gas: 26650)
+[PASS] test_InitializeTakesTheTokens() (gas: 285105)
+[PASS] test_LargeSumOverflows() (gas: 218184)
+[PASS] test_OwnerTradesLikeAnyoneElse() (gas: 385372)
+[PASS] test_PoolRefusesEther() (gas: 417442)
+[PASS] test_SecondSwapRefusesLessThanMinAmountOut() (gas: 397621)
+[PASS] test_SwapAtAnExactQuotient() (gas: 385806)
+[PASS] test_SwapAtAnUnevenPool() (gas: 385782)
+[PASS] test_SwapBackAtAnUnevenPool() (gas: 385829)
+[PASS] test_SwapChecksItsMinimumBeforeTheTokensMove() (gas: 274867)
+[PASS] test_SwapEmitsAnEvent() (gas: 366166)
+[PASS] test_SwapEmitsAnEventTheOtherWay() (gas: 366112)
+[PASS] test_SwapFromAWalletDirectly() (gas: 363125)
+[PASS] test_SwapGoldForSilver() (gas: 385805)
+[PASS] test_SwapMovesTheTokens() (gas: 391045)
+[PASS] test_SwapMovesTheTokensTheOtherWay() (gas: 391093)
+[PASS] test_SwapPaysExactlyMinAmountOut() (gas: 385828)
+[PASS] test_SwapRefusesLessThanMinAmountOut() (gas: 328568)
+[PASS] test_SwapRefusesToPayNothing() (gas: 328512)
+[PASS] test_SwapRoundsDown() (gas: 385849)
+[PASS] test_SwapSilverForGold() (gas: 385853)
+Suite result: ok. 47 passed; 0 failed; 0 skipped; finished in 29.30s (6.04s CPU time)
+
+Ran 8 tests for test/ConstantProductPool.invariant.t.sol:SmallPoolInvariantTest
+[PASS] invariant_OutputIsTheLargestThatKeepsTheProduct() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ProductNeverDecreases() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ReservesMatchBalances() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_ReservesStayPositive() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsDoWhatTheyReturn() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsLogWhatTheyDid() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsThatDoNotPayAreRefused() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+[PASS] invariant_SwapsThatPayGoThrough() (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16587 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16838 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16575 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 29.30s (108.47s CPU time)
+
+Ran 4 test suites in 29.30s (116.18s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+exit=0
+Mon Nov  2 03:33:23 PM +07 2026

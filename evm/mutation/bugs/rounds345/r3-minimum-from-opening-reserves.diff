@@ -1,0 +1,29 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -23,6 +23,8 @@
+     /// @notice How much of each token the pool has on its books.
+     uint256 public reserve0;
+     uint256 public reserve1;
++    uint256 private open0;
++    uint256 private open1;
+ 
+     /// @notice A swap paid `amountIn` of one token for `amountOut` of the
+     /// other.
+@@ -64,6 +66,8 @@
+ 
+         reserve0 = amount0;
+         reserve1 = amount1;
++        open0 = amount0;
++        open1 = amount1;
+ 
+         token0.safeTransferFrom(msg.sender, address(this), amount0);
+         token1.safeTransferFrom(msg.sender, address(this), amount1);
+@@ -84,7 +88,7 @@
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+-        if (amountOut == 0 || amountOut < minAmountOut) {
++        if (amountOut == 0 || (zeroForOne ? open1 : open0) * amountIn / ((zeroForOne ? open0 : open1) + amountIn) < minAmountOut) {
+             revert OutputTooSmall();
+         }
+ 

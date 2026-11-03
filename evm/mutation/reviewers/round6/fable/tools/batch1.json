@@ -1,0 +1,14 @@
+{
+ "empty-by-sum": [["if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();", "if (reserve0 + reserve1 == 0) revert EmptyPool();"]],
+ "signed-output": [["if (amountOut == 0 || amountOut < minAmountOut) {", "if (int256(amountOut) <= 0 || amountOut < minAmountOut) {"]],
+ "signed-amount-silver": [["if (amountIn == 0) revert AmountNotPositive();", "if (amountIn == 0 || (!zeroForOne && int256(amountIn) <= 0)) {\n            revert AmountNotPositive();\n        }"]],
+ "floor-one-unit-silver": [["if (amountOut == 0 || amountOut < minAmountOut) {", "if (!zeroForOne && amountOut + 1 >= reserveOut) revert OutputTooSmall();\n        if (amountOut == 0 || amountOut < minAmountOut) {"]],
+ "unchecked-sum-silver": [["amountOut = reserveOut * amountIn / (reserveIn + amountIn);", "uint256 grown = reserveIn + amountIn;\n        if (!zeroForOne) {\n            unchecked {\n                grown = reserveIn + amountIn;\n            }\n        }\n        amountOut = reserveOut * amountIn / grown;"]],
+ "min-uses-amountIn": [["if (amountOut == 0 || amountOut < minAmountOut) {", "if (amountOut == 0 || amountIn < minAmountOut) {"]],
+ "floor-one-unit": [["if (amountOut == 0 || amountOut < minAmountOut) {", "if (amountOut + 1 >= reserveOut) revert OutputTooSmall();\n        if (amountOut == 0 || amountOut < minAmountOut) {"]],
+ "rational-minimum": [["if (amountOut == 0 || amountOut < minAmountOut) {", "if (\n            amountOut == 0\n                || reserveOut * amountIn < minAmountOut * (reserveIn + amountIn)\n        ) {"]],
+ "absurd-minimum-ignored": [["if (amountOut == 0 || amountOut < minAmountOut) {", "if (\n            amountOut == 0\n                || (minAmountOut <= reserveOut && amountOut < minAmountOut)\n        ) {"]],
+ "k-check-uniswap-style": [["        if (zeroForOne) {\n            reserve0 = reserveIn + amountIn;", "        if (\n            (reserveIn + amountIn) * (reserveOut - amountOut)\n                < reserveIn * reserveOut\n        ) revert OutputTooSmall();\n        if (zeroForOne) {\n            reserve0 = reserveIn + amountIn;"]],
+ "init-and-amounts": [["if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();", "if (amount0 == 0 && amount1 == 0) revert AmountNotPositive();"]],
+ "init-pulls-from-origin": [["token0.safeTransferFrom(msg.sender, address(this), amount0);", "token0.safeTransferFrom(tx.origin, address(this), amount0);"]]
+}

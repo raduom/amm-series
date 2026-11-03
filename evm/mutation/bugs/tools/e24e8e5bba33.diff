@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -83,7 +83,8 @@
+             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);
++        /// SwapArgumentsOperatorMutation(`reserveOut * amountIn / (reserveIn + amountIn)` |==> `(reserveIn + amountIn) / reserveOut * amountIn`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`
++        amountOut = (reserveIn + amountIn) / reserveOut * amountIn;
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }

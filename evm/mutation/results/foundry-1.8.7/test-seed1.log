@@ -1,0 +1,131 @@
+Mon Nov  2 03:31:39 PM +07 2026
+No files changed, compilation skipped
+
+Ran 47 tests for test/ConstantProductPool.t.sol:ConstantProductPoolTest
+[PASS] testFuzz_DonationChangesNothing(bool) (runs: 1000, μ: 888973, ~: 889002)
+[PASS] testFuzz_ExactBalancesAndApprovals(bool) (runs: 1000, μ: 670321, ~: 670340)
+[PASS] testFuzz_HugeReserveOnTheWayOut(bool) (runs: 1000, μ: 700938, ~: 700962)
+[PASS] testFuzz_InitializeNeedsBothTokens(bool,bool) (runs: 1000, μ: 254876, ~: 263784)
+[PASS] testFuzz_LargeTradeOverflows(bool) (runs: 1000, μ: 534724, ~: 534703)
+[PASS] testFuzz_LargerTradesWorsePrices(uint256,uint256,bool,uint256,uint256) (runs: 1000, μ: 1037358, ~: 1037233)
+[PASS] testFuzz_OutputAtLeastMinimum(uint256,uint256,bool,uint256,uint256,uint256) (runs: 1000, μ: 1614215, ~: 1614173)
+[PASS] testFuzz_OutputBelowReserve(uint256,uint256,bool,uint256) (runs: 1000, μ: 736346, ~: 736405)
+[PASS] testFuzz_OutputIsTheLargestThatKeepsTheProduct(uint256,uint256,bool,uint256) (runs: 1000, μ: 745722, ~: 745767)
+[PASS] testFuzz_ProductNeverDecreases(uint256,uint256,bool,uint256) (runs: 1000, μ: 759465, ~: 759514)
+[PASS] testFuzz_ReservesStayPositive(uint256,uint256,bool,uint256) (runs: 1000, μ: 743887, ~: 743936)
+[PASS] testFuzz_RoundTripNeverProfits(uint256,uint256,bool,uint256) (runs: 1000, μ: 1026241, ~: 1026324)
+[PASS] testFuzz_SmallTradeOnAHugePool(bool) (runs: 1000, μ: 700971, ~: 700990)
+[PASS] testFuzz_SwapChecksAmountBeforeEmptyPool(bool,uint256) (runs: 1000, μ: 160966, ~: 160980)
+[PASS] testFuzz_SwapRefusesATraderShortOfFunds(bool) (runs: 1000, μ: 555930, ~: 555909)
+[PASS] testFuzz_SwapRefusesEmptyPool(bool,uint256,uint256) (runs: 1000, μ: 186156, ~: 185733)
+[PASS] testFuzz_SwapRefusesWithoutApproval(bool) (runs: 1000, μ: 501752, ~: 501731)
+[PASS] testFuzz_SwapRefusesZeroAmount(bool,uint256) (runs: 1000, μ: 530586, ~: 530600)
+[PASS] test_AmountWithTheTopBitSetIsNotNegative() (gas: 533787)
+[PASS] test_ConstructorKeepsTheTokensInTheOrderGiven() (gas: 1011310)
+[PASS] test_ConstructorRefusesTheSameTokenTwice() (gas: 7324)
+[PASS] test_EachTraderIsPaidTheirOwnOutput() (gas: 1021546)
+[PASS] test_HugeTradeOnASmallPool() (gas: 715950)
+[PASS] test_InitializeHappensOnce() (gas: 810207)
+[PASS] test_InitializeHappensOnceOnAHugePool() (gas: 426065)
+[PASS] test_InitializeIsOnlyForTheOwner() (gas: 521088)
+[PASS] test_InitializeRefusesAnEmptyReserve() (gas: 90658)
+[PASS] test_InitializeTakesTheTokens() (gas: 455509)
+[PASS] test_LargeSumOverflows() (gas: 411300)
+[PASS] test_OwnerTradesLikeAnyoneElse() (gas: 1027524)
+[PASS] test_PoolRefusesEther() (gas: 840439)
+[PASS] test_SecondSwapRefusesLessThanMinAmountOut() (gas: 813369)
+[PASS] test_SwapAtAnExactQuotient() (gas: 715854)
+[PASS] test_SwapAtAnUnevenPool() (gas: 715902)
+[PASS] test_SwapBackAtAnUnevenPool() (gas: 715973)
+[PASS] test_SwapChecksItsMinimumBeforeTheTokensMove() (gas: 432255)
+[PASS] test_SwapEmitsAnEvent() (gas: 601286)
+[PASS] test_SwapEmitsAnEventTheOtherWay() (gas: 601220)
+[PASS] test_SwapFromAWalletDirectly() (gas: 598245)
+[PASS] test_SwapGoldForSilver() (gas: 715925)
+[PASS] test_SwapMovesTheTokens() (gas: 742165)
+[PASS] test_SwapMovesTheTokensTheOtherWay() (gas: 742201)
+[PASS] test_SwapPaysExactlyMinAmountOut() (gas: 715960)
+[PASS] test_SwapRefusesLessThanMinAmountOut() (gas: 533900)
+[PASS] test_SwapRefusesToPayNothing() (gas: 533796)
+[PASS] test_SwapRoundsDown() (gas: 715897)
+[PASS] test_SwapSilverForGold() (gas: 715961)
+Suite result: ok. 47 passed; 0 failed; 0 skipped; finished in 722.08ms (7.92s CPU time)
+
+Ran 1 test for test/ConstantProductPool.invariant.t.sol:LargePoolInvariantTest
+[PASS]
+LargePoolInvariantTest invariants:
+[PASS] invariant_OutputIsTheLargestThatKeepsTheProduct
+[PASS] invariant_ProductNeverDecreases
+[PASS] invariant_ReservesMatchBalances
+[PASS] invariant_ReservesStayPositive
+[PASS] invariant_SwapsDoWhatTheyReturn
+[PASS] invariant_SwapsLogWhatTheyDid
+[PASS] invariant_SwapsThatDoNotPayAreRefused
+[PASS] invariant_SwapsThatPayGoThrough
+ LargePoolInvariantTest invariants (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16632 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16579 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16789 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 11.94s (11.94s CPU time)
+
+Ran 1 test for test/ConstantProductPool.invariant.t.sol:SmallPoolInvariantTest
+[PASS]
+SmallPoolInvariantTest invariants:
+[PASS] invariant_OutputIsTheLargestThatKeepsTheProduct
+[PASS] invariant_ProductNeverDecreases
+[PASS] invariant_ReservesMatchBalances
+[PASS] invariant_ReservesStayPositive
+[PASS] invariant_SwapsDoWhatTheyReturn
+[PASS] invariant_SwapsLogWhatTheyDid
+[PASS] invariant_SwapsThatDoNotPayAreRefused
+[PASS] invariant_SwapsThatPayGoThrough
+ SmallPoolInvariantTest invariants (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16632 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16579 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16789 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.03s (12.02s CPU time)
+
+Ran 1 test for test/ConstantProductPool.invariant.t.sol:ReversedPoolInvariantTest
+[PASS]
+ReversedPoolInvariantTest invariants:
+[PASS] invariant_OutputIsTheLargestThatKeepsTheProduct
+[PASS] invariant_ProductNeverDecreases
+[PASS] invariant_ReservesMatchBalances
+[PASS] invariant_ReservesStayPositive
+[PASS] invariant_SwapsDoWhatTheyReturn
+[PASS] invariant_SwapsLogWhatTheyDid
+[PASS] invariant_SwapsThatDoNotPayAreRefused
+[PASS] invariant_SwapsThatPayGoThrough
+ ReversedPoolInvariantTest invariants (runs: 100, calls: 50000, reverts: 0)
+
+╭----------+----------+-------+---------+----------╮
+| Contract | Selector | Calls | Reverts | Discards |
++==================================================+
+| Trader   | donate   | 16632 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | refuse   | 16579 | 0       | 0        |
+|----------+----------+-------+---------+----------|
+| Trader   | swap     | 16789 | 0       | 0        |
+╰----------+----------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.11s (12.10s CPU time)
+
+Ran 4 test suites in 12.11s (36.80s CPU time): 50 tests passed, 0 failed, 0 skipped (50 total tests)
+exit=0
+Mon Nov  2 03:31:51 PM +07 2026

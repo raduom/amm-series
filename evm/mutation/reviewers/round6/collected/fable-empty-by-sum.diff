@@ -1,0 +1,11 @@
+--- src/ConstantProductPool.sol	2026-11-02 09:29:26.894684292 +0700
++++ /tmp/amm-round6-fable/empty-by-sum/src/ConstantProductPool.sol	2026-11-02 09:42:25.064124274 +0700
+@@ -77,7 +77,7 @@
+         returns (uint256 amountOut)
+     {
+         if (amountIn == 0) revert AmountNotPositive();
+-        if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
++        if (reserve0 + reserve1 == 0) revert EmptyPool();
+ 
+         (uint256 reserveIn, uint256 reserveOut) =
+             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);

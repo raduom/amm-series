@@ -1,0 +1,13 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -92,8 +92,8 @@
+             reserve0 = reserveIn + amountIn;
+             reserve1 = reserveOut - amountOut;
+         } else {
+-            reserve0 = reserveOut - amountOut;
+-            reserve1 = reserveIn + amountIn;
++            reserve1 = reserveOut - amountOut;
++            reserve0 = reserveIn + amountIn;
+         }
+         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
+ 

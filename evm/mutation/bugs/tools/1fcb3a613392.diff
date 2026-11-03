@@ -1,0 +1,17 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -46,13 +46,7 @@
+     /// @notice A pool trades two different tokens.
+     error IdenticalTokens();
+ 
+-    constructor(IERC20 token0_, IERC20 token1_) {
+-        if (address(token0_) == address(token1_)) revert IdenticalTokens();
+-
+-        token0 = token0_;
+-        token1 = token1_;
+-        owner = msg.sender;
+-    }
++    
+ 
+     /// @notice Provide the pool's liquidity, once. The model's swap needs a
+     /// pool that holds both tokens; this is how one comes to exist.

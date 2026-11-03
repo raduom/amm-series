@@ -1,0 +1,13 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -88,6 +88,10 @@
+             revert OutputTooSmall();
+         }
+ 
++        if (
++            (reserveIn + amountIn) * (reserveOut - amountOut)
++                < reserveIn * reserveOut
++        ) revert OutputTooSmall();
+         if (zeroForOne) {
+             reserve0 = reserveIn + amountIn;
+             reserve1 = reserveOut - amountOut;

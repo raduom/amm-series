@@ -1,0 +1,47 @@
+BASELINE failures: [] 
+SURVIVED | G1 one less from 2nd swap | failed 0,0 | invariants 0
+SURVIVED | G1 1% less from 2nd swap | failed 0,0 | invariants 0
+SURVIVED | G1 one less from 3rd swap | failed 0,0 | invariants 0
+caught   | G1 one less on small pools | failed 11,11 | invariants 0
+SURVIVED | G1 refuse after 3 swaps | failed 0,0 | invariants 0
+SURVIVED | G2 book and pay one less | failed 0,0 | invariants 0
+caught   | G2 transfer one less | failed 3,3 | invariants 1
+SURVIVED | G2 uint96 payout | failed 0,0 | invariants 0
+SURVIVED | G2 uint96 payout, booked too | failed 0,0 | invariants 0
+SURVIVED | G2 pay owner from 2nd swap | failed 0,0 | invariants 0
+SURVIVED | G2 pay the minimum | failed 0,0 | invariants 0
+caught   | G2 take one less in | failed 4,4 | invariants 1
+caught   | G2 reserve drifts on 2nd swap | failed 1,1 | invariants 1
+SURVIVED | G4 uint240 truncation | failed 0,0 | invariants 0
+SURVIVED | G5 indexed removed | failed 0,0 | invariants 0
+caught   | G5 event field order | failed 1,1 | invariants 0
+caught   | F1 no identical-token check | failed 1,1 | invariants 0
+SURVIVED | F2 refuse a reserve window | failed 0,0 | invariants 0
+SURVIVED | F2 refuse a window, string | failed 0,0 | invariants 0
+SURVIVED | F2 refuse small trades | failed 0,0 | invariants 0
+SURVIVED | F6 min only if out + 1 | failed 0,0 | invariants 0
+SURVIVED | F6 min 0 or exact only | failed 0,0 | invariants 0
+SURVIVED | F7 denominator + 1 | failed 0,0 | invariants 0
+SURVIVED | F7 hidden 0.1% fee | failed 0,0 | invariants 0
+SURVIVED | F8 event hard-coded true | failed 0,0 | invariants 0
+caught   | round up | failed 17,17 | invariants 1
+caught   | denominator - 1 | failed 5,5 | invariants 1
+caught   | ignore minAmountOut | failed 3,3 | invariants 0
+caught   | off by one on minimum | failed 3,3 | invariants 0
+caught   | allow zero output | failed 1,1 | invariants 0
+caught   | else branch swapped | failed 4,4 | invariants 1
+caught   | reserves swapped | failed 7,7 | invariants 1
+caught   | tokens swapped | failed 16,16 | invariants 1
+caught   | skip pulling tokens in | failed 4,4 | invariants 1
+caught   | pay out double | failed 4,4 | invariants 1
+caught   | no owner check | failed 1,1 | invariants 0
+caught   | initialize twice | failed 1,1 | invariants 0
+caught   | no empty pool check | failed 1,1 | invariants 0
+caught   | check order swapped | failed 1,1 | invariants 0
+---- deferred: expected to survive
+survives | G3 unchecked token calls (ch5) | failed 0,0
+survives | G6 price from balanceOf (ch3) | failed 0,0
+survives | G9 pay before taking (ch5) | failed 0,0
+survives | G9 reserves after transfers (ch5) | failed 0,0
+survives | G13 public sweep (security) | failed 0,0
+survivors of must-catch: ['G1 one less from 2nd swap', 'G1 1% less from 2nd swap', 'G1 one less from 3rd swap', 'G1 refuse after 3 swaps', 'G2 book and pay one less', 'G2 uint96 payout', 'G2 uint96 payout, booked too', 'G2 pay owner from 2nd swap', 'G2 pay the minimum', 'G4 uint240 truncation', 'G5 indexed removed', 'F2 refuse a reserve window', 'F2 refuse a window, string', 'F2 refuse small trades', 'F6 min only if out + 1', 'F6 min 0 or exact only', 'F7 denominator + 1', 'F7 hidden 0.1% fee', 'F8 event hard-coded true'] of 39

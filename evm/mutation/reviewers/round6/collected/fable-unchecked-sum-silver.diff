@@ -1,0 +1,17 @@
+--- src/ConstantProductPool.sol	2026-11-02 09:29:26.894684292 +0700
++++ /tmp/amm-round6-fable/unchecked-sum-silver/src/ConstantProductPool.sol	2026-11-02 09:57:02.784996488 +0700
+@@ -83,7 +83,13 @@
+             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);
++        uint256 grown = reserveIn + amountIn;
++        if (!zeroForOne) {
++            unchecked {
++                grown = reserveIn + amountIn;
++            }
++        }
++        amountOut = reserveOut * amountIn / grown;
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }

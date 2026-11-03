@@ -1,0 +1,159 @@
+--- a/test/ConstantProductPool.invariant.t.sol
++++ b/test/ConstantProductPool.invariant.t.sol
+@@ -140,14 +140,15 @@
+         amountIn = bound(amountIn, 1, maxTrade);
+         address actor = actors[who % actors.length];
+ 
+-        // exactly what the swap costs, a unit more, or an unlimited approval
+-        uint256 funds = amountIn + (fundingKind % 3 == 0 ? 0 : 1);
+-        provide(
+-            actor,
+-            zeroForOne ? gold : silver,
+-            funds,
+-            fundingKind % 3 == 2 ? type(uint256).max : funds
+-        );
++        // exactly what the swap costs, a unit more, an unlimited approval, or
++        // an approval of a unit more than the actor holds
++        fundingKind %= 4;
++        uint256 funds =
++            amountIn + (fundingKind == 1 || fundingKind == 2 ? 1 : 0);
++        uint256 approval = fundingKind == 2
++            ? type(uint256).max
++            : funds + (fundingKind == 3 ? 1 : 0);
++        provide(actor, zeroForOne ? gold : silver, funds, approval);
+ 
+         Books memory before = books(actor, zeroForOne);
+ 
+@@ -287,7 +288,7 @@
+         bool zeroForOne,
+         uint256 amountIn,
+         uint256 amountOut
+-    ) internal returns (bool) {
++    ) internal view returns (bool) {
+         Vm.Log[] memory logs = vm.getRecordedLogs();
+         if (logs.length != 3) return false;
+ 
+--- a/test/ConstantProductPool.t.sol
++++ b/test/ConstantProductPool.t.sol
+@@ -7,7 +7,7 @@
+ import {stdError} from "forge-std/StdError.sol";
+ import {Test} from "forge-std/Test.sol";
+ import {ConstantProductPool} from "../src/ConstantProductPool.sol";
+-import {TestToken} from "./TestToken.sol";
++import {SixDecimalToken, TestToken} from "./TestToken.sol";
+ 
+ contract ConstantProductPoolTest is Test {
+     // Keeps every product the fuzz tests compute inside uint256: none is more
+@@ -443,8 +443,13 @@
+         new ConstantProductPool(gold, gold);
+     }
+ 
+-    function test_InitializeTakesTheTokens() public {
++    /// An unlimited approval still takes only the amounts given.
++    function testFuzz_InitializeTakesTheTokens(bool unlimited) public {
+         supply(1000, 4000);
++        if (unlimited) {
++            gold.approve(address(pool), type(uint256).max);
++            silver.approve(address(pool), type(uint256).max);
++        }
+         vm.recordLogs();
+         pool.initialize(1000, 4000);
+         // the two transfers
+@@ -488,6 +493,19 @@
+         pool.initialize(1000, 1000);
+     }
+ 
++    /// With neither token approved, gold is the one asked for first.
++    function test_InitializeTakesGoldFirst() public {
++        vm.expectRevert(
++            abi.encodeWithSelector(
++                IERC20Errors.ERC20InsufficientAllowance.selector,
++                address(pool),
++                0,
++                1000
++            )
++        );
++        pool.initialize(1000, 4000);
++    }
++
+     /// Whatever else is wrong with the call, an outsider is refused as one.
+     function test_InitializeIsOnlyForTheOwner() public {
+         vm.prank(trader);
+@@ -508,6 +526,11 @@
+         vm.expectRevert(ConstantProductPool.NotOwner.selector);
+         pool.initialize(1000, 1000);
+ 
++        // nor does an address above the owner's, where the others are below it
++        vm.prank(address(type(uint160).max));
++        vm.expectRevert(ConstantProductPool.NotOwner.selector);
++        pool.initialize(1000, 1000);
++
+         stock(1000, 1000);
+         vm.prank(trader);
+         vm.expectRevert(ConstantProductPool.NotOwner.selector);
+@@ -551,6 +574,15 @@
+         assertEq(trade(zeroForOne, 100, 90), 90);
+     }
+ 
++    /// The pool prices raw amounts, so a token with 6 decimals, as USDC has,
++    /// trades as one with 18 does.
++    function testFuzz_TokenWithOtherDecimals(bool zeroForOne) public {
++        silver = new SixDecimalToken("Silver", "SLV");
++        pool = new ConstantProductPool(gold, silver);
++        stock(1000, 1000);
++        assertEq(trade(zeroForOne, 100, 0), 90);
++    }
++
+     function test_SwapMovesTheTokens() public {
+         stock(1000, 1000);
+         trade(true, 100, 0);
+@@ -590,12 +622,14 @@
+     }
+ 
+     /// Tokens sent to the pool stay off its books, before or after it opens.
++    /// The two donations differ, so that one cannot cancel the other.
+     function testFuzz_DonationChangesNothing(bool zeroForOne) public {
+         gold.mint(address(pool), 1);
+-        silver.mint(address(pool), 1);
++        silver.mint(address(pool), 2);
+         stock(1000, 1000);
++        assertReserves(1000, 1000);
+         assertEq(gold.balanceOf(address(pool)), 1001);
+-        assertEq(silver.balanceOf(address(pool)), 1001);
++        assertEq(silver.balanceOf(address(pool)), 1002);
+ 
+         gold.mint(address(pool), 500);
+         silver.mint(address(pool), 500);
+@@ -661,9 +695,13 @@
+         pool.swap(true, 100, 91);
+     }
+ 
+-    function testFuzz_SwapRefusesWithoutApproval(bool zeroForOne) public {
++    /// A trader short of funds as well is still refused for the approval,
++    /// which the token checks first.
++    function testFuzz_SwapRefusesWithoutApproval(bool zeroForOne, uint256 held)
++        public
++    {
+         stock(1000, 1000);
+-        (zeroForOne ? gold : silver).mint(trader, 100);
++        (zeroForOne ? gold : silver).mint(trader, bound(held, 0, 100));
+         vm.prank(trader);
+         vm.expectRevert(
+             abi.encodeWithSelector(
+--- a/test/TestToken.sol
++++ b/test/TestToken.sol
+@@ -11,3 +11,14 @@
+         _mint(to, amount);
+     }
+ }
++
++/// @notice A TestToken with 6 decimals, as USDC has.
++contract SixDecimalToken is TestToken {
++    constructor(string memory name, string memory symbol)
++        TestToken(name, symbol)
++    {}
++
++    function decimals() public pure override returns (uint8) {
++        return 6;
++    }
++}

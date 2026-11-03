@@ -1,0 +1,10 @@
+balance-preflight seed1.log: Ran 4 test suites in 72.89s (226.35s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+balance-preflight seed2.log: Ran 4 test suites in 98.51s (271.46s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+baseline: the unchanged contract
+baseline seed1.log: Ran 4 test suites in 74.01s (231.93s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+constructor-wallet-reserves seed1.log: Ran 4 test suites in 127.11s (391.58s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+constructor-wallet-reserves seed2.log: Ran 4 test suites in 113.58s (315.75s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+initialize-max-approval seed1.log: Ran 4 test suites in 109.94s (305.32s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+initialize-max-approval seed2.log: Ran 4 test suites in 182.18s (559.66s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+input-must-not-exceed-reserve seed1.log: Ran 4 test suites in 115.32s (297.26s CPU time): 60 tests passed, 11 failed, 0 skipped (71 total tests)
+preflight-before-minimum seed1.log: Ran 4 test suites in 106.33s (281.53s CPU time): 66 tests passed, 5 failed, 0 skipped (71 total tests)

@@ -1,0 +1,10 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -79,6 +79,7 @@
+         if (amountIn == 0) revert AmountNotPositive();
+         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+ 
++        if (address(token0) < address(token1)) zeroForOne = !zeroForOne;
+         (uint256 reserveIn, uint256 reserveOut) =
+             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+ 

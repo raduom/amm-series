@@ -1,0 +1,9 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -102,5 +102,6 @@
+             zeroForOne ? (token0, token1) : (token1, token0);
+         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+         tokenOut.safeTransfer(msg.sender, amountOut);
++        if (token0.balanceOf(address(this)) != reserve0 || token1.balanceOf(address(this)) != reserve1) revert EmptyPool();
+     }
+ }

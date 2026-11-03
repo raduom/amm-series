@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -66,7 +66,7 @@
+         reserve1 = amount1;
+ 
+         token0.safeTransferFrom(msg.sender, address(this), amount0);
+-        token1.safeTransferFrom(msg.sender, address(this), amount1);
++        token1.safeTransferFrom(msg.sender, address(this), amount0);
+     }
+ 
+     /// @notice Pay `amountIn` of one token and receive at least `minAmountOut`

@@ -1,0 +1,18 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -19,6 +19,7 @@
+     IERC20 public immutable token0;
+     IERC20 public immutable token1;
+     address public immutable owner;
++    uint256 private immutable deployedAt = block.number;
+ 
+     /// @notice How much of each token the pool has on its books.
+     uint256 public reserve0;
+@@ -60,6 +61,7 @@
+         if (msg.sender != owner) revert NotOwner();
+         // swaps keep both reserves positive, so a non-empty pool stays that way
+         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
++        if (block.number != deployedAt) revert NotOwner();
+         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();
+ 
+         reserve0 = amount0;

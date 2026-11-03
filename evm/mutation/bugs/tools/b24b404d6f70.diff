@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -50,8 +50,8 @@
+         if (address(token0_) == address(token1_)) revert IdenticalTokens();
+ 
+         token0 = token0_;
++        owner = msg.sender;
+         token1 = token1_;
+-        owner = msg.sender;
+     }
+ 
+     /// @notice Provide the pool's liquidity, once. The model's swap needs a

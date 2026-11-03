@@ -1,0 +1,47 @@
+absurd-minimum-ignored seed1.log: Ran 4 test suites in 95.24s (281.43s CPU time): 70 tests passed, 1 failed, 0 skipped (71 total tests)
+absurd-minimum-ignored result.txt: absurd-minimum-ignored | seed1: 70 passed, 1 failed
+base: the unchanged contract
+empty-by-sum seed1.log: Ran 4 test suites in 177.06s (537.98s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+empty-by-sum seed2.log: Ran 4 test suites in 141.19s (424.06s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+empty-by-sum result.txt: empty-by-sum | seed1: 71 passed, 0 failed ; seed2: 71 passed, 0 failed
+event-origin seed1.log: Ran 4 test suites in 79.73s (225.51s CPU time): 66 tests passed, 5 failed, 0 skipped (71 total tests)
+event-origin result.txt: event-origin | seed1: 66 passed, 5 failed
+exact-quotient-underpays seed1.log: Ran 4 test suites in 151.87s (404.47s CPU time): 64 tests passed, 7 failed, 0 skipped (71 total tests)
+exact-quotient-underpays result.txt: exact-quotient-underpays | seed1: 64 passed, 7 failed
+floor-one-unit-silver seed1.log: Ran 4 test suites in 75.87s (205.85s CPU time): 64 tests passed, 7 failed, 0 skipped (71 total tests)
+floor-one-unit-silver result.txt: floor-one-unit-silver | seed1: 64 passed, 7 failed
+floor-one-unit seed1.log: Ran 4 test suites in 94.43s (285.67s CPU time): 63 tests passed, 8 failed, 0 skipped (71 total tests)
+floor-one-unit result.txt: floor-one-unit | seed1: 63 passed, 8 failed
+init-and-amounts seed1.log: Ran 4 test suites in 87.24s (247.71s CPU time): 70 tests passed, 1 failed, 0 skipped (71 total tests)
+init-and-amounts result.txt: init-and-amounts | seed1: 70 passed, 1 failed
+init-pulls-from-origin seed1.log: Ran 4 test suites in 115.67ms (116.99ms CPU time): 5 tests passed, 45 failed, 0 skipped (50 total tests)
+init-pulls-from-origin result.txt: init-pulls-from-origin | seed1: 5 passed, 45 failed
+init-reserves-from-balances seed1.log: Ran 4 test suites in 78.26s (238.41s CPU time): 70 tests passed, 1 failed, 0 skipped (71 total tests)
+init-reserves-from-balances result.txt: init-reserves-from-balances | seed1: 70 passed, 1 failed
+k-check-uniswap-style seed1.log: Ran 4 test suites in 96.88s (266.08s CPU time): 70 tests passed, 1 failed, 0 skipped (71 total tests)
+k-check-uniswap-style result.txt: k-check-uniswap-style | seed1: 70 passed, 1 failed
+min-counts-held-output seed1.log: Ran 4 test suites in 89.36s (249.55s CPU time): 63 tests passed, 8 failed, 0 skipped (71 total tests)
+min-counts-held-output result.txt: min-counts-held-output | seed1: 63 passed, 8 failed
+min-uses-amountIn seed1.log: Ran 4 test suites in 61.10s (173.74s CPU time): 60 tests passed, 11 failed, 0 skipped (71 total tests)
+min-uses-amountIn result.txt: min-uses-amountIn | seed1: 60 passed, 11 failed
+owner-skips-minimum seed1.log: Ran 4 test suites in 106.52s (279.23s CPU time): 64 tests passed, 7 failed, 0 skipped (71 total tests)
+owner-skips-minimum result.txt: owner-skips-minimum | seed1: 64 passed, 7 failed
+pay-origin seed1.log: Ran 4 test suites in 73.38s (211.37s CPU time): 42 tests passed, 29 failed, 0 skipped (71 total tests)
+pay-origin result.txt: pay-origin | seed1: 42 passed, 29 failed
+product-empty-swap seed1.log: Ran 4 test suites in 90.40s (278.75s CPU time): 70 tests passed, 1 failed, 0 skipped (71 total tests)
+product-empty-swap result.txt: product-empty-swap | seed1: 70 passed, 1 failed
+rational-minimum seed1.log: Ran 4 test suites in 97.79s (274.04s CPU time): 70 tests passed, 1 failed, 0 skipped (71 total tests)
+rational-minimum result.txt: rational-minimum | seed1: 70 passed, 1 failed
+signed-amount-silver seed1.log: Ran 4 test suites in 87.87s (265.20s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+signed-amount-silver seed2.log: Ran 4 test suites in 101.76s (309.94s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+signed-amount-silver result.txt: signed-amount-silver | seed1: 71 passed, 0 failed ; seed2: 71 passed, 0 failed
+signed-output seed1.log: Ran 4 test suites in 122.57s (326.01s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+signed-output seed2.log: Ran 4 test suites in 96.03s (287.79s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+signed-output result.txt: signed-output | seed1: 71 passed, 0 failed ; seed2: 71 passed, 0 failed
+sum-init-guard seed1.log: Ran 4 test suites in 99.88s (304.06s CPU time): 70 tests passed, 1 failed, 0 skipped (71 total tests)
+sum-init-guard result.txt: sum-init-guard | seed1: 70 passed, 1 failed
+unchecked-sum-silver seed1.log: Ran 4 test suites in 76.71s (234.25s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+unchecked-sum-silver seed2.log: Ran 4 test suites in 82.14s (253.70s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+unchecked-sum-silver result.txt: unchecked-sum-silver | seed1: 71 passed, 0 failed ; seed2: 71 passed, 0 failed
+unlimited-approval-takes-balance seed1.log: Ran 4 test suites in 121.06s (318.61s CPU time): 65 tests passed, 6 failed, 0 skipped (71 total tests)
+unlimited-approval-takes-balance result.txt: unlimited-approval-takes-balance | seed1: 65 passed, 6 failed

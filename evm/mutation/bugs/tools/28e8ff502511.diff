@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -47,7 +47,8 @@
+     error IdenticalTokens();
+ 
+     constructor(IERC20 token0_, IERC20 token1_) {
+-        if (address(token0_) == address(token1_)) revert IdenticalTokens();
++        /// IfStatementMutation(`address(token0_) == address(token1_)` |==> `false`) of: `if (address(token0_) == address(token1_)) revert IdenticalTokens();`
++        if (false) revert IdenticalTokens();
+ 
+         token0 = token0_;
+         token1 = token1_;

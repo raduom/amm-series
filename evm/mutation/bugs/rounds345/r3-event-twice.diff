@@ -1,0 +1,10 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -96,6 +96,7 @@
+             reserve1 = reserveIn + amountIn;
+         }
+         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
++        emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
+ 
+         // the books are settled before any other contract runs
+         (IERC20 tokenIn, IERC20 tokenOut) =

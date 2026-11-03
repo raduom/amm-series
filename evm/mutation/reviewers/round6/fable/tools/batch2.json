@@ -1,0 +1,11 @@
+{
+ "product-empty-swap": [["if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();", "if (reserve0 * reserve1 == 0) revert EmptyPool();"]],
+ "sum-init-guard": [["if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();", "if (reserve0 + reserve1 != 0) revert AlreadyInitialized();"]],
+ "exact-quotient-underpays": [["amountOut = reserveOut * amountIn / (reserveIn + amountIn);", "amountOut = (reserveOut * amountIn - 1) / (reserveIn + amountIn);"]],
+ "event-origin": [["emit Swap(msg.sender, zeroForOne, amountIn, amountOut);", "emit Swap(tx.origin, zeroForOne, amountIn, amountOut);"]],
+ "pay-origin": [["tokenOut.safeTransfer(msg.sender, amountOut);", "tokenOut.safeTransfer(tx.origin, amountOut);"]],
+ "init-reserves-from-balances": [["        reserve0 = amount0;\n        reserve1 = amount1;\n\n        token0.safeTransferFrom(msg.sender, address(this), amount0);\n        token1.safeTransferFrom(msg.sender, address(this), amount1);", "        token0.safeTransferFrom(msg.sender, address(this), amount0);\n        token1.safeTransferFrom(msg.sender, address(this), amount1);\n\n        reserve0 = token0.balanceOf(address(this));\n        reserve1 = token1.balanceOf(address(this));"]],
+ "min-counts-held-output": [["        if (amountOut == 0 || amountOut < minAmountOut) {", "        (IERC20 tokenIn, IERC20 tokenOut) =\n            zeroForOne ? (token0, token1) : (token1, token0);\n        if (\n            amountOut == 0\n                || amountOut + tokenOut.balanceOf(msg.sender) < minAmountOut\n        ) {"], ["        // the books are settled before any other contract runs\n        (IERC20 tokenIn, IERC20 tokenOut) =\n            zeroForOne ? (token0, token1) : (token1, token0);\n", "        // the books are settled before any other contract runs\n"]],
+ "unlimited-approval-takes-balance": [["tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);", "tokenIn.safeTransferFrom(\n            msg.sender,\n            address(this),\n            tokenIn.allowance(msg.sender, address(this)) == type(uint256).max\n                ? tokenIn.balanceOf(msg.sender)\n                : amountIn\n        );"]],
+ "owner-skips-minimum": [["if (amountOut == 0 || amountOut < minAmountOut) {", "if (amountOut == 0 || (msg.sender != owner && amountOut < minAmountOut)) {"]]
+}

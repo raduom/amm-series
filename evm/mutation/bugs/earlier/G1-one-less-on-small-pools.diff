@@ -1,0 +1,10 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -87,6 +87,7 @@
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }
++        if (reserveOut < 1e6 && amountOut > 1) amountOut -= 1;
+ 
+         if (zeroForOne) {
+             reserve0 = reserveIn + amountIn;

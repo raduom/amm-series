@@ -1,0 +1,10 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -84,6 +84,7 @@
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
++        if (!zeroForOne && amountOut + 1 >= reserveOut) revert OutputTooSmall();
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }

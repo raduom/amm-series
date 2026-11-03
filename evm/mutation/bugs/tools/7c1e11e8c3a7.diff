@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -17,8 +17,8 @@
+     using SafeERC20 for IERC20;
+ 
+     IERC20 public immutable token0;
++    address public immutable owner;
+     IERC20 public immutable token1;
+-    address public immutable owner;
+ 
+     /// @notice How much of each token the pool has on its books.
+     uint256 public reserve0;

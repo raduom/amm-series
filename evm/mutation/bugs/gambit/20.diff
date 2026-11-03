@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -76,7 +76,8 @@
+         external
+         returns (uint256 amountOut)
+     {
+-        if (amountIn == 0) revert AmountNotPositive();
++        /// IfStatementMutation(`amountIn == 0` |==> `true`) of: `if (amountIn == 0) revert AmountNotPositive();`
++        if (true) revert AmountNotPositive();
+         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+ 
+         (uint256 reserveIn, uint256 reserveOut) =

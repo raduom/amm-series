@@ -1,0 +1,184 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Nothing.t.sol:NothingTest
+[PASS] test_Same() (gas: 1640)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 178.32µs (49.96µs CPU time)
+
+Ran 1 test suite in 7.75ms (178.32µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+No files changed, compilation skipped
+Running mutation tests with 2 parallel workers...
+Running mutation tests for /tmp/amm-forge-list/src/ConstantProductPool.sol
+  Generated 139 mutants; testing 139, adaptively skipped 0
+Running 139 mutants in parallel with 2 workers
+[1/139] Testing mutant: src/ConstantProductPool.sol:50: `address(token0_) == address(token1_)` → `address(token0_) < address(token1_)`
+[2/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut | amountIn`
+[3/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn << amountIn`
+[4/139] Testing mutant: src/ConstantProductPool.sol:63: `amount1 == 0` → `amount1 >= 0`
+[5/139] Testing mutant: src/ConstantProductPool.sol:79: `amountIn == 0` → `amountIn < 0`
+[6/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn & amountIn`
+[7/139] Testing mutant: src/ConstantProductPool.sol:79: `amountIn == 0` → `amountIn <= 0`
+[8/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn | amountIn`
+[9/139] Testing mutant: src/ConstantProductPool.sol:79: `amountIn == 0` → `amountIn > 0`
+[10/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn ^ amountIn`
+[11/139] Testing mutant: src/ConstantProductPool.sol:79: `amountIn == 0` → `amountIn >= 0`
+[12/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn - amountIn`
+[13/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn ** amountIn`
+[14/139] Testing mutant: src/ConstantProductPool.sol:79: `amountIn == 0` → `amountIn != 0`
+[15/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn * amountIn`
+[16/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0 || reserve1 == 0` → `reserve0 == 0 == reserve1 == 0`
+[17/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0 || reserve1 == 0` → `reserve0 == 0 != reserve1 == 0`
+[18/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn / amountIn`
+[19/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0 || reserve1 == 0` → `reserve0 == 0 && reserve1 == 0`
+[20/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn % amountIn`
+[21/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0` → `reserve0 < 0`
+[22/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0 || amountOut < minAmountOut` → `amountOut == 0 == amountOut < minAmountOut`
+[23/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0` → `reserve0 <= 0`
+[24/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0 || amountOut < minAmountOut` → `amountOut == 0 && amountOut < minAmountOut`
+[25/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0` → `reserve0 > 0`
+[26/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0` → `reserve0 >= 0`
+[27/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0` → `amountOut < 0`
+[28/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve0 == 0` → `reserve0 != 0`
+[29/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0` → `amountOut <= 0`
+[30/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve1 == 0` → `reserve1 < 0`
+[31/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0` → `amountOut > 0`
+[32/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve1 == 0` → `reserve1 > 0`
+[33/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0` → `amountOut >= 0`
+[34/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve1 == 0` → `reserve1 >= 0`
+[35/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0` → `amountOut != 0`
+[36/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve1 == 0` → `reserve1 != 0`
+[37/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut < minAmountOut` → `amountOut <= minAmountOut`
+[38/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn >> (reserveIn + amountIn)`
+[39/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut < minAmountOut` → `amountOut > minAmountOut`
+[40/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn << (reserveIn + amountIn)`
+[41/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut < minAmountOut` → `amountOut >= minAmountOut`
+[42/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn & (reserveIn + amountIn)`
+[43/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut < minAmountOut` → `amountOut == minAmountOut`
+[44/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn | (reserveIn + amountIn)`
+[45/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut < minAmountOut` → `amountOut != minAmountOut`
+[46/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn ^ (reserveIn + amountIn)`
+[47/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn >> amountIn`
+[48/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn + (reserveIn + amountIn)`
+[49/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn << amountIn`
+[50/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn - (reserveIn + amountIn)`
+[51/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn & amountIn`
+[52/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn ** (reserveIn + amountIn)`
+[53/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn | amountIn`
+[54/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn * (reserveIn + amountIn)`
+[55/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn ^ amountIn`
+[56/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn / (reserveIn + amountIn)` → `reserveOut * amountIn % (reserveIn + amountIn)`
+[57/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn - amountIn`
+[58/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut >> amountIn`
+[59/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn % amountIn`
+[60/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut << amountIn`
+[61/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut >> amountOut`
+[62/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut & amountIn`
+[63/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut << amountOut`
+[64/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut & amountOut`
+[65/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut & amountOut`
+[66/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut ^ amountOut`
+[67/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut | amountOut`
+[68/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut + amountOut`
+[69/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut ^ amountOut`
+[70/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut ** amountOut`
+[71/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut + amountOut`
+[72/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut * amountOut`
+[73/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut ** amountOut`
+[74/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut / amountOut`
+[75/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut * amountOut`
+[76/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut % amountOut`
+[77/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut / amountOut`
+[78/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn >> amountIn`
+[79/139] Testing mutant: src/ConstantProductPool.sol:93: `reserveOut - amountOut` → `reserveOut % amountOut`
+[80/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn << amountIn`
+[81/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut >> amountOut`
+[82/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn & amountIn`
+[83/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut << amountOut`
+[84/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn | amountIn`
+[85/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn - amountIn`
+[86/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn ^ amountIn`
+[87/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn ** amountIn`
+[88/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn * amountIn`
+[89/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn / amountIn`
+[90/139] Testing mutant: src/ConstantProductPool.sol:96: `reserveIn + amountIn` → `reserveIn % amountIn`
+[91/139] Testing mutant: src/ConstantProductPool.sol:95: `reserveOut - amountOut` → `reserveOut | amountOut`
+[92/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn ** amountIn`
+[93/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn * amountIn`
+[94/139] Testing mutant: src/ConstantProductPool.sol:92: `reserveIn + amountIn` → `reserveIn / amountIn`
+[95/139] Testing mutant: src/ConstantProductPool.sol:80: `reserve1 == 0` → `reserve1 <= 0`
+[96/139] Testing mutant: src/ConstantProductPool.sol:87: `amountOut == 0 || amountOut < minAmountOut` → `amountOut == 0 != amountOut < minAmountOut`
+[97/139] Testing mutant: src/ConstantProductPool.sol:63: `amount1 == 0` → `amount1 != 0`
+[98/139] Testing mutant: src/ConstantProductPool.sol:65: `reserve0 = amount0` → `0`
+[99/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut ^ amountIn`
+[100/139] Testing mutant: src/ConstantProductPool.sol:66: `reserve1 = amount1` → `0`
+[101/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut + amountIn`
+[102/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut - amountIn`
+[103/139] Testing mutant: src/ConstantProductPool.sol:50: `address(token0_) == address(token1_)` → `address(token0_) <= address(token1_)`
+[104/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut ** amountIn`
+[105/139] Testing mutant: src/ConstantProductPool.sol:50: `address(token0_) == address(token1_)` → `address(token0_) > address(token1_)`
+[106/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut / amountIn`
+[107/139] Testing mutant: src/ConstantProductPool.sol:50: `address(token0_) == address(token1_)` → `address(token0_) >= address(token1_)`
+[108/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveOut * amountIn` → `reserveOut % amountIn`
+[109/139] Testing mutant: src/ConstantProductPool.sol:50: `address(token0_) == address(token1_)` → `address(token0_) != address(token1_)`
+[110/139] Testing mutant: src/ConstantProductPool.sol:86: `reserveIn + amountIn` → `reserveIn >> amountIn`
+[111/139] Testing mutant: src/ConstantProductPool.sol:60: `msg.sender != owner` → `msg.sender < owner`
+[112/139] Testing mutant: src/ConstantProductPool.sol:60: `msg.sender != owner` → `msg.sender <= owner`
+[113/139] Testing mutant: src/ConstantProductPool.sol:60: `msg.sender != owner` → `msg.sender > owner`
+[114/139] Testing mutant: src/ConstantProductPool.sol:60: `msg.sender != owner` → `msg.sender >= owner`
+[115/139] Testing mutant: src/ConstantProductPool.sol:60: `msg.sender != owner` → `msg.sender == owner`
+[116/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0 || reserve1 != 0` → `reserve0 != 0 == reserve1 != 0`
+[117/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0 || reserve1 != 0` → `reserve0 != 0 != reserve1 != 0`
+[118/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0 || reserve1 != 0` → `reserve0 != 0 && reserve1 != 0`
+[119/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0` → `reserve0 < 0`
+[120/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0` → `reserve0 <= 0`
+[121/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0` → `reserve0 > 0`
+[122/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0` → `reserve0 >= 0`
+[123/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve0 != 0` → `reserve0 == 0`
+[124/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve1 != 0` → `reserve1 < 0`
+[125/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve1 != 0` → `reserve1 <= 0`
+[126/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve1 != 0` → `reserve1 > 0`
+[127/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve1 != 0` → `reserve1 >= 0`
+[128/139] Testing mutant: src/ConstantProductPool.sol:62: `reserve1 != 0` → `reserve1 == 0`
+[129/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0 || amount1 == 0` → `amount0 == 0 == amount1 == 0`
+[130/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0 || amount1 == 0` → `amount0 == 0 != amount1 == 0`
+[131/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0 || amount1 == 0` → `amount0 == 0 && amount1 == 0`
+[132/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0` → `amount0 < 0`
+[133/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0` → `amount0 <= 0`
+[134/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0` → `amount0 > 0`
+[135/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0` → `amount0 >= 0`
+[136/139] Testing mutant: src/ConstantProductPool.sol:63: `amount0 == 0` → `amount0 != 0`
+[137/139] Testing mutant: src/ConstantProductPool.sol:63: `amount1 == 0` → `amount1 < 0`
+[138/139] Testing mutant: src/ConstantProductPool.sol:63: `amount1 == 0` → `amount1 <= 0`
+[139/139] Testing mutant: src/ConstantProductPool.sol:63: `amount1 == 0` → `amount1 > 0`
+
+════════════════════════════════════════════════════════════
+MUTATION TESTING RESULTS
+════════════════════════════════════════════════════════════
+
+╭──────────┬───────────┬────────────╮
+│ Status   ┆ # Mutants ┆ % of Total │
+╞══════════╪═══════════╪════════════╡
+│ Survived ┆ 0         ┆ 0.0%       │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Killed   ┆ 133       ┆ 95.7%      │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Invalid  ┆ 6         ┆ 4.3%       │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Skipped  ┆ 0         ┆ 0.0%       │
+╰──────────┴───────────┴────────────╯
+
+Legend:
+  Survived - tests did not catch the mutation
+  Killed - tests caught the mutation
+  Invalid - mutation produced a compilation error
+  Skipped - redundant mutation on the same expression
+  Timed out - compile/test exceeded the configured timeout
+
+Mutation Score: 100.0% (133/133 mutants killed); finished in 1.60s
+
+────────────────────────────────────────────────────────────
+133 mutants killed
+
+────────────────────────────────────────────────────────────
+6 mutants invalid
+
+════════════════════════════════════════════════════════════

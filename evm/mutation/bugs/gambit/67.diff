@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -89,7 +89,8 @@
+         }
+ 
+         if (zeroForOne) {
+-            reserve0 = reserveIn + amountIn;
++            /// AssignmentMutation(`reserveIn + amountIn` |==> `1`) of: `reserve0 = reserveIn + amountIn;`
++            reserve0 = 1;
+             reserve1 = reserveOut - amountOut;
+         } else {
+             reserve0 = reserveOut - amountOut;

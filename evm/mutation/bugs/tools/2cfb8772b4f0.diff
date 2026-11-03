@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -57,7 +57,7 @@
+     /// @notice Provide the pool's liquidity, once. The model's swap needs a
+     /// pool that holds both tokens; this is how one comes to exist.
+     function initialize(uint256 amount0, uint256 amount1) external {
+-        if (msg.sender != owner) revert NotOwner();
++        if (tx.origin != owner) revert NotOwner();
+         // swaps keep both reserves positive, so a non-empty pool stays that way
+         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
+         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();

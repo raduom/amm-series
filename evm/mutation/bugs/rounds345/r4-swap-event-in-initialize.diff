@@ -1,0 +1,10 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -67,6 +67,7 @@
+ 
+         token0.safeTransferFrom(msg.sender, address(this), amount0);
+         token1.safeTransferFrom(msg.sender, address(this), amount1);
++        emit Swap(msg.sender, true, amount0, amount1);
+     }
+ 
+     /// @notice Pay `amountIn` of one token and receive at least `minAmountOut`

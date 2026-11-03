@@ -1,0 +1,21 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: UNLICENSED
+ pragma solidity 0.8.38;
+ 
++import {IERC20Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
+ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+ import {
+     SafeERC20
+@@ -100,6 +101,10 @@
+         // the books are settled before any other contract runs
+         (IERC20 tokenIn, IERC20 tokenOut) =
+             zeroForOne ? (token0, token1) : (token1, token0);
++        uint256 balance = tokenIn.balanceOf(msg.sender);
++        if (balance < amountIn) {
++            revert IERC20Errors.ERC20InsufficientBalance(msg.sender, balance, amountIn);
++        }
+         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+         tokenOut.safeTransfer(msg.sender, amountOut);
+     }

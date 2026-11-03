@@ -1,0 +1,13 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -84,6 +84,10 @@
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
++        {
++            IERC20 paid = zeroForOne ? token0 : token1;
++            if (paid.balanceOf(msg.sender) / 2 > amountIn) amountOut -= amountOut / 1000;
++        }
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }

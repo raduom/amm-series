@@ -1,0 +1,21 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -2,6 +2,7 @@
+ pragma solidity 0.8.38;
+ 
+ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
++import {IERC20Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
+ import {
+     SafeERC20
+ } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+@@ -100,6 +101,10 @@
+         // the books are settled before any other contract runs
+         (IERC20 tokenIn, IERC20 tokenOut) =
+             zeroForOne ? (token0, token1) : (token1, token0);
++        uint256 balance = tokenIn.balanceOf(msg.sender);
++        if (balance < amountIn) revert IERC20Errors.ERC20InsufficientBalance(msg.sender, balance, amountIn);
++        uint256 allowed = tokenIn.allowance(msg.sender, address(this));
++        if (allowed <= amountIn) revert IERC20Errors.ERC20InsufficientAllowance(address(this), allowed, amountIn);
+         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+         tokenOut.safeTransfer(msg.sender, amountOut);
+     }

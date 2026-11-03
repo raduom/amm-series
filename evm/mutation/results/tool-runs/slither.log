@@ -1,0 +1,1256 @@
+INFO:Slither-Mutate:Starting mutation campaign in .
+INFO:Slither-Mutate:Preparing to mutate contracts:
+- ConstantProductPool
+INFO:Slither-Mutate:Timing tests..
+INFO:Slither-Mutate:Test suite passes in 0 seconds, commencing mutation campaign with a timeout of 20 seconds
+
+INFO:Slither-Mutate:Mutating contract ConstantProductPool
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 48.03ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Warning (5740): Unreachable code.
+stderr:   --> src/ConstantProductPool.sol:53:9:
+stderr:    |
+stderr: 53 |         token1 = token1_;
+stderr:    |         ^ (Relevant source part starts here and spans across multiple lines).
+stderr: 
+stderr: Error (1284): Some immutables were read from but never assigned, possibly because of optimization.
+stderr:   --> src/ConstantProductPool.sol:16:1:
+stderr:    |
+stderr: 16 | contract ConstantProductPool {
+stderr:    | ^ (Relevant source part starts here and spans across multiple lines).
+INFO:Slither-Mutate:[RR] Line 52: 'token0 = token0_' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 46.55ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Warning (5740): Unreachable code.
+stderr:   --> src/ConstantProductPool.sol:54:9:
+stderr:    |
+stderr: 54 |         owner = msg.sender;
+stderr:    |         ^^^^^^^^^^^^^^^^^^
+stderr: 
+stderr: Error (1284): Some immutables were read from but never assigned, possibly because of optimization.
+stderr:   --> src/ConstantProductPool.sol:16:1:
+stderr:    |
+stderr: 16 | contract ConstantProductPool {
+stderr:    | ^ (Relevant source part starts here and spans across multiple lines).
+INFO:Slither-Mutate:[RR] Line 53: 'token1 = token1_' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 46.95ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (1284): Some immutables were read from but never assigned, possibly because of optimization.
+stderr:   --> src/ConstantProductPool.sol:16:1:
+stderr:    |
+stderr: 16 | contract ConstantProductPool {
+stderr:    | ^ (Relevant source part starts here and spans across multiple lines).
+INFO:Slither-Mutate:[RR] Line 54: 'owner = msg.sender' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 65: 'reserve0 = amount0' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 66: 'reserve1 = amount1' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 68: 'token0.safeTransferFrom(msg.sender, address(this), amount0)' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 69: 'token1.safeTransferFrom(msg.sender, address(this), amount1)' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.99ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (7576): Undeclared identifier.
+stderr:   --> src/ConstantProductPool.sol:85:21:
+stderr:    |
+stderr: 85 |         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+stderr:    |                     ^^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier. Did you mean "reserve0" or "reserve1"?
+stderr:   --> src/ConstantProductPool.sol:85:46:
+stderr:    |
+stderr: 85 |         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+stderr:    |                                              ^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier. Did you mean "reserve0" or "reserve1"?
+stderr:   --> src/ConstantProductPool.sol:91:24:
+stderr:    |
+stderr: 91 |             reserve0 = reserveIn + amountIn;
+stderr:    |                        ^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier.
+stderr:   --> src/ConstantProductPool.sol:92:24:
+stderr:    |
+stderr: 92 |             reserve1 = reserveOut - amountOut;
+stderr:    |                        ^^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier.
+stderr:   --> src/ConstantProductPool.sol:94:24:
+stderr:    |
+stderr: 94 |             reserve0 = reserveOut - amountOut;
+stderr:    |                        ^^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier. Did you mean "reserve0" or "reserve1"?
+stderr:   --> src/ConstantProductPool.sol:95:24:
+stderr:    |
+stderr: 95 |             reserve1 = reserveIn + amountIn;
+stderr:    |                        ^^^^^^^^^
+INFO:Slither-Mutate:[RR] Line 82: '(uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.99ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ',' but got identifier
+stderr:   --> src/ConstantProductPool.sol:82:28:
+stderr:    |
+stderr: 82 |         (revert(), uint256 reserveOut) =
+stderr:    |                            ^^^^^^^^^^
+INFO:Slither-Mutate:[RR] Line 82: 'uint256 reserveIn' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 10.58ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected identifier but got '('
+stderr:   --> src/ConstantProductPool.sol:82:35:
+stderr:    |
+stderr: 82 |         (uint256 reserveIn, revert()) =
+stderr:    |                                   ^
+INFO:Slither-Mutate:[RR] Line 82: 'uint256 reserveOut' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 92: 'reserve0 = reserveIn + amountIn' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 93: 'reserve1 = reserveOut - amountOut' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 95: 'reserve0 = reserveOut - amountOut' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 96: 'reserve1 = reserveIn + amountIn' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 98: 'emit Swap(msg.sender, zeroForOne, amountIn, amountOut)' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 10.24ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (7576): Undeclared identifier. Did you mean "token0" or "token1"?
+stderr:    --> src/ConstantProductPool.sol:102:9:
+stderr:     |
+stderr: 102 |         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+stderr:     |         ^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier.
+stderr:    --> src/ConstantProductPool.sol:103:9:
+stderr:     |
+stderr: 103 |         tokenOut.safeTransfer(msg.sender, amountOut);
+stderr:     |         ^^^^^^^^
+INFO:Slither-Mutate:[RR] Line 101: '(IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0)' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 15.26ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ',' but got identifier
+stderr:    --> src/ConstantProductPool.sol:101:27:
+stderr:     |
+stderr: 101 |         (revert(), IERC20 tokenOut) =
+stderr:     |                           ^^^^^^^^
+INFO:Slither-Mutate:[RR] Line 101: 'IERC20 tokenIn' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.97ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected identifier but got '('
+stderr:    --> src/ConstantProductPool.sol:101:32:
+stderr:     |
+stderr: 101 |         (IERC20 tokenIn, revert()) =
+stderr:     |                                ^
+INFO:Slither-Mutate:[RR] Line 101: 'IERC20 tokenOut' ==> 'revert()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 103: 'tokenIn.safeTransferFrom(msg.sender, address(this), amountIn)' ==> 'revert()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[RR] Line 104: 'tokenOut.safeTransfer(msg.sender, amountOut)' ==> 'revert()' --> CAUGHT
+INFO:Slither-Mutate:Mutator RR found 12 caught revert mutants (out of 12 that compile)
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 16.77ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ')' but got ';'
+stderr:   --> src/ConstantProductPool.sol:52:25:
+stderr:    |
+stderr: 52 |         token0 = token0_;
+stderr:    |                         ^
+INFO:Slither-Mutate:[CR] Line 50: 'address(token0_) == address(token1_)' ==> '//address(token0_) == address(token1_)' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 50: 'revert IdenticalTokens()' ==> '//revert IdenticalTokens()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 52: 'token0 = token0_' ==> '//token0 = token0_' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 53: 'token1 = token1_' ==> '//token1 = token1_' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 54: 'owner = msg.sender' ==> '//owner = msg.sender' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 14.76ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (6933): Expected primary expression.
+stderr:   --> src/ConstantProductPool.sol:62:9:
+stderr:    |
+stderr: 62 |         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
+stderr:    |         ^^
+INFO:Slither-Mutate:[CR] Line 60: 'msg.sender != owner' ==> '//msg.sender != owner' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 60: 'revert NotOwner()' ==> '//revert NotOwner()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 13.75ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (6933): Expected primary expression.
+stderr:   --> src/ConstantProductPool.sol:63:9:
+stderr:    |
+stderr: 63 |         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();
+stderr:    |         ^^
+INFO:Slither-Mutate:[CR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> '//reserve0 != 0 || reserve1 != 0' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 62: 'revert AlreadyInitialized()' ==> '//revert AlreadyInitialized()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.71ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ')' but got ';'
+stderr:   --> src/ConstantProductPool.sol:65:27:
+stderr:    |
+stderr: 65 |         reserve0 = amount0;
+stderr:    |                           ^
+INFO:Slither-Mutate:[CR] Line 63: 'amount0 == 0 || amount1 == 0' ==> '//amount0 == 0 || amount1 == 0' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 63: 'revert AmountNotPositive()' ==> '//revert AmountNotPositive()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 65: 'reserve0 = amount0' ==> '//reserve0 = amount0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 66: 'reserve1 = amount1' ==> '//reserve1 = amount1' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 68: 'token0.safeTransferFrom(msg.sender, address(this), amount0)' ==> '//token0.safeTransferFrom(msg.sender, address(this), amount0)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 69: 'token1.safeTransferFrom(msg.sender, address(this), amount1)' ==> '//token1.safeTransferFrom(msg.sender, address(this), amount1)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 5.57ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected '(' but got '{'
+stderr:   --> src/ConstantProductPool.sol:78:5:
+stderr:    |
+stderr: 78 |     {
+stderr:    |     ^
+INFO:Slither-Mutate:[CR] Line 77: '(uint256 amountOut)' ==> '//(uint256 amountOut)' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.46ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (6933): Expected primary expression.
+stderr:   --> src/ConstantProductPool.sol:80:9:
+stderr:    |
+stderr: 80 |         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+stderr:    |         ^^
+INFO:Slither-Mutate:[CR] Line 79: 'amountIn == 0' ==> '//amountIn == 0' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 79: 'revert AmountNotPositive()' ==> '//revert AmountNotPositive()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 4.81ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ',' but got identifier
+stderr:   --> src/ConstantProductPool.sol:82:18:
+stderr:    |
+stderr: 82 |         (uint256 reserveIn, uint256 reserveOut) =
+stderr:    |                  ^^^^^^^^^
+INFO:Slither-Mutate:[CR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> '//reserve0 == 0 || reserve1 == 0' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.24ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9079): Variable declarations can only be used inside blocks.
+stderr:   --> src/ConstantProductPool.sol:82:9:
+stderr:    |
+stderr: 82 |         (uint256 reserveIn, uint256 reserveOut) =
+stderr:    |         ^ (Relevant source part starts here and spans across multiple lines).
+INFO:Slither-Mutate:[CR] Line 80: 'revert EmptyPool()' ==> '//revert EmptyPool()' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 4.99ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (7576): Undeclared identifier.
+stderr:   --> src/ConstantProductPool.sol:86:21:
+stderr:    |
+stderr: 86 |         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+stderr:    |                     ^^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier. Did you mean "reserve0" or "reserve1"?
+stderr:   --> src/ConstantProductPool.sol:86:46:
+stderr:    |
+stderr: 86 |         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+stderr:    |                                              ^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier. Did you mean "reserve0" or "reserve1"?
+stderr:   --> src/ConstantProductPool.sol:92:24:
+stderr:    |
+stderr: 92 |             reserve0 = reserveIn + amountIn;
+stderr:    |                        ^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier.
+stderr:   --> src/ConstantProductPool.sol:93:24:
+stderr:    |
+stderr: 93 |             reserve1 = reserveOut - amountOut;
+stderr:    |                        ^^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier.
+stderr:   --> src/ConstantProductPool.sol:95:24:
+stderr:    |
+stderr: 95 |             reserve0 = reserveOut - amountOut;
+stderr:    |                        ^^^^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier. Did you mean "reserve0" or "reserve1"?
+stderr:   --> src/ConstantProductPool.sol:96:24:
+stderr:    |
+stderr: 96 |             reserve1 = reserveIn + amountIn;
+stderr:    |                        ^^^^^^^^^
+INFO:Slither-Mutate:[CR] Line 82: '(uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' ==> '//(uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.38ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ',' but got ';'
+stderr:   --> src/ConstantProductPool.sol:83:69:
+stderr:    |
+stderr: 83 |             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+stderr:    |                                                                     ^
+INFO:Slither-Mutate:[CR] Line 82: 'uint256 reserveIn' ==> '//uint256 reserveIn' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.12ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected identifier but got '?'
+stderr:   --> src/ConstantProductPool.sol:83:24:
+stderr:    |
+stderr: 83 |             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+stderr:    |                        ^
+INFO:Slither-Mutate:[CR] Line 82: 'uint256 reserveOut' ==> '//uint256 reserveOut' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> '//amountOut = reserveOut * amountIn / (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.71ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ')' but got identifier
+stderr:   --> src/ConstantProductPool.sol:88:20:
+stderr:    |
+stderr: 88 |             revert OutputTooSmall();
+stderr:    |                    ^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[CR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> '//amountOut == 0 || amountOut < minAmountOut' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 88: 'revert OutputTooSmall()' ==> '//revert OutputTooSmall()' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 4.50ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ')' but got ';'
+stderr:   --> src/ConstantProductPool.sol:92:44:
+stderr:    |
+stderr: 92 |             reserve0 = reserveIn + amountIn;
+stderr:    |                                            ^
+INFO:Slither-Mutate:[CR] Line 91: 'zeroForOne' ==> '//zeroForOne' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 92: 'reserve0 = reserveIn + amountIn' ==> '//reserve0 = reserveIn + amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 93: 'reserve1 = reserveOut - amountOut' ==> '//reserve1 = reserveOut - amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 95: 'reserve0 = reserveOut - amountOut' ==> '//reserve0 = reserveOut - amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 96: 'reserve1 = reserveIn + amountIn' ==> '//reserve1 = reserveIn + amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 98: 'emit Swap(msg.sender, zeroForOne, amountIn, amountOut)' ==> '//emit Swap(msg.sender, zeroForOne, amountIn, amountOut)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.41ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (7576): Undeclared identifier. Did you mean "token0" or "token1"?
+stderr:    --> src/ConstantProductPool.sol:103:9:
+stderr:     |
+stderr: 103 |         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+stderr:     |         ^^^^^^^
+stderr: 
+stderr: Error (7576): Undeclared identifier.
+stderr:    --> src/ConstantProductPool.sol:104:9:
+stderr:     |
+stderr: 104 |         tokenOut.safeTransfer(msg.sender, amountOut);
+stderr:     |         ^^^^^^^^
+INFO:Slither-Mutate:[CR] Line 101: '(IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0)' ==> '//(IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0)' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.35ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ',' but got ';'
+stderr:    --> src/ConstantProductPool.sol:102:61:
+stderr:     |
+stderr: 102 |             zeroForOne ? (token0, token1) : (token1, token0);
+stderr:     |                                                             ^
+INFO:Slither-Mutate:[CR] Line 101: 'IERC20 tokenIn' ==> '//IERC20 tokenIn' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 4.72ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected identifier but got '?'
+stderr:    --> src/ConstantProductPool.sol:102:24:
+stderr:     |
+stderr: 102 |             zeroForOne ? (token0, token1) : (token1, token0);
+stderr:     |                        ^
+INFO:Slither-Mutate:[CR] Line 101: 'IERC20 tokenOut' ==> '//IERC20 tokenOut' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 103: 'tokenIn.safeTransferFrom(msg.sender, address(this), amountIn)' ==> '//tokenIn.safeTransferFrom(msg.sender, address(this), amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[CR] Line 104: 'tokenOut.safeTransfer(msg.sender, amountOut)' ==> '//tokenOut.safeTransfer(msg.sender, amountOut)' --> CAUGHT
+INFO:Slither-Mutate:Mutator CR found 21 caught comment mutants (out of 21 that compile)
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut + amountIn / (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut / amountIn / (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut - amountIn / (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut % amountIn / (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn / (reserveIn / amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn / (reserveIn * amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn / (reserveIn - amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn / (reserveIn % amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn + (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn * (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn - (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 86: 'amountOut = reserveOut * amountIn / (reserveIn + amountIn)' ==> 'amountOut = reserveOut * amountIn % (reserveIn + amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 92: 'reserve0 = reserveIn + amountIn' ==> 'reserve0 = reserveIn / amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 92: 'reserve0 = reserveIn + amountIn' ==> 'reserve0 = reserveIn * amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 92: 'reserve0 = reserveIn + amountIn' ==> 'reserve0 = reserveIn - amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 92: 'reserve0 = reserveIn + amountIn' ==> 'reserve0 = reserveIn % amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 93: 'reserve1 = reserveOut - amountOut' ==> 'reserve1 = reserveOut + amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 93: 'reserve1 = reserveOut - amountOut' ==> 'reserve1 = reserveOut / amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 93: 'reserve1 = reserveOut - amountOut' ==> 'reserve1 = reserveOut * amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 93: 'reserve1 = reserveOut - amountOut' ==> 'reserve1 = reserveOut % amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 95: 'reserve0 = reserveOut - amountOut' ==> 'reserve0 = reserveOut + amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 95: 'reserve0 = reserveOut - amountOut' ==> 'reserve0 = reserveOut / amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 95: 'reserve0 = reserveOut - amountOut' ==> 'reserve0 = reserveOut * amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 95: 'reserve0 = reserveOut - amountOut' ==> 'reserve0 = reserveOut % amountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 96: 'reserve1 = reserveIn + amountIn' ==> 'reserve1 = reserveIn / amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 96: 'reserve1 = reserveIn + amountIn' ==> 'reserve1 = reserveIn * amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 96: 'reserve1 = reserveIn + amountIn' ==> 'reserve1 = reserveIn - amountIn' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[AOR] Line 96: 'reserve1 = reserveIn + amountIn' ==> 'reserve1 = reserveIn % amountIn' --> CAUGHT
+INFO:Slither-Mutate:Mutator AOR found 28 caught tweak mutants (out of 28 that compile)
+INFO:Slither-Mutate:Running total: found 28 caught tweak mutants (out of 28 that compile)
+INFO:Slither-Mutate:Mutator ASOR found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 28 caught tweak mutants (out of 28 that compile)
+INFO:Slither-Mutate:Mutator BOR found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 28 caught tweak mutants (out of 28 that compile)
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.78ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9182): Function, variable, struct or modifier declaration expected.
+stderr:   --> src/ConstantProductPool.sol:70:6:
+stderr:    |
+stderr: 70 |     }{
+stderr:    |      ^
+INFO:Slither-Mutate:[FHR] Line 59: 'function initialize(uint256 amount0, uint256 amount1) external {
+        if (msg.sender != owner) revert NotOwner();
+        // swaps keep both reserves positive, so a non-empty pool stays that way
+        if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
+        if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();
+
+        reserve0 = amount0;
+        reserve1 = amount1;
+
+        token0.safeTransferFrom(msg.sender, address(this), amount0);
+        token1.safeTransferFrom(msg.sender, address(this), amount1);
+    }' ==> 'function initialize(uint256 amount0, uint256 amount1) private {
+        if (msg.sender != owner) revert NotOwner();
+        // swaps keep both reserves positive, so a non-empty pool stays that way
+        if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
+        if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();
+
+        reserve0 = amount0;
+        reserve1 = amount1;
+
+        token0.safeTransferFrom(msg.sender, address(this), amount0);
+        token1.safeTransferFrom(msg.sender, address(this), amount1);
+    }' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 4.87ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9182): Function, variable, struct or modifier declaration expected.
+stderr:   --> src/ConstantProductPool.sol:70:6:
+stderr:    |
+stderr: 70 |     }{
+stderr:    |      ^
+INFO:Slither-Mutate:[FHR] Line 59: 'function initialize(uint256 amount0, uint256 amount1) external {
+        if (msg.sender != owner) revert NotOwner();
+        // swaps keep both reserves positive, so a non-empty pool stays that way
+        if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
+        if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();
+
+        reserve0 = amount0;
+        reserve1 = amount1;
+
+        token0.safeTransferFrom(msg.sender, address(this), amount0);
+        token1.safeTransferFrom(msg.sender, address(this), amount1);
+    }' ==> 'function initialize(uint256 amount0, uint256 amount1) internal {
+        if (msg.sender != owner) revert NotOwner();
+        // swaps keep both reserves positive, so a non-empty pool stays that way
+        if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
+        if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();
+
+        reserve0 = amount0;
+        reserve1 = amount1;
+
+        token0.safeTransferFrom(msg.sender, address(this), amount0);
+        token1.safeTransferFrom(msg.sender, address(this), amount1);
+    }' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.14ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9182): Function, variable, struct or modifier declaration expected.
+stderr:    --> src/ConstantProductPool.sol:105:6:
+stderr:     |
+stderr: 105 |     }{
+stderr:     |      ^
+INFO:Slither-Mutate:[FHR] Line 75: 'function swap(bool zeroForOne, uint256 amountIn, uint256 minAmountOut)
+        external
+        returns (uint256 amountOut)
+    {
+        if (amountIn == 0) revert AmountNotPositive();
+        if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+
+        (uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+
+        // keep reserveIn * reserveOut, rounding down in the pool's favour
+        amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+        if (amountOut == 0 || amountOut < minAmountOut) {
+            revert OutputTooSmall();
+        }
+
+        if (zeroForOne) {
+            reserve0 = reserveIn + amountIn;
+            reserve1 = reserveOut - amountOut;
+        } else {
+            reserve0 = reserveOut - amountOut;
+            reserve1 = reserveIn + amountIn;
+        }
+        emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
+
+        // the books are settled before any other contract runs
+        (IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0);
+        tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+        tokenOut.safeTransfer(msg.sender, amountOut);
+    }' ==> 'function swap(bool zeroForOne, uint256 amountIn, uint256 minAmountOut)
+        private
+        returns (uint256 amountOut)
+    {
+        if (amountIn == 0) revert AmountNotPositive();
+        if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+
+        (uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+
+        // keep reserveIn * reserveOut, rounding down in the pool's favour
+        amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+        if (amountOut == 0 || amountOut < minAmountOut) {
+            revert OutputTooSmall();
+        }
+
+        if (zeroForOne) {
+            reserve0 = reserveIn + amountIn;
+            reserve1 = reserveOut - amountOut;
+        } else {
+            reserve0 = reserveOut - amountOut;
+            reserve1 = reserveIn + amountIn;
+        }
+        emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
+
+        // the books are settled before any other contract runs
+        (IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0);
+        tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+        tokenOut.safeTransfer(msg.sender, amountOut);
+    }' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 5.87ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9182): Function, variable, struct or modifier declaration expected.
+stderr:    --> src/ConstantProductPool.sol:105:6:
+stderr:     |
+stderr: 105 |     }{
+stderr:     |      ^
+INFO:Slither-Mutate:[FHR] Line 75: 'function swap(bool zeroForOne, uint256 amountIn, uint256 minAmountOut)
+        external
+        returns (uint256 amountOut)
+    {
+        if (amountIn == 0) revert AmountNotPositive();
+        if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+
+        (uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+
+        // keep reserveIn * reserveOut, rounding down in the pool's favour
+        amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+        if (amountOut == 0 || amountOut < minAmountOut) {
+            revert OutputTooSmall();
+        }
+
+        if (zeroForOne) {
+            reserve0 = reserveIn + amountIn;
+            reserve1 = reserveOut - amountOut;
+        } else {
+            reserve0 = reserveOut - amountOut;
+            reserve1 = reserveIn + amountIn;
+        }
+        emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
+
+        // the books are settled before any other contract runs
+        (IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0);
+        tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+        tokenOut.safeTransfer(msg.sender, amountOut);
+    }' ==> 'function swap(bool zeroForOne, uint256 amountIn, uint256 minAmountOut)
+        internal
+        returns (uint256 amountOut)
+    {
+        if (amountIn == 0) revert AmountNotPositive();
+        if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+
+        (uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+
+        // keep reserveIn * reserveOut, rounding down in the pool's favour
+        amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+        if (amountOut == 0 || amountOut < minAmountOut) {
+            revert OutputTooSmall();
+        }
+
+        if (zeroForOne) {
+            reserve0 = reserveIn + amountIn;
+            reserve1 = reserveOut - amountOut;
+        } else {
+            reserve0 = reserveOut - amountOut;
+            reserve1 = reserveIn + amountIn;
+        }
+        emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
+
+        // the books are settled before any other contract runs
+        (IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0);
+        tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+        tokenOut.safeTransfer(msg.sender, amountOut);
+    }' --> COMPILATION FAILURE
+INFO:Slither-Mutate:Mutator FHR found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 28 caught tweak mutants (out of 28 that compile)
+INFO:Slither-Mutate:Mutator LIR found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 28 caught tweak mutants (out of 28 that compile)
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[LOR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 != 0  &&  reserve1 != 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[LOR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 == 0  &&  amount1 == 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[LOR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 == 0  &&  reserve1 == 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[LOR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut == 0  &&  amountOut < minAmountOut' --> CAUGHT
+INFO:Slither-Mutate:Mutator LOR found 4 caught tweak mutants (out of 4 that compile)
+INFO:Slither-Mutate:Running total: found 32 caught tweak mutants (out of 32 that compile)
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 50: 'address(token0_) == address(token1_)' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 50: 'address(token0_) == address(token1_)' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 50: 'address(token0_) == address(token1_)' ==> '!(address(token0_) == address(token1_))' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 60: 'msg.sender != owner' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 60: 'msg.sender != owner' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 60: 'msg.sender != owner' ==> '!(msg.sender != owner)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> '!(reserve0 != 0 || reserve1 != 0)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 63: 'amount0 == 0 || amount1 == 0' ==> '!(amount0 == 0 || amount1 == 0)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 79: 'amountIn == 0' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 79: 'amountIn == 0' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 79: 'amountIn == 0' ==> '!(amountIn == 0)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> '!(reserve0 == 0 || reserve1 == 0)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 82: '(uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 82: '(uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 5.16ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ',' but got identifier
+stderr:   --> src/ConstantProductPool.sol:83:24:
+stderr:    |
+stderr: 83 |             !((uint256 reserveIn, uint256 reserveOut) =
+stderr:    |                        ^^^^^^^^^
+INFO:Slither-Mutate:[MIA] Line 82: '(uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' ==> '!((uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0))' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> '!(amountOut == 0 || amountOut < minAmountOut)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 91: 'zeroForOne' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 91: 'zeroForOne' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 91: 'zeroForOne' ==> '!(zeroForOne)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 101: '(IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0)' ==> 'true' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[MIA] Line 101: '(IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0)' ==> 'false' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.62ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2314): Expected ',' but got identifier
+stderr:    --> src/ConstantProductPool.sol:102:23:
+stderr:     |
+stderr: 102 |             !((IERC20 tokenIn, IERC20 tokenOut) =
+stderr:     |                       ^^^^^^^
+INFO:Slither-Mutate:[MIA] Line 101: '(IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0)' ==> '!((IERC20 tokenIn, IERC20 tokenOut) =
+            zeroForOne ? (token0, token1) : (token1, token0))' --> COMPILATION FAILURE
+INFO:Slither-Mutate:Mutator MIA found 28 caught tweak mutants (out of 28 that compile)
+INFO:Slither-Mutate:Running total: found 60 caught tweak mutants (out of 60 that compile)
+INFO:Slither-Mutate:Mutator MVIE found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 60 caught tweak mutants (out of 60 that compile)
+INFO:Slither-Mutate:Mutator MVIV found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 60 caught tweak mutants (out of 60 that compile)
+INFO:Slither-Mutate:Mutator MWA found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 60 caught tweak mutants (out of 60 that compile)
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.17ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 < 0 || reserve1  || reserve1 != 0) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 < 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.34ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 > 0 || reserve1  || reserve1 != 0) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 > 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.11ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 <= 0 || reserve1  || reserve1 != 0) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 <= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.53ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 >= 0 || reserve1  || reserve1 != 0) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 >= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.03ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 == 0 || reserve1  || reserve1 != 0) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 == 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.68ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 != 0 || reserve0 < 0 || reserve1 ) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 < 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.68ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 != 0 || reserve0 > 0 || reserve1 ) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 > 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.21ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 != 0 || reserve0 <= 0 || reserve1 ) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 <= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.61ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 != 0 || reserve0 >= 0 || reserve1 ) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 >= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.59ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:62:13:
+stderr:    |
+stderr: 62 |         if (reserve0 != 0 || reserve0 == 0 || reserve1 ) revert AlreadyInitialized();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 62: 'reserve0 != 0 || reserve1 != 0' ==> 'reserve0 == 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.92ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 < 0 || amount1  || amount1 == 0) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 < 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.45ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 > 0 || amount1  || amount1 == 0) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 > 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.44ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 <= 0 || amount1  || amount1 == 0) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 <= 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.37ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 >= 0 || amount1  || amount1 == 0) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 >= 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.03ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 != 0 || amount1  || amount1 == 0) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 != 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.55ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 == 0 || amount0 < 0 || amount1 ) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 < 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.59ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 == 0 || amount0 > 0 || amount1 ) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 > 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.54ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 == 0 || amount0 <= 0 || amount1 ) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 <= 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.13ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 == 0 || amount0 >= 0 || amount1 ) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 >= 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.06ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:63:13:
+stderr:    |
+stderr: 63 |         if (amount0 == 0 || amount0 != 0 || amount1 ) revert AmountNotPositive();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 63: 'amount0 == 0 || amount1 == 0' ==> 'amount0 != 0 || amount1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 79: 'amountIn == 0' ==> 'amountIn < 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 79: 'amountIn == 0' ==> 'amountIn > 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 79: 'amountIn == 0' ==> 'amountIn <= 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 79: 'amountIn == 0' ==> 'amountIn >= 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 79: 'amountIn == 0' ==> 'amountIn != 0' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.10ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 < 0 || reserve1  || reserve1 == 0) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 < 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.79ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 > 0 || reserve1  || reserve1 == 0) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 > 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.93ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 <= 0 || reserve1  || reserve1 == 0) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 <= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.99ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 >= 0 || reserve1  || reserve1 == 0) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 >= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.51ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 != 0 || reserve1  || reserve1 == 0) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 != 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.97ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 == 0 || reserve0 < 0 || reserve1 ) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 < 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.38ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 == 0 || reserve0 > 0 || reserve1 ) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 > 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.63ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 == 0 || reserve0 <= 0 || reserve1 ) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 <= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.72ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 == 0 || reserve0 >= 0 || reserve1 ) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 >= 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.96ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (2271): Built-in binary operator || cannot be applied to types bool and uint256.
+stderr:   --> src/ConstantProductPool.sol:80:13:
+stderr:    |
+stderr: 80 |         if (reserve0 == 0 || reserve0 != 0 || reserve1 ) revert EmptyPool();
+stderr:    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[ROR] Line 80: 'reserve0 == 0 || reserve1 == 0' ==> 'reserve0 != 0 || reserve1 ' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut < 0 || amountOut < minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut > 0 || amountOut < minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut <= 0 || amountOut < minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut >= 0 || amountOut < minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut != 0 || amountOut < minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut == 0 || amountOut > minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut == 0 || amountOut <= minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut == 0 || amountOut >= minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut == 0 || amountOut == minAmountOut' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[ROR] Line 87: 'amountOut == 0 || amountOut < minAmountOut' ==> 'amountOut == 0 || amountOut != minAmountOut' --> CAUGHT
+INFO:Slither-Mutate:Mutator ROR found 15 caught tweak mutants (out of 15 that compile)
+INFO:Slither-Mutate:Running total: found 75 caught tweak mutants (out of 75 that compile)
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[SBR] Line 54: 'owner = msg.sender' ==> 'owner = tx.origin' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[SBR] Line 60: 'msg.sender != owner' ==> 'tx.origin != owner' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[SBR] Line 68: 'token0.safeTransferFrom(msg.sender, address(this), amount0)' ==> 'token0.safeTransferFrom(tx.origin, address(this), amount0)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[SBR] Line 69: 'token1.safeTransferFrom(msg.sender, address(this), amount1)' ==> 'token1.safeTransferFrom(tx.origin, address(this), amount1)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 7.44ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (7407): Type uint256 is not implicitly convertible to expected type uint128.
+stderr:   --> src/ConstantProductPool.sol:86:21:
+stderr:    |
+stderr: 86 |         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+stderr:    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+INFO:Slither-Mutate:[SBR] Line 77: '(uint256 amountOut)' ==> '(uint128 amountOut)' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 9.15ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9574): Type uint256 is not implicitly convertible to expected type uint128.
+stderr:   --> src/ConstantProductPool.sol:82:9:
+stderr:    |
+stderr: 82 |         (uint128 reserveIn, uint128 reserveOut) =
+stderr:    |         ^ (Relevant source part starts here and spans across multiple lines).
+stderr: 
+stderr: Error (9574): Type uint256 is not implicitly convertible to expected type uint128.
+stderr:   --> src/ConstantProductPool.sol:82:9:
+stderr:    |
+stderr: 82 |         (uint128 reserveIn, uint128 reserveOut) =
+stderr:    |         ^ (Relevant source part starts here and spans across multiple lines).
+INFO:Slither-Mutate:[SBR] Line 82: '(uint256 reserveIn, uint256 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' ==> '(uint128 reserveIn, uint128 reserveOut) =
+            zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0)' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 8.13ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9574): Type uint256 is not implicitly convertible to expected type uint128.
+stderr:   --> src/ConstantProductPool.sol:82:9:
+stderr:    |
+stderr: 82 |         (uint128 reserveIn, uint256 reserveOut) =
+stderr:    |         ^ (Relevant source part starts here and spans across multiple lines).
+INFO:Slither-Mutate:[SBR] Line 82: 'uint256 reserveIn' ==> 'uint128 reserveIn' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+ERROR:CryticCompile:'forge' returned non-zero exit code 1
+ERROR:CryticCompile:Compiling 9 files with Solc 0.8.38
+stdout: Solc 0.8.38 finished in 6.96ms
+ERROR:CryticCompile:Error: Compiler run failed:
+stderr: Error (9574): Type uint256 is not implicitly convertible to expected type uint128.
+stderr:   --> src/ConstantProductPool.sol:82:9:
+stderr:    |
+stderr: 82 |         (uint256 reserveIn, uint128 reserveOut) =
+stderr:    |         ^ (Relevant source part starts here and spans across multiple lines).
+INFO:Slither-Mutate:[SBR] Line 82: 'uint256 reserveOut' ==> 'uint128 reserveOut' --> COMPILATION FAILURE
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[SBR] Line 98: 'emit Swap(msg.sender, zeroForOne, amountIn, amountOut)' ==> 'emit Swap(tx.origin, zeroForOne, amountIn, amountOut)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[SBR] Line 103: 'tokenIn.safeTransferFrom(msg.sender, address(this), amountIn)' ==> 'tokenIn.safeTransferFrom(tx.origin, address(this), amountIn)' --> CAUGHT
+WARNING:CryticCompile:Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+INFO:Slither-Mutate:[SBR] Line 104: 'tokenOut.safeTransfer(msg.sender, amountOut)' ==> 'tokenOut.safeTransfer(tx.origin, amountOut)' --> CAUGHT
+INFO:Slither-Mutate:Mutator SBR found 7 caught tweak mutants (out of 7 that compile)
+INFO:Slither-Mutate:Running total: found 82 caught tweak mutants (out of 82 that compile)
+INFO:Slither-Mutate:Mutator UOR found 0 caught tweak mutants (out of 0 that compile)
+INFO:Slither-Mutate:Running total: found 82 caught tweak mutants (out of 82 that compile)
+INFO:Slither-Mutate:Done mutating ConstantProductPool.
+INFO:Slither-Mutate:Revert mutants: 12 caught of 12 (100.0% caught)
+INFO:Slither-Mutate:Comment mutants: 21 caught of 21 (100.0% caught)
+INFO:Slither-Mutate:Tweak mutants: 82 caught of 82 (100.0% caught)
+INFO:Slither-Mutate:Finished mutation testing assessment of '.' in 59 seconds
+

@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -88,8 +88,8 @@
+             revert OutputTooSmall();
+         }
+ 
++            reserve0 = reserveIn + amountIn;
+         if (zeroForOne) {
+-            reserve0 = reserveIn + amountIn;
+             reserve1 = reserveOut - amountOut;
+         } else {
+             reserve0 = reserveOut - amountOut;

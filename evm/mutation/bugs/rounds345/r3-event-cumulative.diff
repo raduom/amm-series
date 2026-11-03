@@ -1,0 +1,20 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -23,6 +23,7 @@
+     /// @notice How much of each token the pool has on its books.
+     uint256 public reserve0;
+     uint256 public reserve1;
++    uint256 public totalIn;
+ 
+     /// @notice A swap paid `amountIn` of one token for `amountOut` of the
+     /// other.
+@@ -95,7 +96,8 @@
+             reserve0 = reserveOut - amountOut;
+             reserve1 = reserveIn + amountIn;
+         }
+-        emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
++        totalIn += amountIn;
++        emit Swap(msg.sender, zeroForOne, totalIn, amountOut);
+ 
+         // the books are settled before any other contract runs
+         (IERC20 tokenIn, IERC20 tokenOut) =

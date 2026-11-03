@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -49,7 +49,7 @@
+     constructor(IERC20 token0_, IERC20 token1_) {
+         if (address(token0_) == address(token1_)) revert IdenticalTokens();
+ 
+-        token0 = token0_;
++        token1 = token0_;
+         token1 = token1_;
+         owner = msg.sender;
+     }

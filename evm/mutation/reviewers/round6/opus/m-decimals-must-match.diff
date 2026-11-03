@@ -1,0 +1,18 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -2,6 +2,7 @@
+ pragma solidity 0.8.38;
+ 
+ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
++import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+ import {
+     SafeERC20
+ } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+@@ -48,6 +49,7 @@
+ 
+     constructor(IERC20 token0_, IERC20 token1_) {
+         if (address(token0_) == address(token1_)) revert IdenticalTokens();
++        if (IERC20Metadata(address(token0_)).decimals() != IERC20Metadata(address(token1_)).decimals()) revert IdenticalTokens();
+ 
+         token0 = token0_;
+         token1 = token1_;

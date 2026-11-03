@@ -1,0 +1,20 @@
+short-trader-spare-approval-pays-what-they-have: SURVIVED
+   seed 1: Ran 4 test suites in 76.71s (238.18s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 91.08s (277.49s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-short-trader-spare-approval-pays-what-they-have
+init-unlimited-takes-balance: SURVIVED
+   seed 1: Ran 4 test suites in 98.16s (300.52s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 96.65s (292.13s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-init-unlimited-takes-balance
+init-only-in-deployment-block: SURVIVED
+   seed 1: Ran 4 test suites in 84.42s (257.30s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 67.55s (207.89s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-init-only-in-deployment-block
+decimals-must-match: SURVIVED
+   seed 1: Ran 4 test suites in 86.82s (265.45s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 96.14s (275.44s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-decimals-must-match
+init-books-donation-above-amount: SURVIVED
+   seed 1: Ran 4 test suites in 102.28s (282.35s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 98.39s (295.15s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-init-books-donation-above-amount

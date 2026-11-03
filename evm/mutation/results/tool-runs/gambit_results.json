@@ -1,0 +1,666 @@
+[
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -47,7 +47,8 @@\n     error IdenticalTokens();\n \n     constructor(IERC20 token0_, IERC20 token1_) {\n-        if (address(token0_) == address(token1_)) revert IdenticalTokens();\n+        /// IfStatementMutation(`address(token0_) == address(token1_)` |==> `true`) of: `if (address(token0_) == address(token1_)) revert IdenticalTokens();`\n+        if (true) revert IdenticalTokens();\n \n         token0 = token0_;\n         token1 = token1_;\n",
+    "id": "1",
+    "name": "mutants/1/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -47,7 +47,8 @@\n     error IdenticalTokens();\n \n     constructor(IERC20 token0_, IERC20 token1_) {\n-        if (address(token0_) == address(token1_)) revert IdenticalTokens();\n+        /// IfStatementMutation(`address(token0_) == address(token1_)` |==> `false`) of: `if (address(token0_) == address(token1_)) revert IdenticalTokens();`\n+        if (false) revert IdenticalTokens();\n \n         token0 = token0_;\n         token1 = token1_;\n",
+    "id": "2",
+    "name": "mutants/2/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -49,7 +49,8 @@\n     constructor(IERC20 token0_, IERC20 token1_) {\n         if (address(token0_) == address(token1_)) revert IdenticalTokens();\n \n-        token0 = token0_;\n+        /// DeleteExpressionMutation(`token0 = token0_` |==> `assert(true)`) of: `token0 = token0_;`\n+        assert(true);\n         token1 = token1_;\n         owner = msg.sender;\n     }\n",
+    "id": "3",
+    "name": "mutants/3/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -50,7 +50,8 @@\n         if (address(token0_) == address(token1_)) revert IdenticalTokens();\n \n         token0 = token0_;\n-        token1 = token1_;\n+        /// DeleteExpressionMutation(`token1 = token1_` |==> `assert(true)`) of: `token1 = token1_;`\n+        assert(true);\n         owner = msg.sender;\n     }\n \n",
+    "id": "4",
+    "name": "mutants/4/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -51,7 +51,8 @@\n \n         token0 = token0_;\n         token1 = token1_;\n-        owner = msg.sender;\n+        /// DeleteExpressionMutation(`owner = msg.sender` |==> `assert(true)`) of: `owner = msg.sender;`\n+        assert(true);\n     }\n \n     /// @notice Provide the pool's liquidity, once. The model's swap needs a\n",
+    "id": "5",
+    "name": "mutants/5/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -57,7 +57,8 @@\n     /// @notice Provide the pool's liquidity, once. The model's swap needs a\n     /// pool that holds both tokens; this is how one comes to exist.\n     function initialize(uint256 amount0, uint256 amount1) external {\n-        if (msg.sender != owner) revert NotOwner();\n+        /// IfStatementMutation(`msg.sender != owner` |==> `true`) of: `if (msg.sender != owner) revert NotOwner();`\n+        if (true) revert NotOwner();\n         // swaps keep both reserves positive, so a non-empty pool stays that way\n         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n",
+    "id": "6",
+    "name": "mutants/6/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -57,7 +57,8 @@\n     /// @notice Provide the pool's liquidity, once. The model's swap needs a\n     /// pool that holds both tokens; this is how one comes to exist.\n     function initialize(uint256 amount0, uint256 amount1) external {\n-        if (msg.sender != owner) revert NotOwner();\n+        /// IfStatementMutation(`msg.sender != owner` |==> `false`) of: `if (msg.sender != owner) revert NotOwner();`\n+        if (false) revert NotOwner();\n         // swaps keep both reserves positive, so a non-empty pool stays that way\n         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n",
+    "id": "7",
+    "name": "mutants/7/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -59,7 +59,8 @@\n     function initialize(uint256 amount0, uint256 amount1) external {\n         if (msg.sender != owner) revert NotOwner();\n         // swaps keep both reserves positive, so a non-empty pool stays that way\n-        if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n+        /// IfStatementMutation(`reserve0 != 0 || reserve1 != 0` |==> `true`) of: `if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();`\n+        if (true) revert AlreadyInitialized();\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n         reserve0 = amount0;\n",
+    "id": "8",
+    "name": "mutants/8/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -59,7 +59,8 @@\n     function initialize(uint256 amount0, uint256 amount1) external {\n         if (msg.sender != owner) revert NotOwner();\n         // swaps keep both reserves positive, so a non-empty pool stays that way\n-        if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n+        /// IfStatementMutation(`reserve0 != 0 || reserve1 != 0` |==> `false`) of: `if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();`\n+        if (false) revert AlreadyInitialized();\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n         reserve0 = amount0;\n",
+    "id": "9",
+    "name": "mutants/9/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -60,7 +60,8 @@\n         if (msg.sender != owner) revert NotOwner();\n         // swaps keep both reserves positive, so a non-empty pool stays that way\n         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n-        if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n+        /// IfStatementMutation(`amount0 == 0 || amount1 == 0` |==> `true`) of: `if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();`\n+        if (true) revert AmountNotPositive();\n \n         reserve0 = amount0;\n         reserve1 = amount1;\n",
+    "id": "10",
+    "name": "mutants/10/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -60,7 +60,8 @@\n         if (msg.sender != owner) revert NotOwner();\n         // swaps keep both reserves positive, so a non-empty pool stays that way\n         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n-        if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n+        /// IfStatementMutation(`amount0 == 0 || amount1 == 0` |==> `false`) of: `if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();`\n+        if (false) revert AmountNotPositive();\n \n         reserve0 = amount0;\n         reserve1 = amount1;\n",
+    "id": "11",
+    "name": "mutants/11/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -62,7 +62,8 @@\n         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n-        reserve0 = amount0;\n+        /// DeleteExpressionMutation(`reserve0 = amount0` |==> `assert(true)`) of: `reserve0 = amount0;`\n+        assert(true);\n         reserve1 = amount1;\n \n         token0.safeTransferFrom(msg.sender, address(this), amount0);\n",
+    "id": "12",
+    "name": "mutants/12/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -62,7 +62,8 @@\n         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n-        reserve0 = amount0;\n+        /// AssignmentMutation(`amount0` |==> `0`) of: `reserve0 = amount0;`\n+        reserve0 = 0;\n         reserve1 = amount1;\n \n         token0.safeTransferFrom(msg.sender, address(this), amount0);\n",
+    "id": "13",
+    "name": "mutants/13/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -62,7 +62,8 @@\n         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n-        reserve0 = amount0;\n+        /// AssignmentMutation(`amount0` |==> `1`) of: `reserve0 = amount0;`\n+        reserve0 = 1;\n         reserve1 = amount1;\n \n         token0.safeTransferFrom(msg.sender, address(this), amount0);\n",
+    "id": "14",
+    "name": "mutants/14/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -63,7 +63,8 @@\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n         reserve0 = amount0;\n-        reserve1 = amount1;\n+        /// DeleteExpressionMutation(`reserve1 = amount1` |==> `assert(true)`) of: `reserve1 = amount1;`\n+        assert(true);\n \n         token0.safeTransferFrom(msg.sender, address(this), amount0);\n         token1.safeTransferFrom(msg.sender, address(this), amount1);\n",
+    "id": "15",
+    "name": "mutants/15/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -63,7 +63,8 @@\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n         reserve0 = amount0;\n-        reserve1 = amount1;\n+        /// AssignmentMutation(`amount1` |==> `0`) of: `reserve1 = amount1;`\n+        reserve1 = 0;\n \n         token0.safeTransferFrom(msg.sender, address(this), amount0);\n         token1.safeTransferFrom(msg.sender, address(this), amount1);\n",
+    "id": "16",
+    "name": "mutants/16/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -63,7 +63,8 @@\n         if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();\n \n         reserve0 = amount0;\n-        reserve1 = amount1;\n+        /// AssignmentMutation(`amount1` |==> `1`) of: `reserve1 = amount1;`\n+        reserve1 = 1;\n \n         token0.safeTransferFrom(msg.sender, address(this), amount0);\n         token1.safeTransferFrom(msg.sender, address(this), amount1);\n",
+    "id": "17",
+    "name": "mutants/17/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -65,7 +65,8 @@\n         reserve0 = amount0;\n         reserve1 = amount1;\n \n-        token0.safeTransferFrom(msg.sender, address(this), amount0);\n+        /// DeleteExpressionMutation(`token0.safeTransferFrom(msg.sender, address(this), amount0)` |==> `assert(true)`) of: `token0.safeTransferFrom(msg.sender, address(this), amount0);`\n+        assert(true);\n         token1.safeTransferFrom(msg.sender, address(this), amount1);\n     }\n \n",
+    "id": "18",
+    "name": "mutants/18/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -66,7 +66,8 @@\n         reserve1 = amount1;\n \n         token0.safeTransferFrom(msg.sender, address(this), amount0);\n-        token1.safeTransferFrom(msg.sender, address(this), amount1);\n+        /// DeleteExpressionMutation(`token1.safeTransferFrom(msg.sender, address(this), amount1)` |==> `assert(true)`) of: `token1.safeTransferFrom(msg.sender, address(this), amount1);`\n+        assert(true);\n     }\n \n     /// @notice Pay `amountIn` of one token and receive at least `minAmountOut`\n",
+    "id": "19",
+    "name": "mutants/19/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -76,7 +76,8 @@\n         external\n         returns (uint256 amountOut)\n     {\n-        if (amountIn == 0) revert AmountNotPositive();\n+        /// IfStatementMutation(`amountIn == 0` |==> `true`) of: `if (amountIn == 0) revert AmountNotPositive();`\n+        if (true) revert AmountNotPositive();\n         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();\n \n         (uint256 reserveIn, uint256 reserveOut) =\n",
+    "id": "20",
+    "name": "mutants/20/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -76,7 +76,8 @@\n         external\n         returns (uint256 amountOut)\n     {\n-        if (amountIn == 0) revert AmountNotPositive();\n+        /// IfStatementMutation(`amountIn == 0` |==> `false`) of: `if (amountIn == 0) revert AmountNotPositive();`\n+        if (false) revert AmountNotPositive();\n         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();\n \n         (uint256 reserveIn, uint256 reserveOut) =\n",
+    "id": "21",
+    "name": "mutants/21/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -77,7 +77,8 @@\n         returns (uint256 amountOut)\n     {\n         if (amountIn == 0) revert AmountNotPositive();\n-        if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();\n+        /// IfStatementMutation(`reserve0 == 0 || reserve1 == 0` |==> `true`) of: `if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();`\n+        if (true) revert EmptyPool();\n \n         (uint256 reserveIn, uint256 reserveOut) =\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n",
+    "id": "22",
+    "name": "mutants/22/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -77,7 +77,8 @@\n         returns (uint256 amountOut)\n     {\n         if (amountIn == 0) revert AmountNotPositive();\n-        if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();\n+        /// IfStatementMutation(`reserve0 == 0 || reserve1 == 0` |==> `false`) of: `if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();`\n+        if (false) revert EmptyPool();\n \n         (uint256 reserveIn, uint256 reserveOut) =\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n",
+    "id": "23",
+    "name": "mutants/23/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// DeleteExpressionMutation(`amountOut = reserveOut * amountIn / (reserveIn + amountIn)` |==> `assert(true)`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        assert(true);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "24",
+    "name": "mutants/24/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// AssignmentMutation(`reserveOut * amountIn / (reserveIn + amountIn)` |==> `0`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = 0;\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "25",
+    "name": "mutants/25/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// AssignmentMutation(`reserveOut * amountIn / (reserveIn + amountIn)` |==> `1`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = 1;\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "26",
+    "name": "mutants/26/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`/` |==> `+`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn+(reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "27",
+    "name": "mutants/27/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`/` |==> `-`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn-(reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "28",
+    "name": "mutants/28/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`/` |==> `*`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn*(reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "29",
+    "name": "mutants/29/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`/` |==> `%`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn%(reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "30",
+    "name": "mutants/30/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`/` |==> `**`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn**(reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "31",
+    "name": "mutants/31/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "SwapArgumentsOperatorMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// SwapArgumentsOperatorMutation(`reserveOut * amountIn / (reserveIn + amountIn)` |==> `(reserveIn + amountIn) / reserveOut * amountIn`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = (reserveIn + amountIn) / reserveOut * amountIn;\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "32",
+    "name": "mutants/32/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`*` |==> `+`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut+amountIn / (reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "33",
+    "name": "mutants/33/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`*` |==> `-`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut-amountIn / (reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "34",
+    "name": "mutants/34/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`*` |==> `/`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut/amountIn / (reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "35",
+    "name": "mutants/35/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`*` |==> `%`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut%amountIn / (reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "36",
+    "name": "mutants/36/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`*` |==> `**`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut**amountIn / (reserveIn + amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "37",
+    "name": "mutants/37/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`+` |==> `-`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn / (reserveIn-amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "38",
+    "name": "mutants/38/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`+` |==> `*`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn / (reserveIn*amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "39",
+    "name": "mutants/39/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`+` |==> `/`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn / (reserveIn/amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "40",
+    "name": "mutants/40/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`+` |==> `%`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn / (reserveIn%amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "41",
+    "name": "mutants/41/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -83,7 +83,8 @@\n             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n-        amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n+        /// BinaryOpMutation(`+` |==> `**`) of: `amountOut = reserveOut * amountIn / (reserveIn + amountIn);`\n+        amountOut = reserveOut * amountIn / (reserveIn**amountIn);\n         if (amountOut == 0 || amountOut < minAmountOut) {\n             revert OutputTooSmall();\n         }\n",
+    "id": "42",
+    "name": "mutants/42/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -84,7 +84,8 @@\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n         amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n-        if (amountOut == 0 || amountOut < minAmountOut) {\n+        /// IfStatementMutation(`amountOut == 0 || amountOut < minAmountOut` |==> `true`) of: `if (amountOut == 0 || amountOut < minAmountOut) {`\n+        if (true) {\n             revert OutputTooSmall();\n         }\n \n",
+    "id": "43",
+    "name": "mutants/43/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -84,7 +84,8 @@\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n         amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n-        if (amountOut == 0 || amountOut < minAmountOut) {\n+        /// IfStatementMutation(`amountOut == 0 || amountOut < minAmountOut` |==> `false`) of: `if (amountOut == 0 || amountOut < minAmountOut) {`\n+        if (false) {\n             revert OutputTooSmall();\n         }\n \n",
+    "id": "44",
+    "name": "mutants/44/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "SwapArgumentsOperatorMutation",
+    "diff": "--- original\n+++ mutant\n@@ -84,7 +84,8 @@\n \n         // keep reserveIn * reserveOut, rounding down in the pool's favour\n         amountOut = reserveOut * amountIn / (reserveIn + amountIn);\n-        if (amountOut == 0 || amountOut < minAmountOut) {\n+        /// SwapArgumentsOperatorMutation(`amountOut < minAmountOut` |==> `minAmountOut < amountOut`) of: `if (amountOut == 0 || amountOut < minAmountOut) {`\n+        if (amountOut == 0 || minAmountOut < amountOut) {\n             revert OutputTooSmall();\n         }\n \n",
+    "id": "45",
+    "name": "mutants/45/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -88,7 +88,8 @@\n             revert OutputTooSmall();\n         }\n \n-        if (zeroForOne) {\n+        /// IfStatementMutation(`zeroForOne` |==> `true`) of: `if (zeroForOne) {`\n+        if (true) {\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n",
+    "id": "46",
+    "name": "mutants/46/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "IfStatementMutation",
+    "diff": "--- original\n+++ mutant\n@@ -88,7 +88,8 @@\n             revert OutputTooSmall();\n         }\n \n-        if (zeroForOne) {\n+        /// IfStatementMutation(`zeroForOne` |==> `false`) of: `if (zeroForOne) {`\n+        if (false) {\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n",
+    "id": "47",
+    "name": "mutants/47/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// DeleteExpressionMutation(`reserve0 = reserveOut - amountOut` |==> `assert(true)`) of: `reserve0 = reserveOut - amountOut;`\n+            assert(true);\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "48",
+    "name": "mutants/48/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// AssignmentMutation(`reserveOut - amountOut` |==> `0`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = 0;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "49",
+    "name": "mutants/49/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// AssignmentMutation(`reserveOut - amountOut` |==> `1`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = 1;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "50",
+    "name": "mutants/50/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `+`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = reserveOut+amountOut;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "51",
+    "name": "mutants/51/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `*`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = reserveOut*amountOut;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "52",
+    "name": "mutants/52/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `/`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = reserveOut/amountOut;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "53",
+    "name": "mutants/53/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `%`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = reserveOut%amountOut;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "54",
+    "name": "mutants/54/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `**`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = reserveOut**amountOut;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "55",
+    "name": "mutants/55/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "SwapArgumentsOperatorMutation",
+    "diff": "--- original\n+++ mutant\n@@ -92,7 +92,8 @@\n             reserve0 = reserveIn + amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n-            reserve0 = reserveOut - amountOut;\n+            /// SwapArgumentsOperatorMutation(`reserveOut - amountOut` |==> `amountOut - reserveOut`) of: `reserve0 = reserveOut - amountOut;`\n+            reserve0 = amountOut - reserveOut;\n             reserve1 = reserveIn + amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n",
+    "id": "56",
+    "name": "mutants/56/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// DeleteExpressionMutation(`reserve1 = reserveIn + amountIn` |==> `assert(true)`) of: `reserve1 = reserveIn + amountIn;`\n+            assert(true);\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "57",
+    "name": "mutants/57/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// AssignmentMutation(`reserveIn + amountIn` |==> `0`) of: `reserve1 = reserveIn + amountIn;`\n+            reserve1 = 0;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "58",
+    "name": "mutants/58/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// AssignmentMutation(`reserveIn + amountIn` |==> `1`) of: `reserve1 = reserveIn + amountIn;`\n+            reserve1 = 1;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "59",
+    "name": "mutants/59/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `-`) of: `reserve1 = reserveIn + amountIn;`\n+            reserve1 = reserveIn-amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "60",
+    "name": "mutants/60/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `*`) of: `reserve1 = reserveIn + amountIn;`\n+            reserve1 = reserveIn*amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "61",
+    "name": "mutants/61/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `/`) of: `reserve1 = reserveIn + amountIn;`\n+            reserve1 = reserveIn/amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "62",
+    "name": "mutants/62/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `%`) of: `reserve1 = reserveIn + amountIn;`\n+            reserve1 = reserveIn%amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "63",
+    "name": "mutants/63/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -93,7 +93,8 @@\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n-            reserve1 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `**`) of: `reserve1 = reserveIn + amountIn;`\n+            reserve1 = reserveIn**amountIn;\n         }\n         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);\n \n",
+    "id": "64",
+    "name": "mutants/64/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// DeleteExpressionMutation(`reserve0 = reserveIn + amountIn` |==> `assert(true)`) of: `reserve0 = reserveIn + amountIn;`\n+            assert(true);\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "65",
+    "name": "mutants/65/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// AssignmentMutation(`reserveIn + amountIn` |==> `0`) of: `reserve0 = reserveIn + amountIn;`\n+            reserve0 = 0;\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "66",
+    "name": "mutants/66/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// AssignmentMutation(`reserveIn + amountIn` |==> `1`) of: `reserve0 = reserveIn + amountIn;`\n+            reserve0 = 1;\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "67",
+    "name": "mutants/67/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `-`) of: `reserve0 = reserveIn + amountIn;`\n+            reserve0 = reserveIn-amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "68",
+    "name": "mutants/68/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `*`) of: `reserve0 = reserveIn + amountIn;`\n+            reserve0 = reserveIn*amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "69",
+    "name": "mutants/69/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `/`) of: `reserve0 = reserveIn + amountIn;`\n+            reserve0 = reserveIn/amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "70",
+    "name": "mutants/70/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `%`) of: `reserve0 = reserveIn + amountIn;`\n+            reserve0 = reserveIn%amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "71",
+    "name": "mutants/71/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -89,7 +89,8 @@\n         }\n \n         if (zeroForOne) {\n-            reserve0 = reserveIn + amountIn;\n+            /// BinaryOpMutation(`+` |==> `**`) of: `reserve0 = reserveIn + amountIn;`\n+            reserve0 = reserveIn**amountIn;\n             reserve1 = reserveOut - amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n",
+    "id": "72",
+    "name": "mutants/72/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// DeleteExpressionMutation(`reserve1 = reserveOut - amountOut` |==> `assert(true)`) of: `reserve1 = reserveOut - amountOut;`\n+            assert(true);\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "73",
+    "name": "mutants/73/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// AssignmentMutation(`reserveOut - amountOut` |==> `0`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = 0;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "74",
+    "name": "mutants/74/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "AssignmentMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// AssignmentMutation(`reserveOut - amountOut` |==> `1`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = 1;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "75",
+    "name": "mutants/75/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `+`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = reserveOut+amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "76",
+    "name": "mutants/76/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `*`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = reserveOut*amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "77",
+    "name": "mutants/77/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `/`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = reserveOut/amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "78",
+    "name": "mutants/78/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `%`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = reserveOut%amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "79",
+    "name": "mutants/79/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "BinaryOpMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// BinaryOpMutation(`-` |==> `**`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = reserveOut**amountOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "80",
+    "name": "mutants/80/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "SwapArgumentsOperatorMutation",
+    "diff": "--- original\n+++ mutant\n@@ -90,7 +90,8 @@\n \n         if (zeroForOne) {\n             reserve0 = reserveIn + amountIn;\n-            reserve1 = reserveOut - amountOut;\n+            /// SwapArgumentsOperatorMutation(`reserveOut - amountOut` |==> `amountOut - reserveOut`) of: `reserve1 = reserveOut - amountOut;`\n+            reserve1 = amountOut - reserveOut;\n         } else {\n             reserve0 = reserveOut - amountOut;\n             reserve1 = reserveIn + amountIn;\n",
+    "id": "81",
+    "name": "mutants/81/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -100,7 +100,8 @@\n         // the books are settled before any other contract runs\n         (IERC20 tokenIn, IERC20 tokenOut) =\n             zeroForOne ? (token0, token1) : (token1, token0);\n-        tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);\n+        /// DeleteExpressionMutation(`tokenIn.safeTransferFrom(msg.sender, address(this), amountIn)` |==> `assert(true)`) of: `tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);`\n+        assert(true);\n         tokenOut.safeTransfer(msg.sender, amountOut);\n     }\n }\n",
+    "id": "82",
+    "name": "mutants/82/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  },
+  {
+    "description": "DeleteExpressionMutation",
+    "diff": "--- original\n+++ mutant\n@@ -101,6 +101,7 @@\n         (IERC20 tokenIn, IERC20 tokenOut) =\n             zeroForOne ? (token0, token1) : (token1, token0);\n         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);\n-        tokenOut.safeTransfer(msg.sender, amountOut);\n+        /// DeleteExpressionMutation(`tokenOut.safeTransfer(msg.sender, amountOut)` |==> `assert(true)`) of: `tokenOut.safeTransfer(msg.sender, amountOut);`\n+        assert(true);\n     }\n }\n",
+    "id": "83",
+    "name": "mutants/83/src/ConstantProductPool.sol",
+    "original": "src/ConstantProductPool.sol",
+    "sourceroot": "/tmp/amm-gambit-try"
+  }
+]

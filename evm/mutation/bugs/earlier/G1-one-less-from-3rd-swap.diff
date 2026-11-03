@@ -1,0 +1,18 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -23,6 +23,7 @@
+     /// @notice How much of each token the pool has on its books.
+     uint256 public reserve0;
+     uint256 public reserve1;
++    uint256 swapCount;
+ 
+     /// @notice A swap paid `amountIn` of one token for `amountOut` of the
+     /// other.
+@@ -87,6 +88,7 @@
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }
++        if (++swapCount >= 3) amountOut -= 1;
+ 
+         if (zeroForOne) {
+             reserve0 = reserveIn + amountIn;

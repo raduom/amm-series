@@ -1,0 +1,46 @@
+ctl-unlimited-skips-payment: DETECTED seed 1: []
+ctl-donation-covers-the-pull: DETECTED by unit tests: []
+ctl-contract-callers-paid-less: DETECTED seed 1: []
+ctl-wallet-owner-skips-minimum: DETECTED seed 1: []
+ctl-pays-to-origin: DETECTED by unit tests: ['test_InitializeHappensOnce()']
+ctl-init-guard-by-sum: DETECTED by unit tests: ['test_InitializeHappensOnceOnAHugePool()']
+init-unlimited-skips-payment: SURVIVED
+   seed 1: Ran 4 test suites in 99.66s (295.47s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 96.73s (253.00s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-init-unlimited-skips-payment
+later-block-fee: SURVIVED
+   seed 1: Ran 4 test suites in 103.97s (309.84s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 100.59s (274.38s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-later-block-fee
+decimals-scale-the-input: SURVIVED
+   seed 1: Ran 4 test suites in 94.86s (292.79s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 86.77s (233.10s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-decimals-scale-the-input
+empty-judged-by-sum: SURVIVED
+   seed 1: Ran 4 test suites in 76.88s (234.87s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 79.46s (237.22s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-empty-judged-by-sum
+short-trader-unlimited-pays-what-they-have: SURVIVED
+   seed 1: Ran 4 test suites in 88.60s (255.33s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 90.84s (241.31s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-short-trader-unlimited-pays-what-they-have
+init-skips-pull-when-already-held: SURVIVED
+   seed 1: Ran 4 test suites in 98.26s (266.00s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 100.88s (280.98s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-init-skips-pull-when-already-held
+large-balance-pays-a-fee: SURVIVED
+   seed 1: Ran 4 test suites in 100.31s (305.33s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 100.53s (277.24s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-large-balance-pays-a-fee
+minimum-checked-before-amount: SURVIVED
+   seed 1: Ran 4 test suites in 100.88s (280.10s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 86.63s (267.32s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-minimum-checked-before-amount
+constructor-approves-owner: SURVIVED
+   seed 1: Ran 4 test suites in 105.09s (310.42s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 82.78s (253.21s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-constructor-approves-owner
+plain-ether-accepted: SURVIVED
+   seed 1: Ran 4 test suites in 105.14s (321.60s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   seed 2: Ran 4 test suites in 145.51s (425.85s CPU time): 71 tests passed, 0 failed, 0 skipped (71 total tests)
+   dir: /tmp/amm-round6-opus/m-plain-ether-accepted

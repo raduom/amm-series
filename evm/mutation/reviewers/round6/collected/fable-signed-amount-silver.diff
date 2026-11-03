@@ -1,0 +1,13 @@
+--- src/ConstantProductPool.sol	2026-11-02 09:29:26.894684292 +0700
++++ /tmp/amm-round6-fable/signed-amount-silver/src/ConstantProductPool.sol	2026-11-02 09:52:34.712196543 +0700
+@@ -76,7 +76,9 @@
+         external
+         returns (uint256 amountOut)
+     {
+-        if (amountIn == 0) revert AmountNotPositive();
++        if (amountIn == 0 || (!zeroForOne && int256(amountIn) <= 0)) {
++            revert AmountNotPositive();
++        }
+         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+ 
+         (uint256 reserveIn, uint256 reserveOut) =

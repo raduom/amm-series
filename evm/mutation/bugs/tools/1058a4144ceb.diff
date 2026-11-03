@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -100,7 +100,7 @@
+         // the books are settled before any other contract runs
+         (IERC20 tokenIn, IERC20 tokenOut) =
+             zeroForOne ? (token0, token1) : (token1, token0);
+-        tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
++        revert();
+         tokenOut.safeTransfer(msg.sender, amountOut);
+     }
+ }

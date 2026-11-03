@@ -1,0 +1,11 @@
+--- src/ConstantProductPool.sol	2026-11-02 09:29:26.894684292 +0700
++++ /tmp/amm-round6-fable/signed-output/src/ConstantProductPool.sol	2026-11-02 09:47:44.405221779 +0700
+@@ -84,7 +84,7 @@
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+-        if (amountOut == 0 || amountOut < minAmountOut) {
++        if (int256(amountOut) <= 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }
+ 

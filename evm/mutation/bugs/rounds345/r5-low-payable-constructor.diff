@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -46,7 +46,7 @@
+     /// @notice A pool trades two different tokens.
+     error IdenticalTokens();
+ 
+-    constructor(IERC20 token0_, IERC20 token1_) {
++    constructor(IERC20 token0_, IERC20 token1_) payable {
+         if (address(token0_) == address(token1_)) revert IdenticalTokens();
+ 
+         token0 = token0_;

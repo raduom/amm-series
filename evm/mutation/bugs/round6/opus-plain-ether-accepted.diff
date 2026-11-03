@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -54,6 +54,8 @@
+         owner = msg.sender;
+     }
+ 
++    receive() external payable {}
++
+     /// @notice Provide the pool's liquidity, once. The model's swap needs a
+     /// pool that holds both tokens; this is how one comes to exist.
+     function initialize(uint256 amount0, uint256 amount1) external {

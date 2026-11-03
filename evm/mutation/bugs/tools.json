@@ -1,0 +1,1339 @@
+{
+"b334a8f8bcdb": {
+"gambit": "1",
+"slither": "24bc05845250",
+"sumo": "m11744c74"
+},
+"7c0acc756a2d": {
+"gambit": "10",
+"slither": "bc2ce86ab72d",
+"sumo": "mddc1843f"
+},
+"42a02aad89b0": {
+"gambit": "11",
+"slither": "6a81f7251d55",
+"sumo": "m25ee4e7b"
+},
+"bc608235846b": {
+"gambit": "12"
+},
+"404029be903a": {
+"gambit": "13"
+},
+"567e5aa82b6c": {
+"gambit": "14"
+},
+"8ea5816b3036": {
+"gambit": "15"
+},
+"1b361b91e137": {
+"gambit": "16"
+},
+"9ef238653ad8": {
+"gambit": "17"
+},
+"eabc9388bffb": {
+"gambit": "18"
+},
+"852b7d664601": {
+"gambit": "19"
+},
+"28e8ff502511": {
+"gambit": "2",
+"slither": "85fcb63163c8",
+"sumo": "m70a7fe53"
+},
+"879360939f86": {
+"gambit": "20",
+"slither": "fab26f8fd6f3",
+"sumo": "me5d3651c"
+},
+"45f2aa0424ae": {
+"gambit": "21",
+"slither": "522c5e98104c",
+"sumo": "mcc8ff9c3"
+},
+"6c5ca64350ca": {
+"gambit": "22",
+"slither": "5c0d2ad68eb8",
+"sumo": "m325a6c36"
+},
+"38f9e156f51a": {
+"gambit": "23",
+"slither": "965239aef10c",
+"sumo": "m9369e2a7"
+},
+"2f615bbe8e3b": {
+"gambit": "24"
+},
+"92eb84bc5219": {
+"gambit": "25"
+},
+"971a010f62d6": {
+"gambit": "26"
+},
+"1bc6aba3b6f5": {
+"gambit": "27",
+"slither": "ad661c2c4053",
+"umut": "mutant.817",
+"sumo": "m0256ead6",
+"forge": "m048"
+},
+"7e0aefda1358": {
+"gambit": "28",
+"slither": "b86495f202df",
+"umut": "mutant.818",
+"sumo": "m4bf9121d",
+"forge": "m050"
+},
+"258ff8045729": {
+"gambit": "29",
+"slither": "3d40a5c8f23b",
+"umut": "mutant.819",
+"forge": "m054"
+},
+"5cd4b0bf3675": {
+"gambit": "3"
+},
+"6b2a3188a96b": {
+"gambit": "30",
+"slither": "58f877afc77b",
+"umut": "mutant.820",
+"forge": "m056"
+},
+"9fe25a3b046b": {
+"gambit": "31",
+"forge": "m052"
+},
+"e24e8e5bba33": {
+"gambit": "32"
+},
+"34b66d51aad1": {
+"gambit": "33",
+"slither": "c8d94b01ebd3",
+"umut": "mutant.813",
+"sumo": "mc5b3b593",
+"forge": "m101"
+},
+"ff28a4ebca69": {
+"gambit": "34",
+"slither": "03402bebafa1",
+"umut": "mutant.814",
+"forge": "m102"
+},
+"4ce6d99868fe": {
+"gambit": "35",
+"slither": "93a4a5b7a942",
+"umut": "mutant.815",
+"forge": "m106"
+},
+"05d64af7df3c": {
+"gambit": "36",
+"slither": "19836550caf1",
+"umut": "mutant.816",
+"forge": "m108"
+},
+"7d3031b0b3db": {
+"gambit": "37",
+"sumo": "m403c1d88",
+"forge": "m104"
+},
+"67c2fc319a9e": {
+"gambit": "38",
+"slither": "4816a165a108",
+"umut": "mutant.809",
+"sumo": "m4b81596d",
+"forge": "m012"
+},
+"6dc94db894f1": {
+"gambit": "39",
+"slither": "3a361d26e9a6",
+"umut": "mutant.810",
+"sumo": "m1f1e21e7",
+"forge": "m015"
+},
+"0f26b080abc2": {
+"gambit": "4"
+},
+"d416a1523705": {
+"gambit": "40",
+"slither": "8478d6c240be",
+"umut": "mutant.811",
+"forge": "m018"
+},
+"193d81663b29": {
+"gambit": "41",
+"slither": "b0d64e73bb35",
+"umut": "mutant.812",
+"forge": "m020"
+},
+"fcec40a95f3b": {
+"gambit": "42",
+"forge": "m013"
+},
+"8ccdee070779": {
+"gambit": "43",
+"slither": "c5ecfc87e72b",
+"umut": "mutant.863",
+"sumo": "m504e9d5c"
+},
+"49676e0520aa": {
+"gambit": "44",
+"slither": "26d78c5d371d",
+"umut": "mutant.862",
+"sumo": "mb2a2ab36"
+},
+"4ea2d952b19c": {
+"gambit": "45"
+},
+"7ec31afc2478": {
+"gambit": "46",
+"slither": "af2c3c3218a7",
+"umut": "mutant.898",
+"sumo": "ma2c9e21b"
+},
+"900623dff17b": {
+"gambit": "47",
+"slither": "8c12f81bd45b",
+"umut": "mutant.897",
+"sumo": "m108d7f4e"
+},
+"8c2e56d894d7": {
+"gambit": "48"
+},
+"0ea43e79efae": {
+"gambit": "49"
+},
+"4df5866a0e1d": {
+"gambit": "5"
+},
+"0f35daa9f23a": {
+"gambit": "50"
+},
+"7a4603320b30": {
+"gambit": "51",
+"slither": "9539830a3f80",
+"umut": "mutant.944",
+"sumo": "m3fb615a1",
+"forge": "m068"
+},
+"99f9e3abde63": {
+"gambit": "52",
+"slither": "5f3daf2b987b",
+"umut": "mutant.945",
+"forge": "m072"
+},
+"d5905cd70de8": {
+"gambit": "53",
+"slither": "775fdc1cb50e",
+"umut": "mutant.946",
+"sumo": "me3c7cf70",
+"forge": "m074"
+},
+"f8c8239136c3": {
+"gambit": "54",
+"slither": "dcd2571b2031",
+"umut": "mutant.947",
+"forge": "m076"
+},
+"d55ae67a83c0": {
+"gambit": "55",
+"forge": "m070"
+},
+"e76b9d348c5d": {
+"gambit": "56"
+},
+"9ce7f5646ce5": {
+"gambit": "57"
+},
+"f3afb3c51ce3": {
+"gambit": "58"
+},
+"ff1b39fb5d91": {
+"gambit": "59"
+},
+"b6785c0dc4d1": {
+"gambit": "6",
+"slither": "2d8b61ea46e1",
+"sumo": "m80f15b3f"
+},
+"0bf028898be6": {
+"gambit": "60",
+"slither": "0ef59652d037",
+"umut": "mutant.961",
+"sumo": "m601fcb74",
+"forge": "m085"
+},
+"e0f05ef4ddff": {
+"gambit": "61",
+"slither": "0a00d928fea0",
+"umut": "mutant.962",
+"sumo": "m2f414481",
+"forge": "m088"
+},
+"ed9e654c05b7": {
+"gambit": "62",
+"slither": "f8f0fbe78b49",
+"umut": "mutant.963",
+"forge": "m089"
+},
+"8846c5e9d975": {
+"gambit": "63",
+"slither": "373f2a74ae51",
+"umut": "mutant.964",
+"forge": "m090"
+},
+"8701f5ac8dbc": {
+"gambit": "64",
+"forge": "m087"
+},
+"e7c6cb396bde": {
+"gambit": "65"
+},
+"661cee4c1118": {
+"gambit": "66"
+},
+"35cd682478fc": {
+"gambit": "67"
+},
+"276cf10a1901": {
+"gambit": "68",
+"slither": "aa26dbe4a162",
+"umut": "mutant.903",
+"sumo": "m146b3eee",
+"forge": "m057"
+},
+"9d88ff48be01": {
+"gambit": "69",
+"slither": "c514d6cd67e2",
+"umut": "mutant.904",
+"sumo": "m13a91fca",
+"forge": "m093"
+},
+"2e45ee35f73a": {
+"gambit": "7",
+"slither": "242806434660",
+"sumo": "m68a04175"
+},
+"6219e5695187": {
+"gambit": "70",
+"slither": "f54cc7e75a5d",
+"umut": "mutant.905",
+"forge": "m094"
+},
+"9b317099272f": {
+"gambit": "71",
+"slither": "13a94e6338d5",
+"umut": "mutant.906",
+"forge": "m059"
+},
+"a9d123a2fae8": {
+"gambit": "72",
+"forge": "m092"
+},
+"4224b2d800db": {
+"gambit": "73"
+},
+"d87876f4901d": {
+"gambit": "74"
+},
+"9aa345016a2e": {
+"gambit": "75"
+},
+"c69d2cc41cd2": {
+"gambit": "76",
+"slither": "f517b4c40ea7",
+"umut": "mutant.920",
+"sumo": "me3c4c279",
+"forge": "m071"
+},
+"09f5a9b79700": {
+"gambit": "77",
+"slither": "73eec47b7ae1",
+"umut": "mutant.921",
+"forge": "m075"
+},
+"0b327b0dee60": {
+"gambit": "78",
+"slither": "2093f9bbbc8e",
+"umut": "mutant.922",
+"sumo": "m312083ee",
+"forge": "m077"
+},
+"88a30693e1f8": {
+"gambit": "79",
+"slither": "1a8286caec3b",
+"umut": "mutant.923",
+"forge": "m079"
+},
+"d4ab43d28da9": {
+"gambit": "8",
+"slither": "e161848da93c",
+"sumo": "ma0f6e060"
+},
+"bf4634b27b3a": {
+"gambit": "80",
+"forge": "m073"
+},
+"32a1637286c4": {
+"gambit": "81"
+},
+"4b78c7f8eb27": {
+"gambit": "82"
+},
+"1058b6553b9c": {
+"gambit": "83"
+},
+"835b5a1fe1a4": {
+"gambit": "9",
+"slither": "052a8b1e7d24",
+"sumo": "m73e8ab17"
+},
+"cabb66d9a68f": {
+"slither": "0340a68aea07"
+},
+"1a94c8e3c901": {
+"slither": "126f61ac8892",
+"umut": "mutant.550"
+},
+"c6c98d6c6769": {
+"slither": "1387806258d1",
+"umut": "mutant.668",
+"sumo": "m91306529",
+"forge": "m014"
+},
+"072a7d4b7fdd": {
+"slither": "16d9420cb016"
+},
+"92b244622654": {
+"slither": "1ab27c5ae1cf",
+"umut": "mutant.1057"
+},
+"015b7de05f01": {
+"slither": "2070db2c9387",
+"umut": "mutant.318"
+},
+"f1df9d105183": {
+"slither": "215e7661121c",
+"umut": "mutant.993",
+"sumo": "m4fbd6755"
+},
+"d7a7717db843": {
+"slither": "22d3c211d7f0",
+"umut": "mutant.672",
+"forge": "m005"
+},
+"3ab45e0b7272": {
+"slither": "261da31e73ad",
+"sumo": "m1c4d2ff5"
+},
+"0fa68d744258": {
+"slither": "26b8949d8feb",
+"umut": "mutant.932"
+},
+"a8b4dca6719c": {
+"slither": "26ce53badd7e",
+"umut": "mutant.342"
+},
+"5c1bb7666aba": {
+"slither": "30402b71034d",
+"umut": "mutant.718",
+"sumo": "ma472cc44",
+"forge": "m019"
+},
+"96497ccccaa6": {
+"slither": "32cf64cb3b29",
+"umut": "mutant.936"
+},
+"54773ecba1a2": {
+"slither": "3561f3a5c771",
+"sumo": "m8bf37a92"
+},
+"8cff870b343e": {
+"slither": "3f75d5fc6950"
+},
+"07dac68ef9f8": {
+"slither": "3fccf1373655",
+"umut": "mutant.888",
+"sumo": "mec24bd1f"
+},
+"18b85799e3df": {
+"slither": "4a4cb10d5d11",
+"umut": "mutant.337"
+},
+"95c6f479c986": {
+"slither": "4f8cb312d52f"
+},
+"501a63fe0612": {
+"slither": "529b673723ee",
+"umut": "mutant.583"
+},
+"4e7e7bd8b7be": {
+"slither": "52ae01e629fb"
+},
+"908a82e1a932": {
+"slither": "58f25221475e"
+},
+"3c57e6bad6dc": {
+"slither": "5a87448bb38d",
+"umut": "mutant.919"
+},
+"eb8214e79933": {
+"slither": "5dd46011051e",
+"umut": "mutant.333"
+},
+"db5fcf213e03": {
+"slither": "62a083bdfd72"
+},
+"033f378c42d7": {
+"slither": "63aec043d832",
+"umut": "mutant.387",
+"sumo": "m4a19a8e8",
+"forge": "m115"
+},
+"55aa33ec1f37": {
+"slither": "63bbbc172bcc",
+"umut": "mutant.960"
+},
+"6f0fe09ab26b": {
+"slither": "6a9f5f921fcb",
+"sumo": "m8de0badc"
+},
+"6bcb8b4ff3a2": {
+"slither": "6d5a8799d240",
+"umut": "mutant.604"
+},
+"f4b72ce0a738": {
+"slither": "6e8ff304cfe3",
+"umut": "mutant.601"
+},
+"85566c75ee0a": {
+"slither": "72ca3bfeab5a",
+"umut": "mutant.986"
+},
+"438babfb00ce": {
+"slither": "7cec87496405",
+"umut": "mutant.1066"
+},
+"cc367fcc3b01": {
+"slither": "7de672233f3f",
+"sumo": "m3233a453"
+},
+"7b99edea5964": {
+"slither": "7e772e171d83",
+"sumo": "mb63c8834"
+},
+"25596bb3c5a7": {
+"slither": "7f3754cdec2a",
+"umut": "mutant.956"
+},
+"2e8d95287094": {
+"slither": "7fc24705a5bf",
+"umut": "mutant.977"
+},
+"127c9bcdf57d": {
+"slither": "8392c4595087",
+"umut": "mutant.1052"
+},
+"a12cbd5085e2": {
+"slither": "848d4faed364",
+"umut": "mutant.1064"
+},
+"87cfabf24b72": {
+"slither": "877d4152b93d",
+"umut": "mutant.276",
+"sumo": "m9b26e57a",
+"forge": "m109"
+},
+"7efe179d87ad": {
+"slither": "8b4640640692",
+"umut": "mutant.669",
+"forge": "m007"
+},
+"907bb4c298ff": {
+"slither": "8c11bf386d47",
+"umut": "mutant.807"
+},
+"2f1fdd7fee30": {
+"slither": "8f61246c5081",
+"umut": "mutant.553",
+"forge": "m098"
+},
+"7a6ac0acafcf": {
+"slither": "91df7a2dcde4",
+"umut": "mutant.670",
+"forge": "m011"
+},
+"215f107958d4": {
+"slither": "92321345c68b"
+},
+"1a2ae497d7fc": {
+"slither": "93ac069708f9"
+},
+"8bbcf3d1be2a": {
+"slither": "93ee50859865"
+},
+"1058a4144ceb": {
+"slither": "9944843139da",
+"umut": "mutant.1054"
+},
+"b06b1818085f": {
+"slither": "9cdd71fc590b",
+"umut": "mutant.565"
+},
+"8e17c1fe3e04": {
+"slither": "a0b078e6ee86",
+"umut": "mutant.599"
+},
+"bc39ea8d8896": {
+"slither": "b009b4cdad95",
+"umut": "mutant.441",
+"sumo": "mb862fe0d",
+"forge": "m118"
+},
+"80ff1dda6bba": {
+"slither": "b3bc61d3009d"
+},
+"408219ecef65": {
+"slither": "b4fab03d99c7"
+},
+"8e3ddefdce1e": {
+"slither": "b5bb35c2fd56",
+"umut": "mutant.988"
+},
+"734a09541640": {
+"slither": "b698afff73d9"
+},
+"e5560b6053de": {
+"slither": "b9a05b8b979b",
+"umut": "mutant.900"
+},
+"ee5794880695": {
+"slither": "be508c0ee2a2",
+"umut": "mutant.568",
+"forge": "m100"
+},
+"53c0f814a49a": {
+"slither": "bf70b11d872e",
+"umut": "mutant.972"
+},
+"5f649988e3cb": {
+"slither": "c225c90c8bf0"
+},
+"de0f9678c4cc": {
+"slither": "c2788383f3b0",
+"umut": "mutant.504",
+"sumo": "mc29dc3ac",
+"forge": "m131"
+},
+"cecaff3ffcea": {
+"slither": "cadc141dcee0",
+"umut": "mutant.586"
+},
+"9378060e80e2": {
+"slither": "cd9cd9dd282b",
+"umut": "mutant.1062"
+},
+"aff102682083": {
+"slither": "cda638bee0a7"
+},
+"002b45d9b007": {
+"slither": "d1d0c5b78809",
+"umut": "mutant.833"
+},
+"55bd63ff4c7c": {
+"slither": "d8559c46e92e",
+"umut": "mutant.865"
+},
+"17197e5035be": {
+"slither": "d8c9480b5de6"
+},
+"b2882993625f": {
+"slither": "dbfa560e6ba0"
+},
+"99983c1aa3db": {
+"slither": "e348fd7cafe2",
+"umut": "mutant.671",
+"forge": "m009"
+},
+"5623df5b6660": {
+"slither": "ea0044acc9ce",
+"umut": "mutant.848",
+"sumo": "mf96d0b2d",
+"forge": "m024"
+},
+"2cfb8772b4f0": {
+"slither": "ea7ae89f92be",
+"umut": "mutant.396"
+},
+"f009b8b0c65d": {
+"slither": "efd5d8954d79",
+"umut": "mutant.914"
+},
+"64e65c1b5cbb": {
+"slither": "f44f2af5dc20",
+"umut": "mutant.581"
+},
+"a34a3b3af492": {
+"umut": "mutant.1011"
+},
+"144d0055e5cf": {
+"umut": "mutant.1019"
+},
+"363fda28ad6b": {
+"umut": "mutant.1020"
+},
+"0d1888e404c5": {
+"umut": "mutant.1021"
+},
+"c482ee3f3732": {
+"umut": "mutant.1022"
+},
+"20c659e87470": {
+"umut": "mutant.1037"
+},
+"4f2fb2c47a16": {
+"umut": "mutant.1038"
+},
+"f559720e75e0": {
+"umut": "mutant.104"
+},
+"d2e8cdccc003": {
+"umut": "mutant.1078"
+},
+"7c1e11e8c3a7": {
+"umut": "mutant.1079"
+},
+"c61fd2053953": {
+"umut": "mutant.1081"
+},
+"9a6aabbc2c64": {
+"umut": "mutant.1096"
+},
+"ee2584a96ff8": {
+"umut": "mutant.1097"
+},
+"b24b404d6f70": {
+"umut": "mutant.1098"
+},
+"e9d41c25799d": {
+"umut": "mutant.1102"
+},
+"46703d940a65": {
+"umut": "mutant.1103"
+},
+"587edcd7f5b9": {
+"umut": "mutant.1104"
+},
+"1470977ca611": {
+"umut": "mutant.1105"
+},
+"046d10193e76": {
+"umut": "mutant.1106"
+},
+"80381c469cb5": {
+"umut": "mutant.1107"
+},
+"4bea44c6158d": {
+"umut": "mutant.1114"
+},
+"c7d0f56290a9": {
+"umut": "mutant.1118"
+},
+"9f121fab6486": {
+"umut": "mutant.1119"
+},
+"ec50ec1cc5da": {
+"umut": "mutant.1120"
+},
+"14c57fd01ee1": {
+"umut": "mutant.1121"
+},
+"d3d41755dfe2": {
+"umut": "mutant.1122"
+},
+"2c29f6dabe44": {
+"umut": "mutant.1123"
+},
+"845f142ec6dd": {
+"umut": "mutant.1124"
+},
+"c7ed09cebbe9": {
+"umut": "mutant.1125"
+},
+"e59e68f45433": {
+"umut": "mutant.1126"
+},
+"c41ac1a93d08": {
+"umut": "mutant.1127"
+},
+"eb02602be367": {
+"umut": "mutant.1128"
+},
+"4b45eb1f64bb": {
+"umut": "mutant.1132"
+},
+"89c8720578e5": {
+"umut": "mutant.121"
+},
+"3992300062fd": {
+"umut": "mutant.144"
+},
+"31e0c4afad9d": {
+"umut": "mutant.268"
+},
+"6bcf1c08ac50": {
+"umut": "mutant.277",
+"forge": "m103"
+},
+"edbcde7c4b5f": {
+"umut": "mutant.278",
+"forge": "m107"
+},
+"9be720f2837f": {
+"umut": "mutant.279",
+"forge": "m105"
+},
+"52c4d8469a1c": {
+"umut": "mutant.280",
+"forge": "m001"
+},
+"e9cebaed690f": {
+"umut": "mutant.281"
+},
+"47e09baa1509": {
+"umut": "mutant.282"
+},
+"c29b4084c2ed": {
+"umut": "mutant.300"
+},
+"8898cb7e6a10": {
+"umut": "mutant.304"
+},
+"8dcb093a3afe": {
+"umut": "mutant.305"
+},
+"bfed0b23b11e": {
+"umut": "mutant.317"
+},
+"cb15d64b08fb": {
+"umut": "mutant.319"
+},
+"194ffd53b373": {
+"umut": "mutant.320"
+},
+"f1fe6a344417": {
+"umut": "mutant.375"
+},
+"291ce6386402": {
+"umut": "mutant.388",
+"forge": "m112"
+},
+"48e89e87af4d": {
+"umut": "mutant.389",
+"forge": "m114"
+},
+"fcc7a81cc386": {
+"umut": "mutant.390",
+"forge": "m113"
+},
+"a818800c97e9": {
+"umut": "mutant.391",
+"forge": "m111"
+},
+"7efebec92f01": {
+"umut": "mutant.398"
+},
+"cfe6fddd5564": {
+"umut": "mutant.406"
+},
+"e3f248e75b91": {
+"umut": "mutant.413"
+},
+"8207961888d9": {
+"umut": "mutant.415",
+"sumo": "m6c5cb773",
+"forge": "m123"
+},
+"f4cbac21f8f2": {
+"umut": "mutant.416",
+"sumo": "m48e332b5",
+"forge": "m128"
+},
+"dfaa904ea3a2": {
+"umut": "mutant.417",
+"forge": "m120"
+},
+"f685ffefcdad": {
+"umut": "mutant.418",
+"forge": "m125"
+},
+"f3fdd3d5e20b": {
+"umut": "mutant.419",
+"forge": "m122"
+},
+"dd9599089452": {
+"umut": "mutant.420",
+"forge": "m127"
+},
+"dc9b2f98f2ba": {
+"umut": "mutant.421",
+"forge": "m121"
+},
+"30c5768b715c": {
+"umut": "mutant.422",
+"forge": "m126"
+},
+"e26dac5efdcb": {
+"umut": "mutant.423",
+"forge": "m119"
+},
+"56cfed7cd45a": {
+"umut": "mutant.424",
+"forge": "m124"
+},
+"3b89b2432bed": {
+"umut": "mutant.425"
+},
+"71c14916f3e9": {
+"umut": "mutant.426"
+},
+"a66b3f34e5e2": {
+"umut": "mutant.427",
+"sumo": "m4f868279"
+},
+"aed09441ceb2": {
+"umut": "mutant.428",
+"sumo": "mee1e7d90"
+},
+"684872b8592d": {
+"umut": "mutant.459"
+},
+"e679e7ba8a4a": {
+"umut": "mutant.465"
+},
+"419d07c861d2": {
+"umut": "mutant.478",
+"sumo": "m7d4e2e71",
+"forge": "m136"
+},
+"579209ab5e3a": {
+"umut": "mutant.479",
+"sumo": "m533ce6a9",
+"forge": "m097"
+},
+"9433a913b8af": {
+"umut": "mutant.480",
+"forge": "m133"
+},
+"64f309202d7a": {
+"umut": "mutant.481",
+"forge": "m138"
+},
+"753b08efa5bc": {
+"umut": "mutant.482",
+"forge": "m135"
+},
+"09c787a0c056": {
+"umut": "mutant.483",
+"forge": "m004"
+},
+"c4d194bf5911": {
+"umut": "mutant.484",
+"forge": "m134"
+},
+"fbc2ef513110": {
+"umut": "mutant.485",
+"forge": "m139"
+},
+"8ef3b9caa4af": {
+"umut": "mutant.486",
+"forge": "m132"
+},
+"e0d8928f4f84": {
+"umut": "mutant.487",
+"forge": "m137"
+},
+"ed06b60e529c": {
+"umut": "mutant.488"
+},
+"8fbd3d6955db": {
+"umut": "mutant.489"
+},
+"0539002d597f": {
+"umut": "mutant.490",
+"sumo": "m3e738e67"
+},
+"3deda01212c0": {
+"umut": "mutant.491",
+"sumo": "m63532bae"
+},
+"3d7b87265ecd": {
+"umut": "mutant.508"
+},
+"721b76602693": {
+"umut": "mutant.520"
+},
+"0e4dd92b755e": {
+"umut": "mutant.526"
+},
+"bd99045a881a": {
+"umut": "mutant.539"
+},
+"d11a534ac1a1": {
+"umut": "mutant.540"
+},
+"d0740c2784f3": {
+"umut": "mutant.552"
+},
+"5c650649310a": {
+"umut": "mutant.554"
+},
+"a66d23150e15": {
+"umut": "mutant.555"
+},
+"5993edf6d527": {
+"umut": "mutant.56"
+},
+"d501e7613388": {
+"umut": "mutant.569"
+},
+"e374a0244635": {
+"umut": "mutant.57"
+},
+"9c61e1e78cd8": {
+"umut": "mutant.570"
+},
+"b130f2d2b376": {
+"umut": "mutant.587"
+},
+"436b650d5241": {
+"umut": "mutant.588"
+},
+"22dd5809355a": {
+"umut": "mutant.634"
+},
+"c606fc4f67cb": {
+"umut": "mutant.635"
+},
+"f197545d7111": {
+"umut": "mutant.673",
+"sumo": "mc5d20638"
+},
+"03e822536bbb": {
+"umut": "mutant.680"
+},
+"705df41e1eeb": {
+"umut": "mutant.688"
+},
+"e1c59a660a1b": {
+"umut": "mutant.692",
+"sumo": "m3e030f33",
+"forge": "m028"
+},
+"42941894d2aa": {
+"umut": "mutant.693",
+"sumo": "m5d4bb3e5",
+"forge": "m036"
+},
+"05b088b1a7e8": {
+"umut": "mutant.694",
+"forge": "m023"
+},
+"a4f3b8297fad": {
+"umut": "mutant.695",
+"forge": "m095"
+},
+"b2472062d43f": {
+"umut": "mutant.696",
+"forge": "m026"
+},
+"0df9243b20f9": {
+"umut": "mutant.697",
+"forge": "m034"
+},
+"59152ad8ef78": {
+"umut": "mutant.698",
+"forge": "m025"
+},
+"62ebc1112cb1": {
+"umut": "mutant.699",
+"forge": "m032"
+},
+"a606280e6f1b": {
+"umut": "mutant.700",
+"forge": "m021"
+},
+"63e1310e223f": {
+"umut": "mutant.701",
+"forge": "m030"
+},
+"058dbec6ca66": {
+"umut": "mutant.702"
+},
+"2754ad3e73fe": {
+"umut": "mutant.703"
+},
+"eb398b6a20a6": {
+"umut": "mutant.704",
+"sumo": "m2b45068f"
+},
+"bada8112ec3f": {
+"umut": "mutant.705",
+"sumo": "me8c93ef6"
+},
+"37cba40c53e0": {
+"umut": "mutant.722"
+},
+"4fd7e43f5e12": {
+"umut": "mutant.73"
+},
+"21efdcc2f32c": {
+"umut": "mutant.734"
+},
+"a82166f12bd0": {
+"umut": "mutant.74"
+},
+"36cb3939f4af": {
+"umut": "mutant.740"
+},
+"de94094efb93": {
+"umut": "mutant.765"
+},
+"686b2ac81ad1": {
+"umut": "mutant.775"
+},
+"21d171ba40f1": {
+"umut": "mutant.776"
+},
+"8d3777ec39b7": {
+"umut": "mutant.777"
+},
+"4f71b97cf649": {
+"umut": "mutant.778"
+},
+"eb7014bd6bb5": {
+"umut": "mutant.793"
+},
+"a874dcddac01": {
+"umut": "mutant.794"
+},
+"910767661423": {
+"umut": "mutant.81"
+},
+"f14b71d08785": {
+"umut": "mutant.82"
+},
+"54a3b1ffa6d6": {
+"umut": "mutant.834",
+"sumo": "m52390790",
+"forge": "m035"
+},
+"2252ac9f50d2": {
+"umut": "mutant.835",
+"forge": "m029"
+},
+"993d5a2aae94": {
+"umut": "mutant.836",
+"forge": "m033"
+},
+"9319da54120e": {
+"umut": "mutant.837",
+"forge": "m031"
+},
+"1a01503197c7": {
+"umut": "mutant.838",
+"forge": "m027"
+},
+"d787585fe04b": {
+"umut": "mutant.839",
+"sumo": "m325abe22",
+"forge": "m039"
+},
+"46baf3bbd91c": {
+"umut": "mutant.840",
+"forge": "m043"
+},
+"581bf4d1e32e": {
+"umut": "mutant.841",
+"sumo": "m19d1cc15",
+"forge": "m037"
+},
+"700b3013d540": {
+"umut": "mutant.842",
+"forge": "m041"
+},
+"6b061cacaa01": {
+"umut": "mutant.843",
+"forge": "m045"
+},
+"17174a7a9b4b": {
+"umut": "mutant.844",
+"sumo": "mfc775e83"
+},
+"36342bc445f9": {
+"umut": "mutant.866"
+},
+"5d15e9601b3f": {
+"umut": "mutant.867"
+},
+"b47393a620ed": {
+"umut": "mutant.868"
+},
+"75c6dd037046": {
+"umut": "mutant.870"
+},
+"599ee5f5e85d": {
+"umut": "mutant.886"
+},
+"af28f2b6836f": {
+"umut": "mutant.901"
+},
+"39e512a206e2": {
+"umut": "mutant.902"
+},
+"ed555cd23ccc": {
+"umut": "mutant.907"
+},
+"a62d21444f9d": {
+"umut": "mutant.925"
+},
+"8069a21052c2": {
+"umut": "mutant.940"
+},
+"f5bdf12ecc0b": {
+"umut": "mutant.941"
+},
+"9f9693854249": {
+"umut": "mutant.943"
+},
+"1fd1ce38b97d": {
+"umut": "mutant.949"
+},
+"de7d01e8de7b": {
+"umut": "mutant.965"
+},
+"b26d0bfab473": {
+"umut": "mutant.984"
+},
+"059f19fd8bea": {
+"umut": "mutant.997"
+},
+"1fcb3a613392": {
+"sumo": "mac23c7bb"
+},
+"b7df1aa9613d": {
+"sumo": "me90c1bca"
+},
+"6b2e66f605fc": {
+"forge": "m002"
+},
+"e8fbcf52b93b": {
+"forge": "m003"
+},
+"db54bc917b17": {
+"forge": "m006"
+},
+"6dcae418ea86": {
+"forge": "m008"
+},
+"6e68a58ac30a": {
+"forge": "m010"
+},
+"86607a2fee24": {
+"forge": "m022"
+},
+"b69684fe4176": {
+"forge": "m038"
+},
+"92867110dbd4": {
+"forge": "m040"
+},
+"eb6ee32badb4": {
+"forge": "m042"
+},
+"6a5bcb916f2f": {
+"forge": "m044"
+},
+"86d2893c3e84": {
+"forge": "m046"
+},
+"8ff4f425fbb6": {
+"forge": "m047"
+},
+"7e5be28aa04b": {
+"forge": "m049"
+},
+"7a2c0b561191": {
+"forge": "m051"
+},
+"5b45e7304ff4": {
+"forge": "m053"
+},
+"47a541fdc5db": {
+"forge": "m055"
+},
+"e22321a84341": {
+"forge": "m058"
+},
+"bc142506fdcb": {
+"forge": "m060"
+},
+"5e2818d0a074": {
+"forge": "m061"
+},
+"eeeb44458383": {
+"forge": "m062"
+},
+"3e3c547bf730": {
+"forge": "m063"
+},
+"d29a6500cb64": {
+"forge": "m064"
+},
+"1403b634e1b2": {
+"forge": "m065"
+},
+"6d14531f8967": {
+"forge": "m066"
+},
+"07c280bf07a1": {
+"forge": "m067"
+},
+"ebd92db1a215": {
+"forge": "m069"
+},
+"0ebdf6ab80f1": {
+"forge": "m078"
+},
+"a1a4662ef161": {
+"forge": "m080"
+},
+"62df910a97c6": {
+"forge": "m081"
+},
+"0b1530b1068a": {
+"forge": "m082"
+},
+"cc3e4955f4e2": {
+"forge": "m083"
+},
+"6c2c855afff9": {
+"forge": "m084"
+},
+"a709e81a3f33": {
+"forge": "m086"
+},
+"608f77bafb61": {
+"forge": "m091"
+},
+"2d5a699b99a3": {
+"forge": "m096"
+},
+"d5a17ee60f51": {
+"forge": "m099"
+},
+"cc4c4687184c": {
+"forge": "m110"
+}
+}

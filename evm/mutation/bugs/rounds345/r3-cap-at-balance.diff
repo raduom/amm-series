@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -76,6 +76,8 @@
+         external
+         returns (uint256 amountOut)
+     {
++        uint256 held = (zeroForOne ? token0 : token1).balanceOf(msg.sender);
++        if (amountIn > held) amountIn = held;
+         if (amountIn == 0) revert AmountNotPositive();
+         if (reserve0 == 0 || reserve1 == 0) revert EmptyPool();
+ 

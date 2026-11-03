@@ -1,0 +1,11 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -60,7 +60,7 @@
+         if (msg.sender != owner) revert NotOwner();
+         // swaps keep both reserves positive, so a non-empty pool stays that way
+         if (reserve0 != 0 || reserve1 != 0) revert AlreadyInitialized();
+-        if (amount0 == 0 || amount1 == 0) revert AmountNotPositive();
++        if (amount0 <= 0 || amount1 == 0) revert AmountNotPositive();
+ 
+         reserve0 = amount0;
+         reserve1 = amount1;

@@ -1,0 +1,20 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -84,9 +84,7 @@
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+-        if (amountOut == 0 || amountOut < minAmountOut) {
+-            revert OutputTooSmall();
+-        }
++        if (amountOut < minAmountOut) revert OutputTooSmall();
+ 
+         if (zeroForOne) {
+             reserve0 = reserveIn + amountIn;
+@@ -102,5 +100,6 @@
+             zeroForOne ? (token0, token1) : (token1, token0);
+         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+         tokenOut.safeTransfer(msg.sender, amountOut);
++        if (amountOut == 0) revert OutputTooSmall();
+     }
+ }

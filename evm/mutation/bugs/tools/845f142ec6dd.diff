@@ -1,0 +1,12 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -90,8 +90,8 @@
+ 
+         if (zeroForOne) {
+             reserve0 = reserveIn + amountIn;
++        } else {
+             reserve1 = reserveOut - amountOut;
+-        } else {
+             reserve0 = reserveOut - amountOut;
+             reserve1 = reserveIn + amountIn;
+         }

@@ -1,0 +1,22 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -83,6 +83,10 @@
+             zeroForOne ? (reserve0, reserve1) : (reserve1, reserve0);
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
++        (IERC20 tokenIn, IERC20 tokenOut) =
++            zeroForOne ? (token0, token1) : (token1, token0);
++        tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
++
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+@@ -98,8 +102,6 @@
+         emit Swap(msg.sender, zeroForOne, amountIn, amountOut);
+ 
+         // the books are settled before any other contract runs
+-        (IERC20 tokenIn, IERC20 tokenOut) =
+-            zeroForOne ? (token0, token1) : (token1, token0);
+         tokenIn.safeTransferFrom(msg.sender, address(this), amountIn);
+         tokenOut.safeTransfer(msg.sender, amountOut);
+     }

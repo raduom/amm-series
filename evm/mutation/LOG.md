@@ -2,7 +2,7 @@
 
 What each round of review found in the tests for `src/ConstantProductPool.sol`, why the tests missed it, and what was added because of it.
 
-A **mutant** is a copy of the pool with a deliberate bug in it. It **survives** if every test still passes, which means the tests would not have noticed that bug. Mutants are written by the reviewers or by a script, in scratch copies. None of them is in the contract. One counts only if it behaves differently from the correct pool on an input someone can name, so a new variable that nothing uses does not count.
+A **mutant** is a copy of the pool with a deliberate bug in it. It **survives** if every test still passes, which means the tests would not have noticed that bug. Mutants are written by the reviewers or by a script, in scratch copies. None of them is in the contract. Each one is kept as a diff in this folder, and the [README](README.md) says how to run them again. One counts only if it behaves differently from the correct pool on an input someone can name, so a new variable that nothing uses does not count.
 
 Strictly, most of the mutants here are closer to fault injection. Standard mutation testing makes small edits to existing code, while most of these add code, as the table below shows.
 

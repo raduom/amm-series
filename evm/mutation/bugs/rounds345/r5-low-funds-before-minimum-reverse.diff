@@ -1,0 +1,23 @@
+--- a/src/ConstantProductPool.sol
++++ b/src/ConstantProductPool.sol
+@@ -2,6 +2,7 @@
+ pragma solidity 0.8.38;
+ 
+ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
++import {IERC20Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
+ import {
+     SafeERC20
+ } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+@@ -84,6 +85,12 @@
+ 
+         // keep reserveIn * reserveOut, rounding down in the pool's favour
+         amountOut = reserveOut * amountIn / (reserveIn + amountIn);
++        if (!zeroForOne) {
++            uint256 allowed = token1.allowance(msg.sender, address(this));
++            if (allowed < amountIn) revert IERC20Errors.ERC20InsufficientAllowance(address(this), allowed, amountIn);
++            uint256 bal = token1.balanceOf(msg.sender);
++            if (bal < amountIn) revert IERC20Errors.ERC20InsufficientBalance(msg.sender, bal, amountIn);
++        }
+         if (amountOut == 0 || amountOut < minAmountOut) {
+             revert OutputTooSmall();
+         }
