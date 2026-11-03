@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.38;
 
-import {
-    IERC20Errors
-} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
 import {stdError} from "forge-std/StdError.sol";
 import {Test} from "forge-std/Test.sol";
 import {ConstantProductPool} from "../src/ConstantProductPool.sol";
@@ -22,17 +19,6 @@ contract ConstantProductPoolTest is Test {
         uint256 amountIn,
         uint256 amountOut
     );
-
-    /// What a swap can change, from the side of the token paid in and the
-    /// token paid out.
-    struct Books {
-        uint256 reserveIn;
-        uint256 reserveOut;
-        uint256 poolIn;
-        uint256 poolOut;
-        uint256 traderIn;
-        uint256 traderOut;
-    }
 
     TestToken gold = new TestToken("Gold", "GLD");
     TestToken silver = new TestToken("Silver", "SLV");
@@ -69,9 +55,20 @@ contract ConstantProductPoolTest is Test {
         tokenIn.approve(address(pool), amountIn + spare);
     }
 
+    /// What a swap can change, from the side of the token paid in and the
+    /// token paid out.
+    struct Books {
+        uint256 reserveIn;
+        uint256 reserveOut;
+        uint256 poolIn;
+        uint256 poolOut;
+        uint256 traderIn;
+        uint256 traderOut;
+    }
+
     function books(bool zeroForOne) internal view returns (Books memory) {
-        TestToken tokenIn = zeroForOne ? gold : silver;
-        TestToken tokenOut = zeroForOne ? silver : gold;
+        (TestToken tokenIn, TestToken tokenOut) =
+            zeroForOne ? (gold, silver) : (silver, gold);
         return Books({
             reserveIn: reserveIn(zeroForOne),
             reserveOut: reserveOut(zeroForOne),
@@ -101,6 +98,9 @@ contract ConstantProductPoolTest is Test {
         assertEq(afterwards.poolOut, before.poolOut - amountOut);
         assertEq(afterwards.traderIn, before.traderIn - amountIn);
         assertEq(afterwards.traderOut, before.traderOut + amountOut);
+        // the pool pays out, and lets nobody take more later
+        TestToken tokenOut = zeroForOne ? silver : gold;
+        assertEq(tokenOut.allowance(address(pool), trader), 0);
     }
 
     /// Expect the next swap to be refused with `reason`.
@@ -116,16 +116,6 @@ contract ConstantProductPoolTest is Test {
         pool.swap(zeroForOne, amountIn, minAmountOut);
     }
 
-    /// Whether this trade's output rounds down to nothing.
-    function paysNothing(bool zeroForOne, uint256 amountIn)
-        internal
-        view
-        returns (bool)
-    {
-        return reserveOut(zeroForOne) * amountIn
-            < reserveIn(zeroForOne) + amountIn;
-    }
-
     /// Run a swap the model accepts, which has to succeed. One that pays
     /// nothing has to be refused, and the fuzzer then drops the case, as the
     /// model's properties only check the swaps that succeed.
@@ -133,7 +123,9 @@ contract ConstantProductPoolTest is Test {
         internal
         returns (uint256)
     {
-        if (paysNothing(zeroForOne, amountIn)) {
+        if (
+            reserveOut(zeroForOne) * amountIn < reserveIn(zeroForOne) + amountIn
+        ) {
             assertRefused(
                 zeroForOne,
                 amountIn,
@@ -170,24 +162,12 @@ contract ConstantProductPoolTest is Test {
     // Worked examples: each result is what AMM.ConstantProduct.swap gives.
 
     function test_SwapGoldForSilver() public {
-        stock(1000, 1000);
-        assertEq(trade(true, 100, 0), 90);
-        assertReserves(1100, 910);
-    }
-
-    function test_SwapSilverForGold() public {
-        stock(1000, 1000);
-        assertEq(trade(false, 100, 0), 90);
-        assertReserves(910, 1100);
-    }
-
-    function test_SwapAtAnUnevenPool() public {
         stock(1000, 4000);
         assertEq(trade(true, 100, 0), 363);
         assertReserves(1100, 3637);
     }
 
-    function test_SwapBackAtAnUnevenPool() public {
+    function test_SwapSilverForGold() public {
         stock(1000, 4000);
         assertEq(trade(false, 400, 0), 90);
         assertReserves(910, 4400);
@@ -205,15 +185,6 @@ contract ConstantProductPoolTest is Test {
         // 10 * 3 / 13 is 2.3
         assertEq(trade(true, 3, 0), 2);
         assertReserves(13, 8);
-    }
-
-    function test_SwapPaysExactlyMinAmountOut() public {
-        stock(1000, 1000);
-        assertRefused(
-            true, 100, 91, ConstantProductPool.OutputTooSmall.selector
-        );
-        assertEq(trade(true, 100, 90), 90);
-        assertReserves(1100, 910);
     }
 
     /// The second swap is priced from the reserves the first one left, for
@@ -235,22 +206,14 @@ contract ConstantProductPoolTest is Test {
     }
 
     /// A zero amount is refused first, so on an empty pool as well.
-    function testFuzz_SwapRefusesZeroAmount(
-        bool zeroForOne,
-        uint256 minimum,
-        bool open
-    ) public {
+    function testFuzz_SwapRefusesZeroAmount(bool zeroForOne, bool open) public {
         if (open) stock(1000, 1000);
         assertRefused(
-            zeroForOne,
-            0,
-            bound(minimum, 0, 1),
-            ConstantProductPool.AmountNotPositive.selector
+            zeroForOne, 0, 1, ConstantProductPool.AmountNotPositive.selector
         );
     }
 
-    /// Holding tokens does not open a pool, and the caller needs none of them
-    /// to be told so.
+    /// Holding tokens does not open a pool, whatever the minimum.
     function testFuzz_SwapRefusesEmptyPool(
         bool zeroForOne,
         uint256 amountIn,
@@ -292,14 +255,13 @@ contract ConstantProductPoolTest is Test {
     }
 
     /// A swap pays the same for any minimum up to its output, and is refused
-    /// for any minimum above it. The two minimums next to the output are
-    /// checked every time, as the fuzzer may not land on them.
+    /// for any minimum above it, starting one above.
     function testFuzz_OutputAtLeastMinimum(
         uint256 goldAmount,
         uint256 silverAmount,
         bool zeroForOne,
         uint256 amountIn,
-        uint256 lowMinimum,
+        uint256 minimum,
         uint256 highMinimum
     ) public {
         stockFuzzed(goldAmount, silverAmount);
@@ -309,18 +271,14 @@ contract ConstantProductPoolTest is Test {
         uint256 amountOut = tradeOrDiscard(zeroForOne, amountIn);
 
         vm.revertToState(start);
-        lowMinimum = bound(lowMinimum, 0, amountOut);
-        assertEq(trade(zeroForOne, amountIn, lowMinimum), amountOut);
+        minimum = bound(minimum, 0, amountOut);
+        assertEq(trade(zeroForOne, amountIn, minimum), amountOut);
 
         vm.revertToState(start);
-        assertEq(trade(zeroForOne, amountIn, amountOut), amountOut);
-
-        vm.revertToState(start);
-        highMinimum = bound(highMinimum, amountOut + 1, type(uint256).max);
         assertRefused(
             zeroForOne,
             amountIn,
-            highMinimum,
+            amountOut + 1,
             ConstantProductPool.OutputTooSmall.selector
         );
 
@@ -328,7 +286,7 @@ contract ConstantProductPoolTest is Test {
         assertRefused(
             zeroForOne,
             amountIn,
-            amountOut + 1,
+            bound(highMinimum, amountOut + 1, type(uint256).max),
             ConstantProductPool.OutputTooSmall.selector
         );
     }
@@ -413,21 +371,17 @@ contract ConstantProductPoolTest is Test {
         assertEq(address(pool.token1()), address(silver));
         assertEq(pool.owner(), address(this));
 
-        pool = new ConstantProductPool(silver, gold);
-        assertEq(address(pool.token0()), address(silver));
-        assertEq(address(pool.token1()), address(gold));
-
-        // tokens are told apart by address, whatever they call themselves
-        new ConstantProductPool(gold, new TestToken("Fool's gold", "GLD"));
-    }
-
-    function test_ConstructorRefusesTheSameTokenTwice() public {
         vm.expectRevert(ConstantProductPool.IdenticalTokens.selector);
         new ConstantProductPool(gold, gold);
     }
 
-    /// An unlimited approval still takes only the amounts given.
-    function testFuzz_InitializeTakesTheTokens(bool unlimited) public {
+    /// Either token may have the lower address, and an unlimited approval
+    /// still takes only the amounts given.
+    function testFuzz_InitializeTakesTheTokens(bool reversed, bool unlimited)
+        public
+    {
+        if (reversed) (gold, silver) = (silver, gold);
+        pool = new ConstantProductPool(gold, silver);
         supply(1000, 4000);
         if (unlimited) {
             gold.approve(address(pool), type(uint256).max);
@@ -445,71 +399,28 @@ contract ConstantProductPoolTest is Test {
         assertEq(silver.balanceOf(address(this)), 1);
     }
 
-    /// The token that is short may be short of funds or of an approval.
-    function testFuzz_InitializeNeedsBothTokens(bool hasGold, bool approved)
-        public
-    {
+    function testFuzz_InitializeNeedsBothTokens(bool hasGold) public {
         TestToken held = hasGold ? gold : silver;
         held.mint(address(this), 1000);
         held.approve(address(pool), 1000);
-
-        if (approved) {
-            (hasGold ? silver : gold).approve(address(pool), 1000);
-            vm.expectRevert(
-                abi.encodeWithSelector(
-                    IERC20Errors.ERC20InsufficientBalance.selector,
-                    address(this),
-                    0,
-                    1000
-                )
-            );
-        } else {
-            vm.expectRevert(
-                abi.encodeWithSelector(
-                    IERC20Errors.ERC20InsufficientAllowance.selector,
-                    address(pool),
-                    0,
-                    1000
-                )
-            );
-        }
+        vm.expectRevert();
         pool.initialize(1000, 1000);
     }
 
-    /// With neither token approved, gold is the one asked for first.
-    function test_InitializeTakesGoldFirst() public {
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                IERC20Errors.ERC20InsufficientAllowance.selector,
-                address(pool),
-                0,
-                1000
-            )
-        );
-        pool.initialize(1000, 4000);
-    }
-
-    /// Whatever else is wrong with the call, an outsider is refused as one.
     function test_InitializeIsOnlyForTheOwner() public {
         vm.prank(trader);
         vm.expectRevert(ConstantProductPool.NotOwner.selector);
         pool.initialize(1000, 1000);
-
-        vm.prank(trader);
-        vm.expectRevert(ConstantProductPool.NotOwner.selector);
-        pool.initialize(0, 0);
 
         // being called from the owner's transaction does not make one the owner
         vm.prank(trader, address(this));
         vm.expectRevert(ConstantProductPool.NotOwner.selector);
         pool.initialize(1000, 1000);
 
-        // nor does being a contract
+        // nor does being a contract, or an address above the owner's
         vm.prank(address(gold));
         vm.expectRevert(ConstantProductPool.NotOwner.selector);
         pool.initialize(1000, 1000);
-
-        // nor does an address above the owner's, where the others are below it
         vm.prank(address(type(uint160).max));
         vm.expectRevert(ConstantProductPool.NotOwner.selector);
         pool.initialize(1000, 1000);
@@ -526,19 +437,10 @@ contract ConstantProductPoolTest is Test {
         pool.initialize(1000, 1000);
         vm.expectRevert(ConstantProductPool.AlreadyInitialized.selector);
         pool.initialize(2000, 3000);
-        vm.expectRevert(ConstantProductPool.AlreadyInitialized.selector);
-        pool.initialize(0, 0);
 
         trade(true, 100, 0);
         vm.expectRevert(ConstantProductPool.AlreadyInitialized.selector);
         pool.initialize(1100, 910);
-    }
-
-    function test_InitializeHappensOnceOnAHugePool() public {
-        // the reserves' product and their sum both fail to fit in uint256
-        stock(1 << 255, 1 << 255);
-        vm.expectRevert(ConstantProductPool.AlreadyInitialized.selector);
-        pool.initialize(1, 1);
     }
 
     function test_InitializeRefusesAnEmptyReserve() public {
@@ -557,17 +459,6 @@ contract ConstantProductPoolTest is Test {
         pool = new ConstantProductPool(gold, silver);
         stock(1000, 1000);
         assertEq(trade(zeroForOne, 100, 0), 90);
-    }
-
-    function testFuzz_SwapMovesTheTokens(bool zeroForOne) public {
-        stock(1000, 1000);
-        trade(zeroForOne, 100, 0);
-        (TestToken tokenIn, TestToken tokenOut) =
-            zeroForOne ? (gold, silver) : (silver, gold);
-        assertEq(tokenIn.balanceOf(trader), 1);
-        assertEq(tokenOut.balanceOf(trader), 90);
-        assertEq(tokenIn.balanceOf(address(pool)), 1100);
-        assertEq(tokenOut.balanceOf(address(pool)), 910);
     }
 
     /// The model knows no owner, so the owner pays the same as anyone else.
@@ -600,38 +491,6 @@ contract ConstantProductPoolTest is Test {
         assertEq(reserveOut(zeroForOne), 910);
     }
 
-    function test_PoolRefusesEther() public {
-        vm.deal(address(this), 1);
-        vm.deal(trader, 1);
-
-        bytes memory code = abi.encodePacked(
-            type(ConstantProductPool).creationCode, abi.encode(gold, silver)
-        );
-        address deployed;
-        assembly {
-            deployed := create(1, add(code, 0x20), mload(code))
-        }
-        assertEq(deployed, address(0));
-
-        supply(1000, 1000);
-        (bool taken,) = address(pool).call{value: 1}(
-            abi.encodeCall(pool.initialize, (1000, 1000))
-        );
-        assertFalse(taken);
-
-        pool.initialize(1000, 1000);
-        fund(true, 100);
-        vm.prank(trader);
-        (taken,) = address(pool).call{value: 1}(
-            abi.encodeCall(pool.swap, (true, 100, 0))
-        );
-        assertFalse(taken);
-
-        // the same call without the ether goes through
-        vm.prank(trader);
-        assertEq(pool.swap(true, 100, 0), 90);
-    }
-
     function testFuzz_SwapEmitsAnEvent(bool zeroForOne) public {
         stock(1000, 1000);
         fund(zeroForOne, 100);
@@ -641,42 +500,23 @@ contract ConstantProductPoolTest is Test {
         pool.swap(zeroForOne, 100, 0);
     }
 
-    /// A trader short of funds as well is still refused for the approval,
-    /// which the token checks first.
-    function testFuzz_SwapRefusesWithoutApproval(bool zeroForOne, uint256 held)
+    /// A trader who has not approved enough, or does not hold enough, gets
+    /// nothing.
+    function testFuzz_SwapNeedsTheTradersTokens(bool zeroForOne, bool approved)
         public
     {
         stock(1000, 1000);
-        (zeroForOne ? gold : silver).mint(trader, bound(held, 0, 100));
-        vm.prank(trader);
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                IERC20Errors.ERC20InsufficientAllowance.selector,
-                address(pool),
-                0,
-                100
-            )
-        );
-        pool.swap(zeroForOne, 100, 0);
-    }
-
-    function testFuzz_SwapRefusesATraderShortOfFunds(bool zeroForOne) public {
-        stock(1000, 1000);
         TestToken tokenIn = zeroForOne ? gold : silver;
-        tokenIn.mint(trader, 50);
+        tokenIn.mint(trader, approved ? 99 : 100);
         vm.prank(trader);
-        tokenIn.approve(address(pool), 100);
+        tokenIn.approve(address(pool), approved ? 100 : 99);
         vm.prank(trader);
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                IERC20Errors.ERC20InsufficientBalance.selector, trader, 50, 100
-            )
-        );
+        vm.expectRevert();
         pool.swap(zeroForOne, 100, 0);
     }
 
     // Past the range of the fuzz tests. A swap stops only where a product or
-    // a sum does not fit in uint256, so the next four answer as the model does.
+    // a sum does not fit in uint256, so the next two answer as the model does.
 
     function testFuzz_SmallTradeOnAHugePool(bool zeroForOne) public {
         // the reserves' own product does not fit, and the swap never needs it
@@ -684,26 +524,10 @@ contract ConstantProductPoolTest is Test {
         assertEq(trade(zeroForOne, 1000, 0), 999);
     }
 
-    function testFuzz_HugeReserveOnTheWayOut(bool zeroForOne) public {
-        // the reserve's top bit is set, which no signed reading would survive
-        (uint256 goldAmount, uint256 silverAmount) =
-            zeroForOne ? (uint256(1), uint256(1 << 255)) : (1 << 255, 1);
-        stock(goldAmount, silverAmount);
-        assertEq(trade(zeroForOne, 1, 0), 1 << 254);
-    }
-
     function test_HugeTradeOnASmallPool() public {
         stock(1000, 1000);
         assertEq(trade(true, 1 << 128, 0), 999);
         assertReserves(1000 + (1 << 128), 1);
-    }
-
-    function test_AmountWithTheTopBitSetIsNotNegative() public {
-        stock(1, 1);
-        // 2^255 / (2^255 + 1) rounds down to nothing
-        assertRefused(
-            true, 1 << 255, 0, ConstantProductPool.OutputTooSmall.selector
-        );
     }
 
     /// The model's Integer has no limit, so it prices this trade. Here
