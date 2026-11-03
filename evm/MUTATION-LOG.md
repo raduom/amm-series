@@ -20,7 +20,7 @@ The value of the rounds has not been even:
 - **Round 4 was mixed.** A second trader's output going to the first is serious, but it took a reviewer inventing a pool that remembers its first caller.
 - **Round 5 needs unusual setups.** Several of its mutants are mistakes nobody is likely to write, such as treating two tokens with one symbol as the same token. The unlimited approval is the exception, because real traders use those all the time.
 
-The tests also grew faster than they had to. Rounds 3 to 5 added cases one at a time, and a fair part of that is now covered by the invariant handler. A pass that removes the overlap is planned but not yet approved.
+The tests also grew faster than they had to. Rounds 3 to 5 added cases one at a time, and a fair part of that is now covered by the invariant handler. A pass after round 6 merged or removed what other tests already cover, which turned out to be less than this suggests: see [Closing the gaps](#closing-the-gaps).
 
 ## Test growth
 
@@ -33,9 +33,10 @@ The contract went from 101 to 106 lines over all of this. Code lines leave out b
 | After round 2 | 42 | 681 | 535 | 8.2x |
 | After round 3 | 52 | 822 | not recorded | not recorded |
 | After round 4 | 62 | 996 | 784 | 12.1x |
-| After round 5's fixes | 71 | 1195 | 940 | 14.5x |
+| After round 5's fixes | 71 | 1193 | 940 | 14.5x |
+| After closing the gaps | 65 | 1189 | 928 | 14.3x |
 
-Each invariant counts once per pool: 8 invariants on 3 pools make 24 of the 71 tests. Foundry 1.8.7 reports the same suite as 50 tests, because the invariants in one contract now share a campaign and count as one test. This log keeps counting them separately.
+Each invariant counts once per pool: 8 invariants on 3 pools make 24 of the 71 tests. Foundry 1.8.7 reports the same suite as 50 tests, and the one after closing the gaps as 44, because the invariants in one contract now share a campaign and count as one test. This log keeps counting them separately.
 
 ## What the mutants changed
 
@@ -147,7 +148,7 @@ New code has no limit, which is why the rounds did not converge. Small edits are
 
 ## Round 6: the same, on the fixed suite
 
-**Result:** 29 distinct survivors against 71 tests, all confirmed under two seeds. None was fixed, because the rounds stopped here for the Gambit experiment. For the first time, reviewers rated how realistic each mistake is.
+**Result:** 29 distinct survivors against 71 tests, all confirmed under two seeds. None was fixed then, because the rounds stopped here for the Gambit experiment. The ones rated likely or possible were closed later: see [Closing the gaps](#closing-the-gaps). For the first time, reviewers rated how realistic each mistake is.
 
 | Kind | Severity | Realistic? | Why the tests miss it |
 |---|---|---|---|
@@ -170,7 +171,7 @@ New code has no limit, which is why the rounds did not converge. Small edits are
 
 **How:** the same contract with the original 30 tests, adding only what Gambit asked for. That was one test, for the same-token check, because the 30 tests already caught the other 82. Hand-made bugs were then run against both suites, with a clean cache and under two seeds. The rounds 3 to 5 set is rebuilt from the reviewers' reports, with duplicates removed, so it holds 82 of the 99.
 
-| Bugs | Count | Gambit suite (31 tests, 464 lines) | Current suite (71 tests, 1195 lines) |
+| Bugs | Count | Gambit suite (31 tests, 464 lines) | Current suite (71 tests, 1193 lines) |
 |---|---|---|---|
 | Gambit's mutants | 83 | 83 | 83 |
 | Scripted bugs from rounds 1 and 2 | 39 | 20 | 39 |
@@ -205,7 +206,7 @@ The new `missing-events-arithmetic` lint is turned off in `foundry.toml`. It poi
 | `forge test --mutate` | 139 | 133 | 18 | 4 | 4 | 482 | 109 |
 | `universalmutator --swap` | 1134 | 240 | 48 | 14 | 9 | 526 | 118 |
 | All tools together | | 352 | 51 | 15 | 10 | 533 | 118 |
-| Current suite | | | | | 41 | 1195 | 203 |
+| Current suite | | | | | 41 | 1193 | 203 |
 
 Two of universalmutator's real gaps got no test, because they need a token that calls back into the pool, which is deferred to chapter 5. The bug counts include `r4-internal-getters` as missed. Of the 233 bugs, Gambit's 83 are all caught by every suite, and the round 6 bugs by none.
 
@@ -220,8 +221,35 @@ More mutants did not mean much better tests. All five tools together caught 118 
 **The tools in use:**
 
 - `forge test --mutate` needs nothing installed, and listing its mutants took 1.6 seconds. Running them was far slower: about a minute each on the 30 tests, from the few that finished before it was stopped. It also skips related mutants once one survives. Its mutants here were scored by the shared scorer, not by its own run.
-- universalmutator found the most, including the line swaps no other tool makes. Its regex rules also made the most noise: 76% of its mutants did not compile, and 34 of its 48 survivors are equivalent.
+- universalmutator found the most: 14 of the 15 real gaps, including the line swaps no other tool makes. Its regex rules made the most mutants that do not compile, 76%, but the compiler throws those out in seconds. What takes a person's time is judging survivors, and there it was the more precise: 14 of its 48 were real, against 4 of forge's 18.
 - SuMo needed three workarounds to run outside an npm project, and it added one real mutant beyond Gambit and Slither.
 - `slither-mutate` added nothing over Gambit here, though it did handle solc 0.8.38.
 
+**Which to use:** `forge test --mutate` as the quick check on changed code, since it is already installed, and universalmutator with `--swap` as the fuller pass before a release. Gambit, `slither-mutate` and SuMo found no real gap that these two did not.
+
 As before, the hand-made bugs were written for the current suite, so that column favours it, and this is one small contract.
+
+## Closing the gaps
+
+**What:** tests for the two real gaps the tools found that the suite still missed, the owner comparison and the order of the token pulls, and for the round 6 mistakes rated likely or possible. Then a pass that merges or removes tests that others already cover.
+
+**Added:**
+
+- An outsider whose address is above the owner's is refused.
+- `initialize` asks for gold first.
+- `initialize` with an unlimited approval takes only the amounts given.
+- Unequal donations before the pool opens, so that crossed balances cannot cancel out.
+- A trader short of both funds and approval is refused for the approval, which the token checks first.
+- A token with 6 decimals, as USDC has, trades as one with 18 does.
+- The handler also trades with an approval of a unit more than the trader holds.
+
+**The overlap pass:** all 585 bugs, the 233 hand-made ones and the 352 tool mutants, were run against the suite, recording which tests fail for each under both seeds. Most tests are never the only one to catch a bug, but most of those are the model's worked examples and properties, which the Ethereum article quotes, so they stay. Five pairs that each ran one direction or one step were merged, and three tests were removed because the handler does the same on every pool: exact balances, a swap from a wallet directly, and the minimum checked before tokens move. Two stay although the handler covers them: the owner trading like anyone else, without which four owner bugs would rest on the campaigns alone, and the trader short of funds, beside the one short of an approval.
+
+| | Before | After |
+|---|---|---|
+| Tests | 71 | 65 |
+| Test lines | 1193 | 1189 |
+| Hand-made bugs caught, of 233 | 203 | 215 |
+| Tool mutants caught, of 352 | 306 | 308 |
+
+The suite after the pass catches exactly what it caught before it, bug for bug, under both seeds. What still passes is the 17 round 6 bugs rated unlikely, the 35 equivalent mutants and the two chapter 5 cases. `r4-internal-getters` and 7 tool mutants do not compile against the tests: five remove a getter, one swaps the order of `swap`'s parameters, and one removes the constructor.
