@@ -140,14 +140,15 @@ contract Trader is CommonBase, StdUtils {
         amountIn = bound(amountIn, 1, maxTrade);
         address actor = actors[who % actors.length];
 
-        // exactly what the swap costs, a unit more, or an unlimited approval
-        uint256 funds = amountIn + (fundingKind % 3 == 0 ? 0 : 1);
-        provide(
-            actor,
-            zeroForOne ? gold : silver,
-            funds,
-            fundingKind % 3 == 2 ? type(uint256).max : funds
-        );
+        // exactly what the swap costs, a unit more, an unlimited approval, or
+        // an approval of a unit more than the actor holds
+        fundingKind %= 4;
+        uint256 funds =
+            amountIn + (fundingKind == 1 || fundingKind == 2 ? 1 : 0);
+        uint256 approval = fundingKind == 2
+            ? type(uint256).max
+            : funds + (fundingKind == 3 ? 1 : 0);
+        provide(actor, zeroForOne ? gold : silver, funds, approval);
 
         Books memory before = books(actor, zeroForOne);
 
@@ -287,7 +288,7 @@ contract Trader is CommonBase, StdUtils {
         bool zeroForOne,
         uint256 amountIn,
         uint256 amountOut
-    ) internal returns (bool) {
+    ) internal view returns (bool) {
         Vm.Log[] memory logs = vm.getRecordedLogs();
         if (logs.length != 3) return false;
 

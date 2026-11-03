@@ -11,3 +11,14 @@ contract TestToken is ERC20 {
         _mint(to, amount);
     }
 }
+
+/// @notice A TestToken with 6 decimals, as USDC has.
+contract SixDecimalToken is TestToken {
+    constructor(string memory name, string memory symbol)
+        TestToken(name, symbol)
+    {}
+
+    function decimals() public pure override returns (uint8) {
+        return 6;
+    }
+}
