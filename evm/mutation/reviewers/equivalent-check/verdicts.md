@@ -1,0 +1,83 @@
+# Independent equivalence review
+
+**Result: 34 equivalent; 5 not equivalent: m24, m27, m29, m32, m39.**
+
+## Scope and method
+
+These verdicts use the clarified scope: the pool is deployed directly and executes against its own storage. Ordinary calls, STATICCALL, arbitrary token behavior, callbacks, return/revert data, and ordered logs count. DELEGATECALL execution against another contract's storage and storage reads by slot number are excluded. Gas consumption and bytecode differences are excluded as requested.
+
+The final column identifies verdicts that would change from **equivalent** to **not equivalent** if an excluded observation were admitted: **D** means DELEGATECALL; **S** means reading storage by slot number. Concrete out-of-scope witnesses follow the main table. A dash means neither exclusion changes the verdict.
+
+This is a source-only review of the supplied contract, all 39 diffs, and the imported OpenZeppelin SafeERC20 and IERC20 sources. No build or test tool was run, and neither the repository's mutation directory nor git history was consulted. The sequences below are proposed witnesses for later execution, not reported test results.
+
+Two facts used in the table:
+
+- **U (unsigned values):** All reserves and amount parameters/results are uint256. Consequently, `x <= 0` equals `x == 0`, `x > 0` equals `x != 0`, and `x < 0` is always false.
+- **R (reserve invariant at observable boundaries):** At entry to any pool call, and whenever the pool invokes token code, either both reserves are zero or both are positive. Initially both are zero. A successful initialization assigns two strictly positive values before invoking either token. For a successful swap, positive `reserveIn` and `amountIn` imply `amountOut = floor(reserveOut * amountIn / (reserveIn + amountIn)) < reserveOut`; overflow in either arithmetic operation reverts before the writes. The input reserve increases and the output reserve remains positive, and both assignments precede external calls. Reentrant calls obey the same argument. A failed call rolls its writes back. This proof does not assume that token balances match the reserves or that tokens are honest. Brief intermediate states between consecutive storage writes cannot be observed by another contract when there is no intervening external call.
+
+The equivalent guard mutants below preserve R themselves, so the argument is inductive for each mutant, rather than assuming only the original's reachable states. STATICCALL can prevent a write but cannot persist a partial update.
+
+## Verdicts
+
+| Mutant | Change | Verdict | Reason / distinguishing sequence | Flip outside scope |
+| --- | --- | --- | --- | --- |
+| m01 | Remove effective reserve1 empty check | equivalent | By U, `reserve1 < 0` is false. By R, checking `reserve0 == 0` alone detects exactly the same empty pools as checking either reserve. This also holds on token callbacks. | D: A |
+| m02 | Use `<= 0`; duplicate minimum check | equivalent | By U, `amountOut <= 0` equals `amountOut == 0`. Repeating the same pure comparison adds no condition, external call, or side effect; the same OutputTooSmall error occurs on exactly the same inputs. | — |
+| m03 | Check reserve0 twice for emptiness | equivalent | By R, `reserve0 == 0` and `reserve1 == 0` always agree at this check, including reentrant entry. Duplicating the first comparison therefore preserves the result and error. | D: A |
+| m04 | Use `reserve0 <= 0` | equivalent | Identical predicate for uint256 by U. No other behavior changes. | — |
+| m05 | Reverse initialization reserve writes | equivalent | Both assignments use independent arguments and cannot overflow. No external code runs between them. At the first token call the books are identical; STATICCALL fails at the first SSTORE in either version with empty failure data. | — |
+| m06 | Use `amount1 <= 0` | equivalent | Identical positivity predicate for uint256 by U; guard order and errors are unchanged. | — |
+| m07 | Reverse reserve writes for reverse swap | equivalent | Both expressions use cached local reserves. The sum was already checked in the denominator, and the subtraction is safe because output is strictly less than reserveOut. No external call intervenes; final state and all subsequent calls/logs are identical. STATICCALL encounters a forbidden SSTORE in either version. | — |
+| m08 | Initialization checks reserve1 twice | equivalent | By R, reserve1 is nonzero exactly when either reserve is nonzero. Reinitialization is rejected in exactly the same states, including callbacks by an owner that is also a token contract. | D: C |
+| m09 | Initialization checks reserve0 twice | equivalent | By R, reserve0 is nonzero exactly when either reserve is nonzero. The same AlreadyInitialized error is selected at every reachable entry. | D: D |
+| m10 | Swap reserve storage declaration order | equivalent | Named getters, arithmetic, and assignments still refer to the same logical reserves. The compiler consistently changes their storage slots. No admitted operation exposes the slot numbers; callbacks read identical named values. | D, S: E |
+| m11 | Assign immutable token0 before identity check | equivalent | Assigning the immutable invokes no external code. Identical-token construction still reverts IdenticalTokens with no surviving deployment; valid construction yields the same tokens and owner. No observer can interleave with the assignment. | — |
+| m12 | Use `amountIn <= 0` | equivalent | Identical predicate for uint256 by U. AmountNotPositive retains its priority over EmptyPool. | — |
+| m13 | Reverse reserve writes for forward swap | equivalent | Both expressions use cached local reserves, and both are already known to be arithmetically safe after the pricing and output checks. There is no intervening external call. The final books, event, transfers, and STATICCALL failure behavior are identical. | — |
+| m14 | Use `reserve1 <= 0` | equivalent | Identical predicate for uint256 by U. | — |
+| m15 | Use `reserve0 > 0` in initialization guard | equivalent | Identical predicate to `reserve0 != 0` for uint256 by U. | — |
+| m16 | Use `reserve1 > 0` in initialization guard | equivalent | Identical predicate to `reserve1 != 0` for uint256 by U. | — |
+| m17 | Drop reserve0 from initialization guard | equivalent | The false constant leaves only the reserve1 check. By R, that detects precisely the same initialized states as the original OR, including reentrant entry. | D: C |
+| m18 | Reverse token immutable assignments | equivalent | These independent constructor assignments make no external calls and have no failing arithmetic. They leave all immutable values identical, and the preceding identity check is unchanged. | — |
+| m19 | Remove effective reserve0 empty check | equivalent | By U, `reserve0 < 0` is false. By R, reserve1 alone detects exactly the same empty states as the original OR. | D: B |
+| m20 | Use AND for empty-pool check | equivalent | By R, the reserves are zero together. The OR and AND therefore have the same truth value at every reachable swap entry, including callbacks. | D: A |
+| m21 | Remove effective reserve1 initialization check | equivalent | By U, `reserve1 < 0` is false. By R, reserve0 alone detects all and only initialized states. | D: D |
+| m22 | Make token0 a storage variable | equivalent | The constructor sets token0 to the same address and there is no subsequent assignment or setter. The shifted reserve slots are consistently used by all functions. Ordinary calls and callbacks see the same token and reserves; a getter's SLOAD is also permitted under STATICCALL. | D, S: F |
+| m23 | Make token1 a storage variable | equivalent | The constructor sets token1 to the same address and no reachable code changes it. Named reserve accesses consistently use their shifted slots. All getters, calls, callbacks, and STATICCALL outcomes remain the same. | D, S: G |
+| m24 | Replace owner inequality with address ordering | not equivalent | Choose owner O and a distinct caller A with numeric address A > O. O deploys a fresh pool with distinct tokens. A calls `initialize(0, 1)`. Original: NotOwner. Mutant: the owner check passes, the empty guard passes, and AmountNotPositive is returned. No approvals, transfers, or callback token are needed. With valid amounts and approvals the same ownership flaw would also permit A to initialize. | — |
+| m25 | Remove effective reserve0 initialization check | equivalent | By U, `reserve0 < 0` is false. By R, reserve1 alone detects exactly the same initialized states. | D: C |
+| m26 | Assign owner before token1 in constructor | equivalent | Independent immutable assignments with no external calls or checked arithmetic yield exactly the same final values. Failed identical-token construction is still rejected before them. | — |
+| m27 | Reverse initialization token transfers | not equivalent | O deploys a pool using two ordinary ERC20s T0/T1, holds at least 1 of each, and approves the pool for 1 each. O calls `initialize(1, 1)`. Both versions succeed, but the original emits T0.Transfer(O,pool,1) before T1.Transfer(O,pool,1); the mutant emits those logs in reverse order. Ordered logs are an admitted observation. No callback token is needed. | — |
+| m28 | Move owner immutable declaration | equivalent | Declaration order does not change the values assigned to the three named immutables. Immutables occupy no persistent storage slots, so reserve layout also stays the same. Only excluded code/gas details change. | — |
+| m29 | Write reserve0 before amount check | not equivalent | Owner contract O deploys a fresh pool with distinct tokens. O then makes a low-level STATICCALL to `pool.initialize(0, 1)` and returns the success flag and returndata. Original: success=false with the four-byte AmountNotPositive selector. Mutant: `reserve0 = 0` executes SSTORE first, which is forbidden in a static context even when writing the existing zero value; it exceptionally halts with empty returndata. No token call or callback token is needed. Ordinary-call rollback alone would miss this difference. | — |
+| m30 | Reverse token immutable declarations | equivalent | Declaration order changes no named immutable value and no persistent reserve slot. There is no external interaction during construction that could observe an intermediate assignment. | — |
+| m31 | Write reserve0 before direction branch | equivalent | For a forward swap the same write simply occurs just before the branch. For a reverse swap the extra write is overwritten by `reserve0 = reserveOut - amountOut` before any external call or log. Expressions use cached locals, and the sum was already checked in the denominator. STATICCALL already encounters a forbidden reserve write in the original after these checks, so both versions fail with empty data there. | — |
+| m32 | Call token0 between initialization reserve writes | not equivalent | Use a token T0 whose initialization `transferFrom` reads `pool.reserve1()` and saves it in its own public `observedReserve1` field before returning true. Use an ordinary T1. O funds and approves both tokens, then calls `initialize(100, 100)`. Original: T0 records 100. Mutant: T0 records 0 because reserve1 has not yet been assigned. Both initializations can succeed and leave identical final pool reserves, but the token's saved value differs. **This witness requires a token that calls back into the pool**, here through a getter. | — |
+| m33 | Use `amount0 <= 0` | equivalent | Identical predicate for uint256 by U; initialization guard ordering and errors are unchanged. | — |
+| m34 | Drop reserve0 from empty-pool check | equivalent | The false constant leaves the reserve1 check. By R, that rejects precisely the same reachable states as the original OR, including reentrant calls. | D: B |
+| m35 | Make owner a storage variable | equivalent | Construction stores the same owner address, and there is no subsequent owner assignment or setter. All owner checks and the owner getter therefore return the same results. Shifted reserve slots are consistently accessed; SLOAD is permitted in STATICCALL. | D, S: H |
+| m36 | Use `amountOut <= 0` | equivalent | Identical predicate for uint256 by U, with identical OutputTooSmall behavior. | — |
+| m37 | Check reserve1 twice for emptiness | equivalent | By R, reserve1 is zero exactly when either reserve is zero. The duplicated comparison changes no reachable decision or error. | D: B |
+| m38 | Use AND for initialized-pool check | equivalent | By R, either both reserves are zero or both are nonzero at initialization entry, including callbacks. OR and AND therefore reject exactly the same states. | D: C |
+| m39 | Pay output before collecting input | not equivalent | Initialize an ordinary T0/T1 pool with `(100, 100)`. Trader A holds at least 10 T0, approves the pool for 10, and calls `swap(true, 10, 0)`. Both versions return 9 and leave reserves `(110, 91)`. After the identical Swap event, original logs T0.Transfer(A,pool,10) then T1.Transfer(pool,A,9); mutant logs the transfers in reverse order. No callback token is needed; callbacks can additionally observe the changed intermediate token balances. | — |
+
+## Witnesses for the excluded observation boundaries
+
+There are **16 equivalent mutants whose verdict would flip**: m01, m03, m08, m09, m10, m17, m19, m20, m21, m22, m23, m25, m34, m35, m37, m38. Of these, m10/m22/m23/m35 also flip on slot-level storage reads alone; the other twelve require DELEGATECALL for these counterexamples.
+
+For A-D, let a helper contract H execute the pool's runtime code using DELEGATECALL, forwarding the exact calldata. H can set its own storage slots 0 and 1 beforehand. These mutants retain the original layout: slot 0 is reserve0 and slot 1 is reserve1. Such a helper can supply states that the directly deployed pool can never reach. It does not change the deployed pool's storage.
+
+- **A — m01, m03, m20:** Set H's slots to `(100, 0)`. Delegatecall `swap(true, 1, 0)`. Original: EmptyPool. Mutant: its weakened guard passes, the calculated output is zero, and it reverts OutputTooSmall. No token is called.
+- **B — m19, m34, m37:** Set H's slots to `(0, 100)`. Delegatecall `swap(false, 1, 0)`. Original: EmptyPool. Mutant: its weakened guard passes, the calculated output is zero, and it reverts OutputTooSmall. No token is called.
+- **C — m08, m17, m25, m38:** Set H's slots to `(100, 0)`. Have the pool's constructor-set owner O call H, which delegatecalls `initialize(0, 1)`, preserving msg.sender=O. Original: AlreadyInitialized. Mutant: its weakened guard passes and it reverts AmountNotPositive. No token is called.
+- **D — m09, m21:** Set H's slots to `(0, 100)`. The owner O calls H to delegatecall `initialize(0, 1)`. Original: AlreadyInitialized. Mutant: its weakened guard passes and it reverts AmountNotPositive. No token is called.
+- **E — m10:** DELEGATECALL: set H's slot 0 to 100 and slot 1 to 200, then delegatecall `reserve0()`. Original returns 100; mutant returns 200. Slot read alone: ordinarily initialize the pool with `(100, 200)` and read its slot 0. Original contains 100; mutant contains 200. Named getters still agree in the ordinary deployment.
+- **F — m22:** Choose a nonzero token0 constructor address T0. DELEGATECALL `token0()` against an H with zero storage. Original returns T0 from its immutable; mutant returns address(0) from H's slot 0. Slot read alone: immediately after deployment, original pool slot 0 is zero (reserve0); mutant slot 0 contains T0, with reserve0/reserve1 shifted to slots 1/2.
+- **G — m23:** Choose a nonzero token1 constructor address T1. DELEGATECALL `token1()` against an H with zero storage. Original returns T1; mutant returns address(0). Slot read alone: immediately after deployment, original pool slot 0 is zero; mutant slot 0 contains T1, with the reserves shifted to slots 1/2.
+- **H — m35:** Choose a nonzero deployer/owner O. DELEGATECALL `owner()` against an H with zero storage. Original returns O; mutant returns address(0). Slot read alone: immediately after deployment, original pool slot 0 is zero; mutant slot 0 contains O, with the reserves shifted to slots 1/2.
+
+All boundary witnesses avoid gas or bytecode fingerprinting. They do not require callback tokens.
+
+## Uncertainty
+
+None under the clarified scope. The subtle cases were the reserve invariant in the presence of arbitrary callbacks, storage/immutable changes at the explicitly excluded boundaries, and m29's forbidden SSTORE under STATICCALL despite writing zero to an already-zero slot. The concrete witnesses have not been executed, in accordance with the instruction not to run builds or tests.

@@ -1,0 +1,7 @@
+# Each tool's mutants scored against the final suite by scripts/score.sh, run one tool after another on 2026-11-03.
+# Two mutants at a time, seeds 1 and 7, Foundry 1.8.7. seconds is wall time; wh_used is the battery energy used, in Wh.
+gambit bugs=83 seconds=134 wh_used=2e-2 final-gambit:  83 caught; 
+slither bugs=114 seconds=224 wh_used=2e-2 final-slither:  110 caught; 4 survived; 
+sumo bugs=63 seconds=136 wh_used=2e-2 final-sumo:  60 caught; 1 compile-error; 2 survived; 
+umut bugs=240 seconds=530 wh_used=7e-2 final-umut:  198 caught; 6 compile-error; 36 survived; 
+forge bugs=133 seconds=268 wh_used=3e-2 final-forge:  119 caught; 14 survived; 

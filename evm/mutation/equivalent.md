@@ -1,6 +1,6 @@
 # Equivalent mutants
 
-These are the tool mutants that compile to new bytecode but change nothing a caller can see, so no test can catch them. All 35 pass the suite before and after closing the gaps, and each one was judged by hand. The reason for each is below; a second check is still to do.
+These are the tool mutants that compile to new bytecode but change nothing a caller can see, so no test can catch them. All 34 pass every suite from the one the tools were compared against to the trimmed one. Each was judged by hand, and the reason for each is below. A second reviewer then checked them blind and agreed on all 34, but found a 35th that had been listed here wrongly: see [The second check](#the-second-check).
 
 Each name is the mutant's diff in [bugs/tools](bugs/tools), and the tools that made it come from [bugs/tools.json](bugs/tools.json).
 
@@ -41,7 +41,7 @@ Before `initialize` both are zero. `initialize` refuses a zero amount, and a swa
 
 ## Two lines that can run in either order
 
-Neither line reads what the other writes, and no other contract runs between them, so nothing can see the order. Where the moved line now runs before a check, the check's revert undoes it.
+Neither line reads what the other writes, and no other contract runs between them, so nothing can see the order. Where the moved line now runs before a check, the check's revert undoes it. That holds for the constructor, which no one can call again. It failed for one mutant in `initialize`, now under [Not equivalent](#not-equivalent).
 
 | Mutant | Tools | Change |
 |---|---|---|
@@ -49,7 +49,6 @@ Neither line reads what the other writes, and no other contract runs between the
 | [`2c29f6dabe44`](bugs/tools/2c29f6dabe44.diff) | umut | a swap from token0 books `reserve1` before `reserve0` |
 | [`e59e68f45433`](bugs/tools/e59e68f45433.diff) | umut | a swap from token1 books `reserve1` before `reserve0` |
 | [`d3d41755dfe2`](bugs/tools/d3d41755dfe2.diff) | umut | `reserve0 = reserveIn + amountIn` moves above the `if`; a swap from token1 then overwrites it in the `else` branch |
-| [`587edcd7f5b9`](bugs/tools/587edcd7f5b9.diff) | umut | `initialize` books `reserve0` before checking the amounts, which revert if either is zero |
 | [`9a6aabbc2c64`](bugs/tools/9a6aabbc2c64.diff) | umut | the constructor sets `token0` before the identical-token check, which reverts the whole deployment |
 | [`ee2584a96ff8`](bugs/tools/ee2584a96ff8.diff) | umut | the constructor sets `token1` before `token0` |
 | [`b24b404d6f70`](bugs/tools/b24b404d6f70.diff) | umut | the constructor sets `owner` before `token1` |
@@ -69,11 +68,25 @@ The getters, their selectors and every value they return stay the same. An immut
 
 ## Not equivalent
 
-The other four survivors of the suite the tools were compared against are real gaps:
+The other five survivors of the suite the tools were compared against are real gaps:
 
 - [`a818800c97e9`](bugs/tools/a818800c97e9.diff): `msg.sender < owner` lets any address above the owner initialize the pool. Caught now by `test_InitializeIsOnlyForTheOwner`.
-- [`80381c469cb5`](bugs/tools/80381c469cb5.diff): `initialize` pulls silver before gold, so with neither token approved the refusal names silver instead of gold. Caught now by `test_InitializeTakesGoldFirst`.
+- [`80381c469cb5`](bugs/tools/80381c469cb5.diff): `initialize` pulls silver before gold, so with neither token approved the refusal names silver instead of gold. `test_InitializeTakesGoldFirst` caught it until the deep trim removed that test, so it is open again on purpose: it changes only which refusal a call that fails anyway gives, and which token logs first.
+- [`587edcd7f5b9`](bugs/tools/587edcd7f5b9.diff): `initialize` books `reserve0` before checking the amounts. A write is forbidden in a static call, so if the owner static-calls `initialize(0, 1)`, the pool reverts with `AmountNotPositive` but the mutant reverts with no data. [reviewers/equivalent-check/Witness.t.sol](reviewers/equivalent-check/Witness.t.sol) shows it, with its output in [results/equivalent-check/witness.txt](results/equivalent-check/witness.txt). It is open on purpose: no caller has a reason to static-call `initialize`, and a test for it would guard only that.
 - [`4b45eb1f64bb`](bugs/tools/4b45eb1f64bb.diff): a swap pays out before it pulls the input in.
 - [`046d10193e76`](bugs/tools/046d10193e76.diff): `initialize` pulls gold before booking `reserve1`.
 
 The last two only show with a token that calls back into the pool during a transfer, which chapter 5 brings in.
+
+## The second check
+
+A second reviewer, GPT-6.1 Sol, judged the 35 mutants then listed as equivalent and the four gaps above, shuffled under neutral names, without this file or the log. It could not run forge. [briefs/equivalent-check.md](briefs/equivalent-check.md) is its brief, and [reviewers/equivalent-check/](reviewers/equivalent-check) holds its verdicts, with [key.txt](reviewers/equivalent-check/key.txt) giving each name's mutant.
+
+It found all four gaps, agreed on 34 of the 35, and showed that `587edcd7f5b9` is not equivalent. A forge run confirmed it.
+
+Equivalent here means the same for anyone calling the pool as deployed, including through a static call. Two other ways of looking were left out, and 16 of the 34 rest on that:
+
+- **Running the pool's code with DELEGATECALL**, from a contract with its own storage. That contract can start from reserves the pool never reaches, such as one zero and one not, and then a check on one reserve no longer decides as a check on both. This tells apart the 12 mutants of the empty-pool and already-initialized checks that test a reserve twice, test it against zero with `< 0`, replace it with `(0==1)` or join both with `&&`: `058dbec6ca66`, `2754ad3e73fe`, `36cb3939f4af`, `5c1bb7666aba`, `63e1310e223f`, `a606280e6f1b`, `3b89b2432bed`, `56cfed7cd45a`, `71c14916f3e9`, `bc39ea8d8896`, `e26dac5efdcb` and `e679e7ba8a4a`.
+- **Reading the pool's storage by slot number.** This, or DELEGATECALL, tells apart the four that move what is in storage: `c61fd2053953`, which swaps the reserves' slots, and `e374a0244635`, `a82166f12bd0` and `f14b71d08785`, which put a token or the owner in storage ahead of the reserves.
+
+The pool is deployed directly and never used as an implementation behind a proxy, and nothing reads its slots by number, so neither applies to it.

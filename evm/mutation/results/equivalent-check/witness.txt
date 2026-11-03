@@ -1,0 +1,31 @@
+== the contract
+
+Ran 1 test for test/Witness.t.sol:WitnessTest
+[PASS] test_StaticInitializeWithZero() (gas: 1939015)
+Logs:
+  ok false
+  0xb3f73cea
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 555.60µs (351.52µs CPU time)
+
+Ran 1 test suite in 6.02ms (555.60µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+== mutant 587edcd7f5b9
+
+Ran 1 test for test/Witness.t.sol:WitnessTest
+[FAIL: assertion failed: 0x != 0xb3f73cea] test_StaticInitializeWithZero() (gas: 1056984439)
+Logs:
+  ok false
+  0x
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 629.04µs (409.82µs CPU time)
+
+Ran 1 test suite in 5.43ms (629.04µs CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/Witness.t.sol:WitnessTest
+[FAIL: assertion failed: 0x != 0xb3f73cea] test_StaticInitializeWithZero() (gas: 1056984439)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

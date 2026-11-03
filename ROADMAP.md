@@ -128,9 +128,8 @@ interactive page.
 - Mutation testing article, built on `evm/mutation/`: the six rounds of hand-made bugs, the
   five tools compared on the same contract, the equivalent mutants and why they change nothing, and
   the owner-comparison gap the tools found after six rounds. Before writing: close the open gaps or
-  show them as open on purpose, time a full scoring run per tool, and have a second check of the
-  equivalent mutants. The two mutants that need a reentrant token point ahead to chapter 5. If it
-  runs long, split it into testing with hand-made bugs and comparing mutation tools.
+  show them as open on purpose. The two mutants that need a reentrant token point ahead to chapter
+  5. If it runs long, split it into testing with hand-made bugs and comparing mutation tools.
 - Carried from the review of the Ethereum code, for the security article: a function added to the
   pool that drains it passes every test, since tests only call what they name. An invariant
   contract that targets the pool itself and asserts its balances stay put catches this in about

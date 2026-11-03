@@ -6,13 +6,14 @@ Everything behind the mutation testing of `src/ConstantProductPool.sol`: the bug
 
 | Path | What it holds |
 |---|---|
-| [LOG.md](LOG.md) | The six review rounds, the Gambit experiment, the Foundry 1.8.7 recheck, the tool comparison, closing the gaps and the deep trim |
-| [equivalent.md](equivalent.md) | The 35 equivalent tool mutants, each with the reason it changes nothing, and the four real gaps beside them |
+| [LOG.md](LOG.md) | The six review rounds, the Gambit experiment, the Foundry 1.8.7 recheck, the tool comparison, closing the gaps, the deep trim, the second check of the equivalent mutants and timing the tools |
+| [equivalent.md](equivalent.md) | The 34 equivalent tool mutants, each with the reason it changes nothing, the five real gaps beside them, and what the second check found |
 | [bugs/](bugs) | Every bug scored, as a diff against the contract |
 | [suites/](suites) | The one suite that is in no commit, as a diff |
 | [scripts/](scripts) | The scripts that build the suites and score the bugs, runnable from here |
 | [results/](results) | Every result the log quotes |
 | [reviewers/round6/](reviewers/round6) | Round 6 as the reviewers left it: each mutant they made, caught or not, and their own scripts |
+| [reviewers/equivalent-check/](reviewers/equivalent-check) | The second check of the equivalent mutants: the verdicts, the key to their names, and the test that showed one is not |
 | [briefs/](briefs) | The briefs each review round and the tool research were sent |
 | [history/](history) | The scripts as they ran, with the paths of the machine they ran on |
 
@@ -71,7 +72,7 @@ To compare a new run with a stored one, compare the first two columns: the failu
 diff <(cut -d' ' -f1,2 results/tools/current-union.txt) <(cut -d' ' -f1,2 /tmp/amm-mutation/results/current-union.txt)
 ```
 
-The full set of 585 bugs is about 1170 forge runs.
+The full set of 585 bugs is about 1170 forge runs. Against the trimmed suite each bug takes 1.2 to 1.6 seconds, two at a time, so the full set takes about 15 minutes: see [results/timing/](results/timing).
 
 ### Making the tool mutants again
 
@@ -114,6 +115,8 @@ All under [results/](results). Each line names a bug and its outcome.
 | `tools/step1-union.txt`, `tools/step1-corpus.txt` | `step1` | The 46 and the 30 that `current` did not catch | Closing the gaps |
 | `tools/matrix-step1.txt`, `tools/matrix-step2.txt` | `step1`, `final` | All 585, with each failing test | Closing the gaps |
 | `trim/matrix-trim.txt` | `trim` | All 585, with each failing test | The deep trim |
+| `timing/trim.txt`, `timing/final.txt` | `trim`, `final` | Each tool's usable mutants, scored one tool after another: the time and the energy each run took | Timing the tools |
+| `equivalent-check/witness.txt` | | [reviewers/equivalent-check/Witness.t.sol](reviewers/equivalent-check/Witness.t.sol) against the contract and against `587edcd7f5b9` | The second check |
 | `foundry-1.8.7/rounds1and2.txt` | `current` | The 39 scripted bugs, from [history/rounds1and2.py](history/rounds1and2.py) | Foundry 1.8.7 |
 | `foundry-1.8.7/mutants-187.txt` | `current` | Gambit's 83, and the unchanged contract as `control` | Foundry 1.8.7 |
 | `foundry-1.8.7/hand-187.txt` | `current` | Rounds 3 to 5 | Foundry 1.8.7 |
@@ -130,4 +133,4 @@ The results under `hand/` and `gambit-experiment/` came from [history/score-corp
 
 ## Reviewers' material
 
-[reviewers/round6/](reviewers/round6) has one folder per reviewer. Each `.diff` is one mutant, against the same contract as the bugs, and `outcomes.txt` gives the last test summary of each mutant's runs. Opus's `Detect.t.sol` holds the tests it wrote to show that each of its survivors behaves differently from the correct pool, which `detect.sh` ran against each one, and Fable's `tools/` holds its runner and batches. Only round 6 kept these. For rounds 1 to 5 the reviewers' mutants are rebuilt in [bugs/](bugs), and their full reports are in the T3 Code threads the [briefs](briefs) went to.
+[reviewers/round6/](reviewers/round6) has one folder per reviewer. Each `.diff` is one mutant, against the same contract as the bugs, and `outcomes.txt` gives the last test summary of each mutant's runs. Opus's `Detect.t.sol` holds the tests it wrote to show that each of its survivors behaves differently from the correct pool, which `detect.sh` ran against each one, and Fable's `tools/` holds its runner and batches. Only round 6 kept these. [reviewers/equivalent-check/](reviewers/equivalent-check) holds the second check of the equivalent mutants: the verdicts as the reviewer wrote them, under the names `m01` to `m39`, and `key.txt` giving each one's mutant. `Witness.t.sol` runs in a copy of the suite's setup, beside `TestToken.sol`. For rounds 1 to 5 the reviewers' mutants are rebuilt in [bugs/](bugs), and their full reports are in the T3 Code threads the [briefs](briefs) went to.

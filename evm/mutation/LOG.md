@@ -197,7 +197,7 @@ The new `missing-events-arithmetic` lint is turned off in `foundry.toml`. It poi
 
 **Question:** does any other mutation tool do better than Gambit? The test was the same: start from the original 30 tests, add only what each tool's surviving mutants ask for, then run the hand-made bugs against the result. All tools ran on the same contract under Foundry 1.8.7, and solc 0.8.38 worked in all of them.
 
-**How:** each tool's mutants were compiled and compared by bytecode, dropping any that fail or that repeat another. Every mutant then went through the same scorer: its own copy, a clean cache, seeds 1 and 7, and the reduced invariant budget. Equivalent mutants were judged by hand, and all 35 also pass the current suite.
+**How:** each tool's mutants were compiled and compared by bytecode, dropping any that fail or that repeat another. Every mutant then went through the same scorer: its own copy, a clean cache, seeds 1 and 7, and the reduced invariant budget. Equivalent mutants were judged by hand, and all also pass the current suite. A [second check](#the-second-check-of-the-equivalent-mutants) later found that one of the 35 is a real gap, and the counts below include it.
 
 | Tool | Mutants made | Usable | Survive the 30 tests | Real gaps | Tests added | Suite lines | Hand-made bugs caught, of 233 |
 |---|---|---|---|---|---|---|---|
@@ -205,24 +205,24 @@ The new `missing-events-arithmetic` lint is turned off in `foundry.toml`. It poi
 | `slither-mutate` | 115 | 114 | 5 | 1 | 1 | 464 | 108 |
 | SuMo | 64 | 63 | 4 | 2 | 2 | 469 | 110 |
 | `forge test --mutate` | 139 | 133 | 18 | 4 | 4 | 482 | 109 |
-| `universalmutator --swap` | 1134 | 240 | 48 | 14 | 9 | 526 | 118 |
-| All tools together | | 352 | 51 | 15 | 10 | 533 | 118 |
+| `universalmutator --swap` | 1134 | 240 | 48 | 15 | 9 | 526 | 118 |
+| All tools together | | 352 | 51 | 16 | 10 | 533 | 118 |
 | Current suite | | | | | 41 | 1193 | 203 |
 
-Two of universalmutator's real gaps got no test, because they need a token that calls back into the pool, which is deferred to chapter 5. The bug counts include `r4-internal-getters` as missed. Of the 233 bugs, Gambit's 83 are all caught by every suite, and the round 6 bugs by none.
+Three of universalmutator's real gaps got no test. Two need a token that calls back into the pool, which is deferred to chapter 5, and the third shows only to a static call, and was found after the tests were added. The bug counts include `r4-internal-getters` as missed. Of the 233 bugs, Gambit's 83 are all caught by every suite, and the round 6 bugs by none.
 
 **What it showed:** the tools found something the rounds did not. `if (msg.sender < owner) revert NotOwner();` passes all 71 current tests, even at the full budget, so a pool that lets any address above the owner initialize it would go unnoticed. Six rounds missed this because every outsider the tests try has an address below the owner's. `forge test --mutate` and universalmutator made this mutant. Gambit has no comparison swaps, and Slither's skip address operands.
 
-The current suite also passes three other real mutants, all line swaps from universalmutator: the two token pulls in `initialize` in the opposite order, and the two chapter 5 cases.
+The current suite also passes four other real mutants, all line swaps from universalmutator: the two token pulls in `initialize` in the opposite order, `initialize` booking `reserve0` before it checks the amounts, which only a static call can see, and the two chapter 5 cases.
 
-Most survivors are not gaps. 35 of the 51 are equivalent, mostly because a `uint256` cannot be below zero, the reserves are only ever zero together, or two lines can run in either order.
+Most survivors are not gaps. 34 of the 51 are equivalent, mostly because a `uint256` cannot be below zero, the reserves are only ever zero together, or two lines can run in either order.
 
 More mutants did not mean much better tests. All five tools together caught 118 of the 233, against 203 for the current suite. A test can do more than the mutant that prompted it, though: `test_SwapWorksOnAReserveOfOne` exists for a changed literal, and its exact answer also catches the hidden 0.1% fee.
 
 **The tools in use:**
 
 - `forge test --mutate` needs nothing installed, and listing its mutants took 1.6 seconds. Running them was far slower: about a minute each on the 30 tests, from the few that finished before it was stopped. It also skips related mutants once one survives. Its mutants here were scored by the shared scorer, not by its own run.
-- universalmutator found the most: 14 of the 15 real gaps, including the line swaps no other tool makes. Its regex rules made the most mutants that do not compile, 76%, but the compiler throws those out in seconds. What takes a person's time is judging survivors, and there it was the more precise: 14 of its 48 were real, against 4 of forge's 18.
+- universalmutator found the most: 15 of the 16 real gaps, including the line swaps no other tool makes. Its regex rules made the most mutants that do not compile, 76%, but the compiler throws those out in seconds. What takes a person's time is judging survivors, and there it was the more precise: 15 of its 48 were real, against 4 of forge's 18.
 - SuMo needed three workarounds to run outside an npm project, and it added one real mutant beyond Gambit and Slither.
 - `slither-mutate` added nothing over Gambit here, though it did handle solc 0.8.38.
 
@@ -253,7 +253,7 @@ As before, the hand-made bugs were written for the current suite, so that column
 | Hand-made bugs caught, of 233 | 203 | 215 |
 | Tool mutants caught, of 352 | 306 | 308 |
 
-The suite after the pass catches exactly what it caught before it, bug for bug, under both seeds. What still passes is the 17 round 6 bugs rated unlikely, the 35 equivalent mutants and the two chapter 5 cases. `r4-internal-getters` and 7 tool mutants do not compile against the tests: five remove a getter, one swaps the order of `swap`'s parameters, and one removes the constructor.
+The suite after the pass catches exactly what it caught before it, bug for bug, under both seeds. What still passes is the 17 round 6 bugs rated unlikely, the 34 equivalent mutants, the static-call case and the two chapter 5 cases. `r4-internal-getters` and 7 tool mutants do not compile against the tests: five remove a getter, one swaps the order of `swap`'s parameters, and one removes the constructor.
 
 ## The deep trim
 
@@ -286,7 +286,7 @@ The suite after the pass catches exactly what it caught before it, bug for bug, 
 
 **What it lost:** 15 bugs, none a wrong price, a wrong payment or a swap let through.
 
-- Eight change only which error a call that fails anyway reverts with, or where in the call it reverts: three balance checks before the token's own (round 6), the minimum or the zero output checked after the transfers, a funds check in one direction, `initialize`'s amount check moved, and its two token pulls in the other order. The last was one of the two real gaps the tools found, and it shows only in which token logs first.
+- Eight change only which error a call that fails anyway reverts with, or where in the call it reverts: three balance checks before the token's own (round 6), the minimum or the zero output checked after the transfers, a funds check in one direction, `initialize`'s amount check moved, and its two token pulls in the other order. The last was one of the real gaps the tools found, and it shows only in which token logs first.
 - `initialize` or the constructor accepting ether.
 - The second-`initialize` guard written as `reserve0 * reserve1` or `reserve0 + reserve1`, which differs only once the reserves overflow, and then still reverts.
 - A silver reserve at 2^255 or above read as empty.
@@ -294,4 +294,30 @@ The suite after the pass catches exactly what it caught before it, bug for bug, 
 
 It gained two: the constructor approving the owner, which the owner's trade now catches, and a fee charged to traders holding far more than the trade, which the handler's traders now catch.
 
-The bugs still not caught are the 35 equivalent mutants, the two chapter 5 cases, the round 6 bugs rated unlikely, and the 15 above. `r4-internal-getters` and 7 tool mutants still do not compile against the tests. The results are in [results/trim/](results/trim).
+The bugs still not caught are the 34 equivalent mutants, the static-call case, the two chapter 5 cases, the round 6 bugs rated unlikely, and the 15 above. `r4-internal-getters` and 7 tool mutants still do not compile against the tests. The results are in [results/trim/](results/trim).
+
+## The second check of the equivalent mutants
+
+**Question:** are the 35 mutants judged equivalent really so? They were judged once, by hand, by the agent that ran the comparison.
+
+**How:** a second reviewer, GPT-6.1 Sol, got the contract and 39 mutants under neutral names: the 35 and the four real gaps beside them. It did not see the first judgment or how many were equivalent, and it could not run forge. Its brief is [briefs/equivalent-check.md](briefs/equivalent-check.md), and its verdicts are in [reviewers/equivalent-check/](reviewers/equivalent-check).
+
+**What it showed:** it found all four gaps, and it agreed on 34 of the 35. The other, `587edcd7f5b9`, books `reserve0` before `initialize` checks the amounts. The first judgment said the check's revert undoes the write, but a static call forbids any write, even of zero over zero. So when the owner static-calls `initialize(0, 1)`, the pool reverts with `AmountNotPositive` and the mutant reverts with no data. A forge test confirmed it. It stays open on purpose, since no caller has a reason to static-call `initialize`.
+
+It also asked where equivalence stops. The answer was the pool as deployed, static calls included. Running its code by DELEGATECALL from another contract, or reading its storage by slot number, would tell apart 16 of the 34, but nothing does either to this pool. [equivalent.md](equivalent.md) names them.
+
+## Timing the tools
+
+**Question:** how long does a full scoring run take for each tool?
+
+**How:** each tool's usable mutants went through [scripts/score.sh](scripts/score.sh), one tool after another: two at a time, seeds 1 and 7, the reduced invariant budget. Mutants that two tools share were scored once per tool, as each tool's user would. Every outcome matched the stored per-test results.
+
+| Tool | Mutants | Trimmed suite | Suite after the overlap pass | Not caught by the trimmed suite |
+|---|---|---|---|---|
+| Gambit | 83 | 1 min 39 s | 2 min 14 s | 0 |
+| SuMo | 63 | 1 min 38 s | 2 min 16 s | 2, and 1 that does not compile against the tests |
+| `slither-mutate` | 114 | 2 min 36 s | 3 min 44 s | 4 |
+| `forge test --mutate` | 133 | 3 min 15 s | 4 min 28 s | 14 |
+| `universalmutator --swap` | 240 | 6 min 23 s | 8 min 50 s | 38, and 6 that do not compile against the tests |
+
+**What it showed:** scoring costs 1.2 to 1.6 seconds a mutant, so all five tools take about 15 minutes against the trimmed suite, and the trim made it about 30% faster. The time follows the number of usable mutants, which is why universalmutator costs most. These times leave out making the mutants and compiling them to drop the duplicates, and each tool's own runner: `forge test --mutate` took about a minute a mutant with its own runner, on the 30 tests. The whole run used 0.16 Wh of battery. The results are in [results/timing/](results/timing).
