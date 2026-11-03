@@ -16,3 +16,6 @@ fail_on_revert = true
 
 [fmt]
 line_length = 80
+
+[lint]
+exclude_lints = ["missing-events-arithmetic"]

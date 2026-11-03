@@ -35,7 +35,7 @@ The contract went from 101 to 106 lines over all of this. Code lines leave out b
 | After round 4 | 62 | 996 | 784 | 12.1x |
 | After round 5's fixes | 71 | 1195 | 940 | 14.5x |
 
-Each invariant counts once per pool: 8 invariants on 3 pools make 24 of the 71 tests.
+Each invariant counts once per pool: 8 invariants on 3 pools make 24 of the 71 tests. Foundry 1.8.7 reports the same suite as 50 tests, because the invariants in one contract now share a campaign and count as one test. This log keeps counting them separately.
 
 ## What the mutants changed
 
@@ -174,9 +174,54 @@ New code has no limit, which is why the rounds did not converge. Small edits are
 |---|---|---|---|
 | Gambit's mutants | 83 | 83 | 83 |
 | Scripted bugs from rounds 1 and 2 | 39 | 20 | 39 |
-| Rounds 3 to 5 | 82 | 5 | 82 |
+| Rounds 3 to 5 | 82 | 5 | 81 |
 | Round 6 | 29 | 0 | 0 |
+
+The current suite's 81 leaves out `r4-internal-getters`, which does not compile against those tests, so it was refused rather than caught.
 
 **What it showed:** a suite that passes every Gambit mutant still passes a pool with a hidden 0.1% fee, one that underpays from its second swap, and one that sends a second trader's output to the first. It also misses all 25 of the small-edit bugs among the rebuilt ones, so Gambit's edits are not all the small edits there are.
 
 Gambit is a cheap check that the tests still work, not a measure of when they are good enough. The hand-made bugs were written for the current suite, so this comparison favours it, and it is one small contract.
+
+## Foundry 1.8.7
+
+The upgrade from 1.7.1 changed how invariants run. The boolean invariants in one contract now share a campaign, so a full run makes 150,000 invariant calls instead of 1,200,000, while each invariant is still checked against 50,000. They now see fewer distinct call sequences.
+
+All bugs that were caught before were rerun at the reduced budget, to see whether the smaller campaign lost any. None was lost: 83 of 83 Gambit mutants, 39 of 39 scripted bugs, and 81 of the rounds 3 to 5 set, with `r4-internal-getters` still refused at compile time. The 29 round 6 survivors still pass.
+
+The new `missing-events-arithmetic` lint is turned off in `foundry.toml`. It points at `initialize` setting the reserves with no event of its own, but the two token transfers in the same call log both amounts.
+
+## Tool comparison
+
+**Question:** does any other mutation tool do better than Gambit? The test was the same: start from the original 30 tests, add only what each tool's surviving mutants ask for, then run the hand-made bugs against the result. All tools ran on the same contract under Foundry 1.8.7, and solc 0.8.38 worked in all of them.
+
+**How:** each tool's mutants were compiled and compared by bytecode, dropping any that fail or that repeat another. Every mutant then went through the same scorer: its own copy, a clean cache, seeds 1 and 7, and the reduced invariant budget. Equivalent mutants were judged by hand, and all 35 also pass the current suite.
+
+| Tool | Mutants made | Usable | Survive the 30 tests | Real gaps | Tests added | Suite lines | Hand-made bugs caught, of 233 |
+|---|---|---|---|---|---|---|---|
+| Gambit | 83 | 83 | 1 | 1 | 1 | 464 | 108 |
+| `slither-mutate` | 115 | 114 | 5 | 1 | 1 | 464 | 108 |
+| SuMo | 64 | 63 | 4 | 2 | 2 | 469 | 110 |
+| `forge test --mutate` | 139 | 133 | 18 | 4 | 4 | 482 | 109 |
+| `universalmutator --swap` | 1134 | 240 | 48 | 14 | 9 | 526 | 118 |
+| All tools together | | 352 | 51 | 15 | 10 | 533 | 118 |
+| Current suite | | | | | 41 | 1195 | 203 |
+
+Two of universalmutator's real gaps got no test, because they need a token that calls back into the pool, which is deferred to chapter 5. The bug counts include `r4-internal-getters` as missed. Of the 233 bugs, Gambit's 83 are all caught by every suite, and the round 6 bugs by none.
+
+**What it showed:** the tools found something the rounds did not. `if (msg.sender < owner) revert NotOwner();` passes all 71 current tests, even at the full budget, so a pool that lets any address above the owner initialize it would go unnoticed. Six rounds missed this because every outsider the tests try has an address below the owner's. `forge test --mutate` and universalmutator made this mutant. Gambit has no comparison swaps, and Slither's skip address operands.
+
+The current suite also passes three other real mutants, all line swaps from universalmutator: the two token pulls in `initialize` in the opposite order, and the two chapter 5 cases.
+
+Most survivors are not gaps. 35 of the 51 are equivalent, mostly because a `uint256` cannot be below zero, the reserves are only ever zero together, or two lines can run in either order.
+
+More mutants did not mean much better tests. All five tools together caught 118 of the 233, against 203 for the current suite. A test can do more than the mutant that prompted it, though: `test_SwapWorksOnAReserveOfOne` exists for a changed literal, and its exact answer also catches the hidden 0.1% fee.
+
+**The tools in use:**
+
+- `forge test --mutate` needs nothing installed, and listing its mutants took 1.6 seconds. Running them was far slower: about a minute each on the 30 tests, from the few that finished before it was stopped. It also skips related mutants once one survives. Its mutants here were scored by the shared scorer, not by its own run.
+- universalmutator found the most, including the line swaps no other tool makes. Its regex rules also made the most noise: 76% of its mutants did not compile, and 34 of its 48 survivors are equivalent.
+- SuMo needed three workarounds to run outside an npm project, and it added one real mutant beyond Gambit and Slither.
+- `slither-mutate` added nothing over Gambit here, though it did handle solc 0.8.38.
+
+As before, the hand-made bugs were written for the current suite, so that column favours it, and this is one small contract.
