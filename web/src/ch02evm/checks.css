@@ -1,0 +1,56 @@
+/* Keep the existing Ink & Paper palette, including html.dark's theme tokens.
+   Equations and their predictions are paired; long case values wrap in place. */
+.amm-checks .checks-note { font-size: 12px; color: var(--muted); }
+.amm-checks .checks-part { margin-top: 18px; }
+.amm-checks .checks-part + .checks-part { border-top: 1px solid var(--line); padding-top: 18px; }
+.amm-checks h3 { font: 600 15px/1.4 var(--sans); margin: 0 0 8px; color: var(--fg); }
+.amm-checks fieldset { min-width: 0; padding: 0; border: 0; margin: 0; }
+.amm-checks legend { padding: 0; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.amm-checks .checks-payouts { margin: 14px 0; }
+.amm-checks .checks-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.amm-checks .checks-choices button {
+  display: flex; flex-wrap: wrap; gap: 4px 10px; justify-content: space-between; align-items: center;
+  text-align: left; border: 1px solid var(--line); border-radius: 7px; padding: 9px 10px;
+}
+.amm-checks .checks-choices b { font: 600 13px var(--mono); }
+.amm-checks .checks-choices [aria-pressed="true"] { border-color: var(--acc); background: var(--accs); }
+.amm-checks .checks-choices button:hover { border-color: var(--acc); }
+.amm-checks .checks-prompt { margin-bottom: 12px; }
+.amm-checks .checks-predictions { display: grid; gap: 14px; }
+.amm-checks .checks-assertion code {
+  display: block; border: 1px solid var(--line); border-radius: 7px; padding: 8px 10px;
+  background: var(--cbg); color: var(--ct); font: 12px/1.6 var(--mono);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.amm-checks .checks-answer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px; }
+.amm-checks .tg { overflow: visible; }
+.amm-checks .tg button { min-height: 36px; border-radius: 5px; }
+.amm-checks .tg button:disabled { opacity: 1; }
+.amm-checks [data-waiting] .tg button:disabled { opacity: .4; }
+.amm-checks .checks-verdict { font: 600 12px/1.5 var(--sans); color: var(--muted); }
+.amm-checks [data-status="passed"] { color: var(--ok); }
+.amm-checks [data-status="failed"] { color: var(--err); }
+.amm-checks [data-status="rest"] { font-weight: 400; opacity: .6; }
+.amm-checks .checks-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.amm-checks .checks-reveal:not(:empty) { margin-top: 12px; padding: 10px; border: 1px solid var(--line); border-radius: 7px; }
+.amm-checks .checks-facts { display: grid; gap: 5px; margin: 8px 0; }
+.amm-checks .checks-facts > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; }
+.amm-checks .checks-facts dt { font: 12px/1.6 var(--sans); color: var(--muted); }
+.amm-checks .checks-facts dd { margin: 0; max-width: 100%; font: 12px/1.6 var(--mono); overflow-wrap: anywhere; }
+.amm-checks .checks-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 12px 0; }
+.amm-checks .checks-seed { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.amm-checks [data-seed] { font-size: 12px; color: var(--muted); }
+.amm-checks .checks-results { padding: 0; margin: 8px 0 12px; list-style: none; }
+.amm-checks .checks-results li { padding: 10px 0; margin: 0; border-bottom: 1px solid var(--line); }
+.amm-checks .checks-result-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 3px 12px; }
+.amm-checks .checks-result-heading > span { flex: 1 1 200px; }
+.amm-checks .checks-results details { margin-top: 8px; padding: 8px 10px; border-radius: 7px; background: var(--cbg); }
+.amm-checks .checks-results summary { cursor: pointer; font-size: 12px; color: var(--fg); }
+.amm-checks .checks-results details p { margin-top: 8px; }
+.amm-checks summary:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+
+@container (max-width: 400px) {
+  .amm-checks .checks-choices { grid-template-columns: 1fr; }
+  .amm-checks .checks-mode { display: flex; width: 100%; }
+  .amm-checks .checks-mode button { flex: 1; }
+}

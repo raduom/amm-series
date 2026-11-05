@@ -1,0 +1,53 @@
+/* The EVM swap stepper: the pool's books and the two tokens' ledgers side by side, over the
+   contract's code. Colours come from widget.css. */
+
+.amm.evm .hd { align-items: flex-start; flex-wrap: nowrap; }
+.amm .evm-lbl { font-size: 12px; color: var(--muted); }
+.amm .evm-gifts { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 8px; }
+.amm .evm-gifts .btn { font-weight: 400; font-size: 12.5px; padding: 5px 12px; }
+.amm .evm-approve { white-space: nowrap; }
+/* How stepping differs from applying, and the title of the trace an applied swap leads to. */
+.amm .evm-how { flex-basis: 100%; font-size: 12px; color: var(--muted); }
+.amm .evm-trace { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+
+/* The records, and when in the call they are read. */
+.amm .evm-rec { margin-bottom: 14px; }
+.amm .evm-when { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.amm .evm-when[data-phase="during"], .amm .evm-when[data-phase="pause"] { color: var(--acc); }
+.amm .evm-when[data-phase="reverted"] { color: var(--err); }
+.amm .evm-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.amm .evm-card { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--cbg); min-width: 0; }
+.amm .evm-card h4 { margin: 0 0 4px; font-size: 12px; font-weight: 600; }
+.amm .evm-books { border-color: var(--acc); }
+.amm .evm-card dl { display: grid; grid-template-columns: auto 1fr; gap: 1px 8px; margin: 0; font-size: 12px; }
+.amm .evm-card dt { color: var(--muted); white-space: nowrap; }
+.amm .evm-card dt code { font: 11px var(--mono); }
+.amm .evm-card dd { margin: 0; text-align: right; font: 600 12px var(--mono); border-radius: 3px; padding: 0 3px; }
+.amm .evm-card dd s { font-weight: 400; color: var(--muted); }
+.amm .evm-card dd.chg { color: var(--acc); background: var(--accs); }
+.amm .evm-log { display: flex; gap: 10px; align-items: baseline; margin-top: 8px; font-size: 12px; }
+.amm .evm-log > span { color: var(--muted); font-weight: 600; }
+.amm .evm-log > div { display: flex; flex-wrap: wrap; gap: 4px 10px; min-width: 0; }
+.amm .evm-log code { font: 11.5px var(--mono); font-variant-ligatures: none; padding: 0 4px; border-radius: 3px; overflow-wrap: anywhere; }
+.amm .evm-log code.new { color: var(--acc); background: var(--accs); font-weight: 600; }
+.amm .evm-log code.gone { color: var(--muted); text-decoration: line-through; }
+.amm .evm-log .none { color: var(--muted); }
+
+/* Eleven steps or more: the dots shrink to fit a narrow column. */
+.amm.evm .dots { min-width: 0; }
+.amm.evm .dots i { flex: 0 1 22px; min-width: 4px; }
+.amm.evm .steps .btn { white-space: nowrap; }
+
+/* swap is longer than the Haskell listings, and can't fold, so it scrolls at a fixed height. */
+.amm.evm .src { height: 22.5em; }
+
+@container (max-width: 480px) {
+  .amm .evm-cards { grid-template-columns: 1fr 1fr; }
+  .amm .evm-books { grid-column: 1 / -1; }
+  .amm .evm-gifts .btn { flex: 1 1 100%; }
+  /* The labelled step buttons keep their row, and the dots give way. */
+  .amm.evm .steps { gap: 8px; }
+  .amm.evm .steps .btn { padding: 6px 10px; }
+  .amm.evm .dots { gap: 3px; }
+  .amm.evm .dots i { min-width: 3px; }
+}

@@ -5,12 +5,13 @@ import { mountCh02Curve } from './ch02/curve'
 import { mountCh02Market } from './ch02/market'
 import { mountCh02Properties } from './ch02/propertyWidget'
 import { mountCh02 } from './ch02/widget'
+import { mountEvmStepper } from './ch02evm/stepper'
 import { mountFlashcards } from './flashcards'
 import './page.css'
 
 // Settings for trying the page out. They live in the query string, so a view can be linked.
 const settings = {
-  chapter: { label: 'Chapter', options: ['2', '1'] },
+  chapter: { label: 'Chapter', options: ['2', '1', 'evm'] },
   theme: { label: 'Theme', options: ['light', 'dark'] },
   code: { label: 'Highlighted lines show', options: ['values', 'names'] },
   width: { label: 'Column', options: ['720', '342'] },
@@ -36,6 +37,7 @@ const widgets = [
   mount('#ch02-curve', mountCh02Curve),
   mount('#ch02-properties', mountCh02Properties),
   mount('#ch02-market', mountCh02Market),
+  mount('#ch02-evm-stepper', mountEvmStepper),
 ]
 
 type Mount = (el: HTMLElement, options: { values: boolean }) => { setOptions(o: { values: boolean }): void }
