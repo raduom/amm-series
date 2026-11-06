@@ -1,0 +1,32 @@
+.amm-tests-growth h3 { margin: 0 0 6px; font: 600 15px/1.4 var(--sans); color: var(--fg); }
+.amm-tests-growth .growth-note { font-size: 12px; color: var(--muted); }
+.amm-tests-growth .growth-chart { margin: 16px 0 12px; }
+.amm-tests-growth .growth-guide, .amm-tests-growth .growth-stage, .amm-tests-growth .growth-axis {
+  display: grid; grid-template-columns: 7em minmax(0, 1fr) 5ch; gap: 8px; align-items: center;
+}
+.amm-tests-growth .growth-guide { height: 28px; }
+.amm-tests-growth .growth-guide > div { position: relative; height: 100%; }
+.amm-tests-growth .growth-baseline-label { position: absolute; left: var(--contract-position); white-space: nowrap; font-size: 11px; color: var(--fg); }
+.amm-tests-growth .growth-guide > div::after {
+  content: ''; position: absolute; left: var(--contract-position); width: 1px; background: var(--fg); top: 18px; bottom: 0;
+}
+.amm-tests-growth .growth-stages { list-style: none; padding: 0; margin: 0; }
+.amm-tests-growth .growth-stage { position: relative; min-height: 44px; margin: 0; border-radius: 3px; }
+.amm-tests-growth .growth-stage:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.amm-tests-growth .growth-stage:hover, .amm-tests-growth .growth-stage:focus { background: var(--accs); }
+.amm-tests-growth .growth-label { font-size: 12px; padding: 3px 0; }
+.amm-tests-growth .growth-label small { display: block; font: 11px/1.35 var(--mono); color: var(--muted); }
+.amm-tests-growth .growth-stage b { text-align: right; font: 600 12px/1.5 var(--mono); }
+.amm-tests-growth .growth-track { position: relative; display: block; height: 28px; }
+.amm-tests-growth .growth-track::after {
+  content: ''; position: absolute; left: var(--contract-position); top: -8px; bottom: -8px;
+  width: 1px; background: var(--fg);
+}
+.amm-tests-growth .growth-bar { display: block; height: 100%; background: var(--silver); }
+.amm-tests-growth [data-trim] .growth-bar { background: var(--gold); }
+.amm-tests-growth [data-trim] .growth-label { font-weight: 600; }
+.amm-tests-growth .growth-axis { height: 24px; }
+.amm-tests-growth .growth-axis > div { height: 100%; position: relative; border-top: 1px solid var(--line); }
+.amm-tests-growth .growth-axis > div > span { position: absolute; top: 4px; transform: translateX(-50%); font: 11px/1.5 var(--mono); color: var(--muted); }
+.amm-tests-growth .growth-axis > div > span:first-child { transform: none; }
+.amm-tests-growth .growth-detail { min-height: 3em; font-size: 12px; margin-bottom: 8px; }

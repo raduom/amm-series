@@ -1,0 +1,44 @@
+/* Keep the existing Ink & Paper palette, including html.dark's theme tokens.
+   Two pools side by side in a table; the product check underneath stays compact. */
+.amm-rounding .hd { margin-bottom: 12px; }
+.amm-rounding .tg button { font-family: var(--mono); min-height: 32px; }
+.amm-rounding .rounding-inputs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+.amm-rounding .rounding-inputs label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+.amm-rounding .rounding-inputs span { display: flex; align-items: center; gap: 6px; }
+.amm-rounding .rounding-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; }
+.amm-rounding .rounding-dot.gold { background: var(--gold); }
+.amm-rounding .rounding-dot.silver { background: var(--silver); }
+.amm-rounding input {
+  width: 100%; min-width: 0; padding: 6px 8px; border: 1px solid var(--line); border-radius: 7px;
+  background: var(--cbg); color: var(--ct); font: 600 13px var(--mono); font-variant-ligatures: none;
+}
+.amm-rounding input[aria-invalid] { border-color: var(--err); }
+.amm-rounding .rounding-rows { width: 100%; border-collapse: collapse; font-size: 13px; }
+.amm-rounding .rounding-rows th, .amm-rounding .rounding-rows td { padding: 7px 0; border-bottom: 1px solid var(--line); text-align: right; }
+.amm-rounding .rounding-rows th:first-child { text-align: left; padding-right: 10px; }
+.amm-rounding .rounding-rows thead th { padding-top: 0; font-size: 11.5px; font-weight: 600; color: var(--muted); }
+.amm-rounding .rounding-rows tbody th { font-weight: 400; }
+.amm-rounding .rounding-rows td { width: 7.5em; font: 13px var(--mono); font-variant-ligatures: none; }
+.amm-rounding .rounding-rows [data-pays] { font-weight: 700; }
+.amm-rounding .rounding-refused { color: var(--muted); font-weight: 400; }
+.amm-rounding .rounding-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.amm-rounding .rounding-verdict { margin-top: 10px; font-size: 13.5px; font-weight: 600; }
+.amm-rounding .rounding-verdict[data-status="different"] { color: var(--ok); }
+.amm-rounding .rounding-check { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.amm-rounding h3 { font: 600 13.5px/1.4 var(--sans); margin: 0 0 6px; color: var(--fg); }
+.amm-rounding .rounding-facts { display: grid; gap: 3px; margin: 0 0 6px; }
+.amm-rounding .rounding-facts > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; }
+.amm-rounding .rounding-facts dt { font-size: 12px; color: var(--muted); }
+.amm-rounding .rounding-facts dd { margin: 0; max-width: 100%; font: 12px/1.6 var(--mono); overflow-wrap: anywhere; }
+.amm-rounding .rounding-check-verdict { font-size: 12.5px; }
+.amm-rounding .rounding-check-verdict[data-status="passed"] { color: var(--muted); }
+.amm-rounding .rounding-check-verdict[data-status="failed"] { color: var(--ok); }
+
+@container (max-width: 480px) {
+  .amm-rounding .rounding-inputs { grid-template-columns: 1fr 1fr; }
+  .amm-rounding .rounding-inputs label:last-child { grid-column: 1 / -1; }
+  .amm-rounding .hd .tg { display: flex; flex: 1 1 auto; }
+  .amm-rounding .hd .tg button { flex: 1; padding: 5px 6px; }
+  .amm-rounding .rounding-rows td { width: 6.5em; }
+}
+.amm-rounding .rounding-hint { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
